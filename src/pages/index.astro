@@ -3,10 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
 
 const trustOutcomes = [
-  { metric: "€2M+",  label: "Delivered AI outcomes" },
-  { metric: "25K",   label: "Person-scale deployments" },
-  { metric: "6",     label: "Production AI assistants" },
-  { metric: "3",     label: "Enterprise RAG deployments" },
+  { metric: "€2M+", label: "Savings delivered" },
+  { metric: "8",    label: "Enterprise clients" },
+  { metric: "4",    label: "Industries served" },
+  { metric: "25K+", label: "Employees impacted" },
 ];
 
 const pillars = [
@@ -129,31 +129,27 @@ const currentFocus = {
   </section>
 
   {/* ━━━━━━━━━━━━━━━━━━━━━━━━  TRUST BAR  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
-  <section class="bg-[var(--color-ink)]" aria-label="Outcomes delivered">
-    <Container width="page" class="py-14 sm:py-16">
-
-      <p class="eyebrow text-[var(--color-amber)] mb-8">Outcomes, not logos</p>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-4">
-        {trustOutcomes.map((o, i) => (
-          <div
-            class:list={[
-              "sm:border-l sm:border-white/10 sm:pl-8",
-              i === 0 ? "sm:border-l-0 sm:pl-0" : ""
-            ]}
-          >
-            <p
-              class="font-[family-name:var(--font-display)] font-extrabold text-[var(--color-amber)] leading-none"
-              style="font-size: clamp(40px, 5vw, 64px)"
-            >
-              {o.metric}
+  <section class="bg-[var(--color-ink)] w-full" aria-label="Outcomes delivered">
+    <div class="py-14 sm:py-16 px-6 sm:px-12">
+      <div class="grid grid-cols-2 sm:grid-cols-4 max-w-5xl mx-auto divide-x divide-white/10">
+        {trustOutcomes.map((o) => (
+          <div class="min-w-0 overflow-hidden text-center px-8 sm:px-10">
+            {/* fixed-height wrapper anchors all numerals to the same baseline */}
+            <div class="h-12 flex items-center justify-center">
+              <p
+                class="font-[family-name:var(--font-display)] font-extrabold text-[var(--color-amber)] leading-none"
+                style="font-size: clamp(26px, 2.8vw, 40px)"
+              >
+                {o.metric}
+              </p>
+            </div>
+            <p class="font-[family-name:var(--font-mono)] text-[12px] font-medium tracking-[0.14em] uppercase text-white/65 mt-3">
+              {o.label}
             </p>
-            <p class="label text-white/40 mt-3">{o.label}</p>
           </div>
         ))}
       </div>
-
-    </Container>
+    </div>
   </section>
 
   {/* ━━━━━━━━━━━━━━━━━━━━━━━━  THREE PILLARS  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
