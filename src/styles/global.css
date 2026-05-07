@@ -151,8 +151,9 @@ a {
 /* JetBrains Mono for small uppercase labels only */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: var(--text-eyebrow);
-  letter-spacing: var(--text-eyebrow--letter-spacing);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-amber);
 }

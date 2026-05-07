@@ -161,13 +161,13 @@ const currentFocus = {
     <Container width="page" class="pt-20 pb-24 sm:pt-28 sm:pb-32">
 
       <header class="mb-16 max-w-[42rem]">
-        <p class="eyebrow mb-5">The three rooms</p>
         <h2
-          class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] leading-[1.1] tracking-[-0.015em] text-[var(--color-ink)]"
+          class="font-[family-name:var(--font-display)] font-bold leading-[1.1] tracking-[-0.015em] text-[var(--color-ink)]"
+          style="font-size: clamp(2rem, 3.6vw, 3.2rem)"
         >
           Evidence, frameworks, and engagement — in that order.
         </h2>
-        <p class="prose-serif mt-6">
+        <p class="mt-6 text-[18px] leading-[1.6] text-[var(--color-graphite)] font-[family-name:var(--font-sans)]">
           Most consultants lead with credentials. I lead with what I've
           built, what I've codified, and only then what I'll do with you.
           Each room earns the next.
@@ -180,27 +180,23 @@ const currentFocus = {
             href={p.href}
             class="group relative block p-10 hover:bg-[var(--color-surface)] transition-colors"
           >
-            {/* ghost number */}
-            <span
-              aria-hidden="true"
-              class="absolute top-8 right-8 font-[family-name:var(--font-display)] font-extrabold text-[56px] leading-none text-[var(--color-ink)]/[0.05] group-hover:text-[var(--color-amber)]/[0.08] transition-colors"
-            >0{idx + 1}</span>
+            {/* superheading label */}
+            <p class="eyebrow text-[var(--color-amber)] mb-6">{p.eyebrow}</p>
 
-            <p class="eyebrow text-[var(--color-amber)] mb-7">{p.eyebrow}</p>
             <h3
-              class="font-[family-name:var(--font-display)] font-bold text-[length:var(--text-h3)] leading-[1.2] text-[var(--color-ink)] mb-5 group-hover:text-[var(--color-amber)] transition-colors"
+              class="font-[family-name:var(--font-display)] font-bold text-[length:var(--text-h3)] leading-[1.2] text-[var(--color-ink)] mb-4 group-hover:text-[var(--color-amber)] transition-colors"
             >
               {p.title}
             </h3>
-            <p class="text-[15px] leading-[1.65] text-[var(--color-graphite)] mb-10">
+            <p class="text-[16px] leading-[1.65] text-[var(--color-graphite)]">
               {p.body}
             </p>
+
+            {/* directional arrow — bottom-right, signals the card is a link */}
             <span
-              class="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase font-[family-name:var(--font-mono)] text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-0.5 group-hover:text-[var(--color-amber)] group-hover:border-[var(--color-amber)] transition-colors"
-            >
-              {p.cta}
-              <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform inline-block">→</span>
-            </span>
+              aria-hidden="true"
+              class="absolute bottom-8 right-8 text-[18px] leading-none text-[var(--color-ink)]/25 group-hover:text-[var(--color-amber)] group-hover:translate-x-1 transition-all"
+            >→</span>
           </a>
         ))}
       </div>
