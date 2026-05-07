@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="An architect's perspective on enterprise AI — what I work on, why, and how I think about the next decade of transformation."
+>
+  <article class="bg-paper">
+    <Container width="prose" class="py-20 sm:py-28">
+      <p class="eyebrow mb-6">About</p>
+      <h1
+        class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] tracking-[-0.01em] leading-[1.1] text-ink mb-10"
+      >
+        I help organisations build AI systems that survive contact with
+        reality.
+      </h1>
+
+      <div class="prose-serif space-y-6">
+        <p>
+          I'm <strong>Aleksandrs Graholskis</strong> — an enterprise AI
+          architect working with senior transformation leaders, CIOs, and
+          governance functions in mid-to-large organisations across Europe.
+        </p>
+        <p>
+          My focus is the part of the AI lifecycle most teams skip: the
+          architecture that decides whether a successful prototype becomes
+          a production system or quietly accumulates as <em>AI Debt</em>.
+          Shadow assistants, ungoverned RAG pipelines, agentic workflows
+          built on assumptions no one wrote down. The cost compounds
+          silently — until something visible breaks.
+        </p>
+        <p>
+          I work end-to-end on this: AI Debt assessment, governance design
+          aligned to the EU AI Act, reference architectures for retrieval
+          and agentic systems, and the operating model that makes the
+          whole thing maintainable past the launch press release.
+        </p>
+        <p>
+          The longer narrative — origin story, what I've built, why I left
+          the obvious career path — lives here in v0.2. For now, the most
+          honest representation of how I think is in the
+          <a class="underline decoration-amber underline-offset-4" href="/lab"
+            >Lab</a
+          >. Start there.
+        </p>
+      </div>
+
+      <hr class="my-14 border-rule" />
+
+      <p class="metadata mb-3">Currently</p>
+      <p
+        class="font-[family-name:var(--font-serif)] text-[16px] leading-[1.5] text-ink"
+      >
+        Agentic workflows for procurement and operations · Open to a small
+        number of advisory engagements in 2026.
+      </p>
+    </Container>
+  </article>
+</BaseLayout>

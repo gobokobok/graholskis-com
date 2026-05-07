@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   GRAHOLSKIS.COM — Design System v0.1
+   Editorial / refined warm-authority. Carried directly from the
+   2026 strategic roadmap document so brand voice is continuous
+   from internal strategy to public presence.
+   ------------------------------------------------------------------ */
+
+@theme {
+  /* Surfaces */
+  --color-paper: #F5F2EC;       /* primary canvas — warm, off-white */
+  --color-surface: #EDE9E0;     /* secondary panels, subtle elevation */
+  --color-page: #DDD8CC;        /* viewport background behind paper */
+  --color-white: #FFFFFF;       /* sparingly — only for cards */
+  --color-rule: #D8D3C8;        /* hairlines, dividers */
+
+  /* Ink */
+  --color-ink: #0D0D0D;         /* obsidian — primary text on paper */
+  --color-graphite: #3D3D3A;    /* secondary text, body emphasis */
+  --color-muted: #7A7570;       /* tertiary text, captions, metadata */
+
+  /* Brand accents */
+  --color-amber: #D4922A;       /* the only signal colour. Use sparingly. */
+  --color-amber-dim: rgba(212, 146, 42, 0.10);
+  --color-amber-glow: rgba(212, 146, 42, 0.05);
+  --color-red: #C0392B;         /* warnings, "what broke", critical only */
+  --color-red-dim: rgba(192, 57, 43, 0.08);
+
+  /* Track colours (used in roadmap diagrams; reserved for content) */
+  --color-track-a: #D4922A;
+  --color-track-b: #2980B9;
+  --color-track-c: #27AE60;
+
+  /* Typography */
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale — editorial, not Material */
+  --text-display: clamp(2.4rem, 5vw, 4.25rem);
+  --text-display--line-height: 1.0;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-h1: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.01em;
+
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 1.2;
+
+  --text-lede: 1.0625rem;
+  --text-lede--line-height: 1.65;
+
+  --text-body: 0.71875rem;
+  --text-body--line-height: 1.7;
+
+  --text-caption: 0.625rem;
+  --text-caption--line-height: 1.55;
+  --text-caption--letter-spacing: 0.18em;
+
+  --text-eyebrow: 0.5625rem;
+  --text-eyebrow--letter-spacing: 0.24em;
+
+  /* Container */
+  --container-prose: 42rem;
+  --container-page: 1100px;
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Radii — almost none. Squared edges signal seriousness. */
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Base + element defaults
+   ------------------------------------------------------------------ */
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: var(--color-page);
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-graphite);
+  background: var(--color-page);
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-paper);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s var(--ease-out-quart);
+}
+
+/* ------------------------------------------------------------------
+   Utility classes for narrative type
+   ------------------------------------------------------------------ */
+
+.prose-serif {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--text-lede);
+  line-height: 1.65;
+  color: var(--color-graphite);
+}
+
+.prose-serif strong {
+  font-weight: 600;
+  color: var(--color-ink);
+  font-style: normal;
+}
+
+.prose-serif em {
+  font-style: italic;
+  color: var(--color-amber);
+  font-weight: 400;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  font-weight: 400;
+}
+
+.metadata {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--text-caption--letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ------------------------------------------------------------------
+   Page entry — used once on first paint, never on nav
+   ------------------------------------------------------------------ */
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.arrive {
+  animation: arrive 0.5s var(--ease-out-quart) both;
+}
+
+.arrive-stagger {
+  animation: arrive 0.5s var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive,
+  .arrive-stagger { animation: none; }
+}

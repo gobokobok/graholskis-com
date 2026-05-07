@@ -1,0 +1,102 @@
+---
+import "../styles/global.css";
+import TopBar from "../components/TopBar.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  /** SEO title — appended with site name unless `bareTitle` is true */
+  title: string;
+  /** SEO description (≤ 160 chars) */
+  description?: string;
+  /** Override the default OG title behaviour */
+  bareTitle?: boolean;
+  /** Optional canonical path override (defaults to current URL) */
+  canonical?: string;
+}
+
+const {
+  title,
+  description = "Enterprise AI Architect. From AI Debt to AI Architecture — frameworks, audits, and post-mortems for senior transformation leaders.",
+  bareTitle = false,
+  canonical,
+} = Astro.props;
+
+const siteName = "Aleksandrs Graholskis";
+const fullTitle = bareTitle ? title : `${title} — ${siteName}`;
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site ?? Astro.url).href
+  : new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={siteName} />
+
+    {/* Twitter / X */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    {/* Fonts — preconnect and load in one shot for above-the-fold weight */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    />
+
+    {/* Schema.org Person — establishes professional identity for search */}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Aleksandrs Graholskis",
+        jobTitle: "Enterprise AI Architect",
+        url: "https://graholskis.com",
+        sameAs: [
+          "https://www.linkedin.com/in/aleksandrs-graholskis/",
+        ],
+        knowsAbout: [
+          "Enterprise AI Architecture",
+          "AI Governance",
+          "Retrieval-Augmented Generation",
+          "Agentic Workflows",
+          "EU AI Act Compliance",
+          "Shadow AI Remediation",
+        ],
+      })}
+    />
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-ink focus:text-paper focus:px-3 focus:py-2"
+    >
+      Skip to content
+    </a>
+
+    <TopBar />
+
+    <main id="main" class="bg-paper">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

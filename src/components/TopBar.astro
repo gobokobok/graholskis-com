@@ -1,0 +1,58 @@
+---
+const navLinks = [
+  { href: "/lab", label: "Lab" },
+  { href: "/frameworks", label: "Frameworks" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
+---
+
+<header
+  class="sticky top-0 z-40 bg-ink text-paper border-b-2 border-amber"
+>
+  <div
+    class="max-w-[var(--container-page)] mx-auto px-6 sm:px-12 py-3 flex items-center justify-between gap-6"
+  >
+    <a
+      href="/"
+      class="flex items-baseline gap-3 group"
+      aria-label="Aleksandrs Graholskis — home"
+    >
+      <span
+        class="font-[family-name:var(--font-display)] font-extrabold text-[15px] tracking-tight text-paper group-hover:text-amber transition-colors"
+        >graholskis</span
+      >
+      <span
+        class="text-[8.5px] tracking-[0.22em] uppercase text-paper/40 hidden sm:inline"
+        >Enterprise&nbsp;AI&nbsp;Architect</span
+      >
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="flex items-center gap-1 sm:gap-2">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                class:list={[
+                  "px-2.5 sm:px-3 py-1.5 text-[9.5px] tracking-[0.16em] uppercase transition-colors",
+                  isActive(link.href)
+                    ? "text-amber"
+                    : "text-paper/55 hover:text-paper",
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
