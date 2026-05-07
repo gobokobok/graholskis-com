@@ -2,23 +2,18 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-surface border-t-2 border-rule">
-  <div
-    class="max-w-[var(--container-page)] mx-auto px-6 sm:px-12 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
-  >
-    <p
-      class="font-[family-name:var(--font-serif)] italic text-[13px] text-muted"
-    >
-      <strong class="text-ink not-italic font-semibold"
-        >Aleksandrs Graholskis</strong
-      >
-       — Enterprise AI Architect ·{" "}
-      <span class="text-graphite">"From AI Debt to AI Architecture."</span>
+<footer class="bg-[var(--color-surface)] border-t-2 border-[var(--color-rule)]">
+  <div class="max-w-[var(--container-page)] mx-auto px-6 sm:px-12 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+
+    <p class="font-[family-name:var(--font-serif)] italic text-[15px] text-[var(--color-muted)]">
+      <strong class="text-[var(--color-ink)] not-italic font-semibold">Aleksandrs Graholskis</strong>
+       — Enterprise AI Architect ·
+      <span class="text-[var(--color-graphite)]">"From AI Debt to AI Architecture."</span>
     </p>
-    <p
-      class="font-[family-name:var(--font-mono)] text-[8px] tracking-[0.14em] uppercase text-muted"
-    >
-      © {year} · Strategic Reference Site
+
+    <p class="font-[family-name:var(--font-mono)] text-[9px] tracking-[0.14em] uppercase text-[var(--color-muted)]">
+      © {year}
     </p>
+
   </div>
 </footer>

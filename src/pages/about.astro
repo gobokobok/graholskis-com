@@ -9,15 +9,16 @@ import Container from "../components/Container.astro";
 >
   <article class="bg-paper">
     <Container width="prose" class="py-20 sm:py-28">
-      <p class="eyebrow mb-6">About</p>
+
+      <p class="eyebrow mb-7">About</p>
+
       <h1
-        class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] tracking-[-0.01em] leading-[1.1] text-ink mb-10"
+        class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] tracking-[-0.015em] leading-[1.1] text-[var(--color-ink)] mb-12"
       >
-        I help organisations build AI systems that survive contact with
-        reality.
+        I help organisations build AI systems that survive contact with reality.
       </h1>
 
-      <div class="prose-serif space-y-6">
+      <div class="space-y-7 prose-serif">
         <p>
           I'm <strong>Aleksandrs Graholskis</strong> — an enterprise AI
           architect working with senior transformation leaders, CIOs, and
@@ -26,7 +27,8 @@ import Container from "../components/Container.astro";
         <p>
           My focus is the part of the AI lifecycle most teams skip: the
           architecture that decides whether a successful prototype becomes
-          a production system or quietly accumulates as <em>AI Debt</em>.
+          a production system or quietly accumulates as
+          <em>AI Debt</em>.
           Shadow assistants, ungoverned RAG pipelines, agentic workflows
           built on assumptions no one wrote down. The cost compounds
           silently — until something visible breaks.
@@ -41,21 +43,20 @@ import Container from "../components/Container.astro";
           The longer narrative — origin story, what I've built, why I left
           the obvious career path — lives here in v0.2. For now, the most
           honest representation of how I think is in the
-          <a class="underline decoration-amber underline-offset-4" href="/lab"
-            >Lab</a
-          >. Start there.
+          <a class="underline decoration-[var(--color-amber)] underline-offset-4 text-[var(--color-ink)]" href="/lab">Lab</a>.
+          Start there.
         </p>
       </div>
 
-      <hr class="my-14 border-rule" />
+      <hr class="my-16 border-[var(--color-rule)]" />
 
-      <p class="metadata mb-3">Currently</p>
-      <p
-        class="font-[family-name:var(--font-serif)] text-[16px] leading-[1.5] text-ink"
-      >
-        Agentic workflows for procurement and operations · Open to a small
-        number of advisory engagements in 2026.
+      <p class="label mb-4">Currently</p>
+      <p class="font-[family-name:var(--font-serif)] text-[17px] leading-[1.6] text-[var(--color-ink)]">
+        Agentic workflows for procurement and operations ·
+        Open to a small number of advisory engagements in 2026 ·
+        Based between Riga and Copenhagen.
       </p>
+
     </Container>
   </article>
 </BaseLayout>

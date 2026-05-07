@@ -2,20 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
 
-/* --------------------------------------------------------------------
-   HOMEPAGE — v0.1
-   The 5-second authority read. Three jobs:
-     1. Position (one sentence the right reader recognises themselves in)
-     2. Prove (outcomes, not logos)
-     3. Direct (one primary action, one secondary)
-   Copy is editable starting draft. Refine in Aleksandrs's voice.
-   -------------------------------------------------------------------- */
-
 const trustOutcomes = [
-  { metric: "€2M+", label: "Delivered AI outcomes" },
-  { metric: "25K", label: "Person-scale deployments" },
-  { metric: "6", label: "Production AI assistants" },
-  { metric: "3", label: "Enterprise RAG deployments" },
+  { metric: "€2M+",  label: "Delivered AI outcomes" },
+  { metric: "25K",   label: "Person-scale deployments" },
+  { metric: "6",     label: "Production AI assistants" },
+  { metric: "3",     label: "Enterprise RAG deployments" },
 ];
 
 const pillars = [
@@ -29,13 +20,13 @@ const pillars = [
   {
     eyebrow: "02 — Frameworks",
     title: "Intellectual capital, made tangible.",
-    body: "AI Debt assessment. Governance checklists. RAG evaluation rubrics. Decision canvases. Free where useful, gated where dense — but always defensible because they come from real engagements.",
+    body: "AI Debt assessment. Governance checklists. RAG evaluation rubrics. Decision canvases. Free where useful, gated where dense.",
     href: "/frameworks",
     cta: "Browse frameworks",
   },
   {
-    eyebrow: "03 — The Work",
-    title: "Audits, architecture, and advisory.",
+    eyebrow: "03 — Work with me",
+    title: "Audits, architecture, advisory.",
     body: "I help enterprise leaders translate AI ambition into systems that survive contact with reality. One-week diagnostic engagements, governance design, ongoing architectural oversight.",
     href: "/contact",
     cta: "Start a conversation",
@@ -43,7 +34,7 @@ const pillars = [
 ];
 
 const currentFocus = {
-  label: "Agentic workflows for procurement & operations",
+  text: "Agentic workflows for procurement & operations",
   updated: "May 2026",
 };
 ---
@@ -53,190 +44,191 @@ const currentFocus = {
   bareTitle
   description="From AI Debt to AI Architecture. Audits, governance, and architecture for senior transformation leaders past the prototype stage."
 >
-  {/* ──────────────────────────  HERO  ────────────────────────── */}
-  <section class="bg-paper relative overflow-hidden border-b-2 border-rule">
-    {/* huge ghost wordmark — atmosphere, not decoration */}
+
+  {/* ━━━━━━━━━━━━━━━━━━━━━━━━  HERO  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
+  <section class="bg-paper border-b-2 border-[var(--color-rule)] relative overflow-hidden">
+
+    {/* ghost watermark */}
     <span
       aria-hidden="true"
-      class="pointer-events-none select-none absolute -right-4 -bottom-6 font-[family-name:var(--font-display)] font-extrabold text-[clamp(120px,18vw,260px)] leading-none tracking-[-0.04em] text-ink/[0.03] whitespace-nowrap"
-    >
-      ARCHITECT
-    </span>
+      class="pointer-events-none select-none absolute -right-6 bottom-0 font-[family-name:var(--font-display)] font-extrabold leading-none tracking-[-0.04em] text-ink/[0.04] whitespace-nowrap"
+      style="font-size: clamp(140px, 22vw, 320px)"
+    >ARCHITECT</span>
 
-    <Container width="page" as="div" class="relative py-16 sm:py-24">
-      <div class="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-end">
-        <div class="arrive">
-          <div
-            class="eyebrow flex items-center gap-3 mb-5"
-            style="--i:0"
-          >
-            <span>Strategic AI Practice</span>
-            <span class="block h-px w-10 bg-amber"></span>
-            <span class="text-muted normal-case tracking-[0.14em]"
-              >Tallinn / EU</span
-            >
+    <Container width="page" as="div" class="relative pt-20 pb-24 sm:pt-28 sm:pb-32">
+
+      <div class="grid lg:grid-cols-[1fr_18rem] gap-12 lg:gap-20 items-end">
+
+        {/* ── Left: headline + CTA ── */}
+        <div>
+
+          <div class="eyebrow flex items-center gap-4 mb-7 arrive-stagger" style="--i:0">
+            Strategic AI Practice
+            <span class="h-px w-12 bg-[var(--color-amber)] inline-block"></span>
+            <span class="text-[var(--color-muted)] normal-case tracking-[0.12em] font-[family-name:var(--font-sans)]">
+              Riga&nbsp;/&nbsp;Copenhagen
+            </span>
           </div>
 
           <h1
-            class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-display)] tracking-[-0.02em] leading-[1.0] text-ink mb-6 arrive-stagger"
+            class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-display)] tracking-[-0.025em] leading-[1.0] text-[var(--color-ink)] mb-8 arrive-stagger"
             style="--i:1"
           >
-            From <em
-              class="font-[family-name:var(--font-serif)] italic font-normal text-amber"
-              >AI Debt</em
-            ><br />to AI <em
-              class="font-[family-name:var(--font-serif)] italic font-normal text-amber"
-              >Architecture</em
-            >.
+            From <em class="font-[family-name:var(--font-serif)] italic font-normal text-[var(--color-amber)]">AI Debt</em><br />
+            to AI <em class="font-[family-name:var(--font-serif)] italic font-normal text-[var(--color-amber)]">Architecture</em>.
           </h1>
 
           <p
-            class="prose-serif max-w-[36rem] border-l-2 border-amber pl-5 arrive-stagger"
+            class="prose-serif max-w-[34rem] border-l-[3px] border-[var(--color-amber)] pl-6 arrive-stagger"
             style="--i:2"
           >
-            I help enterprise leaders translate AI ambition into systems that
-            survive contact with reality. <strong
-              >Audits, governance, and architecture</strong
-            > for organisations past the prototype stage — where the cost of
+            I help enterprise leaders translate AI ambition into systems
+            that survive contact with reality.
+            <strong>Audits, governance, and architecture</strong> for
+            organisations past the prototype stage — where the cost of
             getting it wrong has stopped being theoretical.
           </p>
 
-          <div
-            class="mt-8 flex flex-wrap items-center gap-3 arrive-stagger"
-            style="--i:3"
-          >
+          <div class="mt-10 flex flex-wrap gap-4 arrive-stagger" style="--i:3">
             <a
               href="/contact"
-              class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[10px] tracking-[0.18em] uppercase border-2 border-ink hover:bg-amber hover:border-amber transition-colors"
+              class="inline-flex items-center gap-3 bg-[var(--color-ink)] text-[var(--color-paper)] px-7 py-4 text-[11px] tracking-[0.2em] uppercase font-medium border-2 border-[var(--color-ink)] hover:bg-[var(--color-amber)] hover:border-[var(--color-amber)] transition-colors"
             >
               Start an audit
               <span aria-hidden="true">→</span>
             </a>
             <a
               href="/lab"
-              class="inline-flex items-center gap-2 px-5 py-3 text-[10px] tracking-[0.18em] uppercase border-2 border-ink/15 text-graphite hover:border-amber hover:text-ink transition-colors"
+              class="inline-flex items-center gap-3 px-7 py-4 text-[11px] tracking-[0.2em] uppercase font-medium border-2 border-[var(--color-ink)]/20 text-[var(--color-graphite)] hover:border-[var(--color-amber)] hover:text-[var(--color-ink)] transition-colors"
             >
               See the work
             </a>
           </div>
         </div>
 
-        {/* current focus card — small, restrained */}
+        {/* ── Right: current focus ── */}
         <aside
-          class="arrive-stagger lg:max-w-[14rem] border-l border-rule lg:pl-8"
+          class="arrive-stagger lg:pb-2 border-l border-[var(--color-rule)] pl-8"
           style="--i:4"
           aria-label="Current focus"
         >
-          <p class="metadata mb-2">
-            <span class="inline-block w-1.5 h-1.5 bg-amber rounded-full mr-2 align-middle animate-pulse"
-            ></span>
+          <p class="label mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 bg-[var(--color-amber)] rounded-full animate-pulse inline-block"></span>
             Now
           </p>
-          <p
-            class="font-[family-name:var(--font-serif)] text-[15px] leading-[1.4] text-ink"
-          >
-            {currentFocus.label}
+          <p class="font-[family-name:var(--font-serif)] text-[17px] leading-[1.45] text-[var(--color-ink)]">
+            {currentFocus.text}
           </p>
-          <p class="metadata mt-3 text-muted">
+          <p class="label text-[var(--color-muted)] mt-4">
             Updated {currentFocus.updated}
           </p>
         </aside>
+
       </div>
     </Container>
   </section>
 
-  {/* ──────────────────────────  TRUST BAR  ────────────────────────── */}
-  <section class="bg-ink text-paper" aria-label="Outcomes delivered">
-    <Container width="page" class="py-8 sm:py-10">
-      <p class="metadata text-amber mb-5">Outcomes, not logos</p>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-6">
-        {
-          trustOutcomes.map((o) => (
-            <div class="border-l border-paper/10 pl-4 first:border-l-0 first:pl-0 sm:border-l sm:pl-4 sm:first:border-l">
-              <p class="font-[family-name:var(--font-display)] font-extrabold text-[clamp(28px,3.5vw,40px)] leading-none text-amber">
-                {o.metric}
-              </p>
-              <p class="metadata text-paper/45 mt-2">{o.label}</p>
-            </div>
-          ))
-        }
+  {/* ━━━━━━━━━━━━━━━━━━━━━━━━  TRUST BAR  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
+  <section class="bg-[var(--color-ink)]" aria-label="Outcomes delivered">
+    <Container width="page" class="py-14 sm:py-16">
+
+      <p class="eyebrow text-[var(--color-amber)] mb-8">Outcomes, not logos</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-4">
+        {trustOutcomes.map((o, i) => (
+          <div
+            class:list={[
+              "sm:border-l sm:border-white/10 sm:pl-8",
+              i === 0 ? "sm:border-l-0 sm:pl-0" : ""
+            ]}
+          >
+            <p
+              class="font-[family-name:var(--font-display)] font-extrabold text-[var(--color-amber)] leading-none"
+              style="font-size: clamp(40px, 5vw, 64px)"
+            >
+              {o.metric}
+            </p>
+            <p class="label text-white/40 mt-3">{o.label}</p>
+          </div>
+        ))}
       </div>
+
     </Container>
   </section>
 
-  {/* ──────────────────────────  PILLARS  ────────────────────────── */}
-  <section class="bg-paper" aria-label="Three doors into the work">
-    <Container width="page" class="py-16 sm:py-24">
-      <header class="mb-12 max-w-[44rem]">
-        <p class="eyebrow mb-4">The three rooms</p>
+  {/* ━━━━━━━━━━━━━━━━━━━━━━━━  THREE PILLARS  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
+  <section class="bg-paper" aria-label="Three entry points">
+    <Container width="page" class="pt-20 pb-24 sm:pt-28 sm:pb-32">
+
+      <header class="mb-16 max-w-[42rem]">
+        <p class="eyebrow mb-5">The three rooms</p>
         <h2
-          class="font-[family-name:var(--font-display)] font-bold text-[length:var(--text-h1)] leading-[1.1] tracking-[-0.01em] text-ink"
+          class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] leading-[1.1] tracking-[-0.015em] text-[var(--color-ink)]"
         >
           Evidence, frameworks, and engagement — in that order.
         </h2>
-        <p class="prose-serif mt-4">
+        <p class="prose-serif mt-6">
           Most consultants lead with credentials. I lead with what I've
           built, what I've codified, and only then what I'll do with you.
           Each room earns the next.
         </p>
       </header>
 
-      <div class="grid md:grid-cols-3 border-t border-rule">
-        {
-          pillars.map((p, idx) => (
-            <a
-              href={p.href}
-              class="group relative block p-8 border-b border-rule md:border-b-0 md:border-r border-rule last:border-r-0 hover:bg-surface/60 transition-colors"
+      <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-rule)] border border-[var(--color-rule)]">
+        {pillars.map((p, idx) => (
+          <a
+            href={p.href}
+            class="group relative block p-10 hover:bg-[var(--color-surface)] transition-colors"
+          >
+            {/* ghost number */}
+            <span
+              aria-hidden="true"
+              class="absolute top-8 right-8 font-[family-name:var(--font-display)] font-extrabold text-[56px] leading-none text-[var(--color-ink)]/[0.05] group-hover:text-[var(--color-amber)]/[0.08] transition-colors"
+            >0{idx + 1}</span>
+
+            <p class="eyebrow text-[var(--color-amber)] mb-7">{p.eyebrow}</p>
+            <h3
+              class="font-[family-name:var(--font-display)] font-bold text-[length:var(--text-h3)] leading-[1.2] text-[var(--color-ink)] mb-5 group-hover:text-[var(--color-amber)] transition-colors"
             >
-              <p class="metadata text-amber mb-6">{p.eyebrow}</p>
-              <h3 class="font-[family-name:var(--font-display)] font-bold text-[22px] leading-[1.15] text-ink mb-3 transition-colors group-hover:text-amber">
-                {p.title}
-              </h3>
-              <p class="prose-serif text-[15px] leading-[1.55] text-graphite mb-8">
-                {p.body}
-              </p>
-              <span class="inline-flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-ink border-b border-ink pb-1 group-hover:text-amber group-hover:border-amber transition-colors">
-                {p.cta}
-                <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
-              </span>
-              <span
-                aria-hidden="true"
-                class="absolute top-6 right-6 font-[family-name:var(--font-display)] font-extrabold text-[40px] text-ink/[0.05] leading-none"
-              >
-                0{idx + 1}
-              </span>
-            </a>
-          ))
-        }
+              {p.title}
+            </h3>
+            <p class="text-[15px] leading-[1.65] text-[var(--color-graphite)] mb-10">
+              {p.body}
+            </p>
+            <span
+              class="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase font-[family-name:var(--font-mono)] text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-0.5 group-hover:text-[var(--color-amber)] group-hover:border-[var(--color-amber)] transition-colors"
+            >
+              {p.cta}
+              <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform inline-block">→</span>
+            </span>
+          </a>
+        ))}
       </div>
+
     </Container>
   </section>
 
-  {/* ──────────────────────────  CTA BAND  ────────────────────────── */}
-  <section class="bg-ink text-paper" aria-labelledby="cta-heading">
-    <Container width="page" class="py-14 sm:py-16">
-      <div
-        class="grid sm:grid-cols-[1fr_auto] gap-8 items-center"
-      >
+  {/* ━━━━━━━━━━━━━━━━━━━━━━━━  CLOSING CTA  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
+  <section class="bg-[var(--color-ink)]" aria-labelledby="cta-heading">
+    <Container width="page" class="py-20 sm:py-24">
+      <div class="grid sm:grid-cols-[1fr_auto] gap-10 items-center">
         <div>
-          <p class="eyebrow mb-4">For senior transformation leaders</p>
+          <p class="eyebrow text-[var(--color-amber)] mb-5">For senior transformation leaders</p>
           <h2
             id="cta-heading"
-            class="font-[family-name:var(--font-display)] font-bold text-[length:var(--text-h1)] leading-[1.1] text-paper max-w-[32rem]"
+            class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] leading-[1.1] text-[var(--color-paper)] max-w-[28rem]"
           >
-            Considering an AI audit? Let's see if it's the right call.
+            Considering an AI audit?
           </h2>
-          <p
-            class="font-[family-name:var(--font-serif)] italic font-light text-[16px] mt-4 text-paper/70 max-w-[36rem]"
-          >
-            A 30-minute discovery call. No pitch deck, no follow-up sequence
-            — just whether I'm the right person for what you're trying to
-            do.
+          <p class="font-[family-name:var(--font-serif)] italic font-light text-[18px] mt-5 text-white/65 max-w-[34rem] leading-[1.65]">
+            A 30-minute conversation. No pitch deck, no follow-up
+            sequence — just whether this is the right engagement for
+            what you're trying to do.
           </p>
         </div>
         <a
           href="/contact"
-          class="inline-flex items-center gap-3 bg-amber text-ink px-7 py-4 text-[10px] tracking-[0.18em] uppercase font-medium border-2 border-amber hover:bg-paper transition-colors justify-self-start sm:justify-self-end"
+          class="inline-flex items-center gap-3 bg-[var(--color-amber)] text-[var(--color-ink)] px-8 py-5 text-[11px] tracking-[0.2em] uppercase font-medium border-2 border-[var(--color-amber)] hover:bg-[var(--color-paper)] transition-colors whitespace-nowrap justify-self-start sm:justify-self-end"
         >
           Book the call
           <span aria-hidden="true">→</span>
@@ -244,4 +236,5 @@ const currentFocus = {
       </div>
     </Container>
   </section>
+
 </BaseLayout>
