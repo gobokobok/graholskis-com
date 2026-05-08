@@ -118,6 +118,32 @@ a {
 }
 
 /* ------------------------------------------------------------------
+   Button components
+   ------------------------------------------------------------------ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-amber);
+  color: #FFFFFF;
+  padding: 16px 28px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 2px solid var(--color-amber);
+  transition: background 0.18s var(--ease-out-quart), border-color 0.18s var(--ease-out-quart);
+}
+
+.btn-primary:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #FFFFFF;
+}
+
+/* ------------------------------------------------------------------
    Narrative type helpers
    ------------------------------------------------------------------ */
 

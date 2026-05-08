@@ -46,42 +46,23 @@ const currentFocus = {
 >
 
   {/* ━━━━━━━━━━━━━━━━━━━━━━━━  HERO  ━━━━━━━━━━━━━━━━━━━━━━━━ */}
-  <section class="bg-paper border-b-2 border-[var(--color-rule)] relative overflow-hidden">
+  <section class="bg-paper border-b-2 border-[var(--color-rule)]">
 
-    {/* ghost watermark */}
-    <span
-      aria-hidden="true"
-      class="pointer-events-none select-none absolute -right-6 bottom-0 font-[family-name:var(--font-display)] font-extrabold leading-none tracking-[-0.04em] text-ink/[0.04] whitespace-nowrap"
-      style="font-size: clamp(140px, 22vw, 320px)"
-    >ARCHITECT</span>
-
-    <Container width="page" as="div" class="relative pt-20 pb-24 sm:pt-28 sm:pb-32">
+    <Container width="page" as="div" class="pt-20 pb-24 sm:pt-28 sm:pb-32">
 
       <div class="grid lg:grid-cols-[1fr_18rem] gap-12 lg:gap-20 items-end">
 
         {/* ── Left: headline + CTA ── */}
         <div>
 
-          <div class="eyebrow flex items-center gap-4 mb-7 arrive-stagger" style="--i:0">
-            Strategic AI Practice
-            <span class="h-px w-12 bg-[var(--color-amber)] inline-block"></span>
-            <span class="text-[var(--color-muted)] normal-case tracking-[0.12em] font-[family-name:var(--font-sans)]">
-              Riga&nbsp;/&nbsp;Copenhagen
-            </span>
-          </div>
-
           <h1
-            class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-display)] tracking-[-0.025em] leading-[1.0] text-[var(--color-ink)] mb-8 arrive-stagger"
-            style="--i:1"
+            class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-display)] tracking-[-0.025em] leading-[1.0] text-[var(--color-ink)] mb-8"
           >
             From <em class="font-[family-name:var(--font-serif)] italic font-normal text-[var(--color-amber)]">AI Debt</em><br />
             to AI <em class="font-[family-name:var(--font-serif)] italic font-normal text-[var(--color-amber)]">Architecture</em>.
           </h1>
 
-          <p
-            class="prose-serif max-w-[34rem] border-l-[3px] border-[var(--color-amber)] pl-6 arrive-stagger"
-            style="--i:2"
-          >
+          <p class="font-[family-name:var(--font-sans)] text-[18px] leading-[1.7] text-[var(--color-graphite)] max-w-[34rem]">
             I help enterprise leaders translate AI ambition into systems
             that survive contact with reality.
             <strong>Audits, governance, and architecture</strong> for
@@ -89,19 +70,13 @@ const currentFocus = {
             getting it wrong has stopped being theoretical.
           </p>
 
-          <div class="mt-10 flex flex-wrap gap-4 arrive-stagger" style="--i:3">
+          <div class="mt-10">
             <a
               href="/contact"
-              class="inline-flex items-center gap-3 bg-[var(--color-ink)] text-[var(--color-paper)] px-7 py-4 text-[11px] tracking-[0.2em] uppercase font-medium border-2 border-[var(--color-ink)] hover:bg-[var(--color-amber)] hover:border-[var(--color-amber)] transition-colors"
+              class="btn-primary"
             >
               Start an audit
               <span aria-hidden="true">→</span>
-            </a>
-            <a
-              href="/lab"
-              class="inline-flex items-center gap-3 px-7 py-4 text-[11px] tracking-[0.2em] uppercase font-medium border-2 border-[var(--color-ink)]/20 text-[var(--color-graphite)] hover:border-[var(--color-amber)] hover:text-[var(--color-ink)] transition-colors"
-            >
-              See the work
             </a>
           </div>
         </div>
