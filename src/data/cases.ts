@@ -13,6 +13,10 @@ export interface Case {
   built: string[];
   result: string[];
   placeholder: boolean;
+  /** Exhibit shown on the card and the case page. Illustrative until replaced. */
+  visual:
+    | { kind: "bars"; name: string; values: number[]; labels: string[] }
+    | { kind: "flow"; steps: { label: string; sub?: string; c?: number; gate?: boolean }[]; loop?: string };
 }
 
 export const cases: Case[] = [
@@ -39,6 +43,12 @@ export const cases: Case[] = [
       "Result metric goes here (time to ship a new assistant).",
     ],
     placeholder: true,
+    visual: {
+      kind: "bars",
+      name: "Assistants in production",
+      values: [1, 2, 4, 6],
+      labels: ["Q1", "Q2", "Q3", "Q4"],
+    },
   },
   {
     slug: "agentic-procurement",
@@ -62,6 +72,16 @@ export const cases: Case[] = [
       "Result metric goes here (exception rate).",
     ],
     placeholder: true,
+    visual: {
+      kind: "flow",
+      steps: [
+        { label: "Request", sub: "ERP event", c: 1 },
+        { label: "Agent drafts", sub: "follow-up, checks", c: 4 },
+        { label: "Buyer approves", sub: "before anything is sent", gate: true },
+        { label: "Send & track", sub: "supplier portal", c: 3 },
+      ],
+      loop: "Every action traced and reviewable",
+    },
   },
   {
     slug: "content-factory",
@@ -85,5 +105,17 @@ export const cases: Case[] = [
       "Link to the live platform goes here.",
     ],
     placeholder: true,
+    visual: {
+      kind: "flow",
+      steps: [
+        { label: "Niche", sub: "topic discovery", c: 1 },
+        { label: "Script", sub: "fact-checked", c: 2 },
+        { label: "Voice", sub: "TTS + timestamps", c: 3 },
+        { label: "Storyboard", sub: "scene by scene", c: 4 },
+        { label: "Footage", sub: "stock or generated", c: 5 },
+        { label: "Render", sub: "captions, music", c: 6 },
+      ],
+      loop: "Approval gate at each editorial step",
+    },
   },
 ];

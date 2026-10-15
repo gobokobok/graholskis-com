@@ -1,0 +1,17 @@
+<div class="tip" role="tooltip" aria-hidden="true"></div>
+<script>
+  const tip = document.querySelector<HTMLElement>(".tip");
+  if (tip) {
+    document.addEventListener("pointerover", (e) => {
+      const el = (e.target as Element).closest?.("[data-tip]");
+      if (!el) return tip.classList.remove("on");
+      tip.textContent = el.getAttribute("data-tip");
+      tip.classList.add("on");
+    });
+    document.addEventListener("pointermove", (e) => {
+      tip.style.left = e.clientX + "px";
+      tip.style.top = e.clientY + "px";
+    });
+    document.addEventListener("pointerleave", () => tip.classList.remove("on"));
+  }
+</script>

@@ -1,0 +1,52 @@
+---
+/** Single-series line with area, hairline grid, endpoint label and hover points. */
+interface Props {
+  values: number[];
+  labels: string[];
+  ticks: number[];
+  max: number;
+  unit?: string;
+  name: string;
+  c?: number;
+}
+const { values, labels, ticks, max, unit = "", name, c = 1 } = Astro.props;
+const W = 320, H = 150, L = 30, R = 34, T = 10, B = 20;
+const x = (i: number) => L + (i * (W - L - R)) / (values.length - 1);
+const y = (v: number) => T + (1 - v / max) * (H - T - B);
+const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+const line = `M${pts.join(" L")}`;
+const area = `${line} L${x(values.length - 1)},${y(0)} L${x(0)},${y(0)} Z`;
+const last = values.length - 1;
+const col = `var(--c${c})`;
+---
+
+<div class="viz">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${name}: from ${values[0]}${unit} to ${values[last]}${unit}`}>
+    {
+      ticks.map((t) => (
+        <g>
+          <line x1={L} x2={W - R} y1={y(t)} y2={y(t)} stroke={t === 0 ? "var(--axis)" : "var(--grid)"} stroke-width="1" />
+          <text x={L - 6} y={y(t) + 3} text-anchor="end">{t}</text>
+        </g>
+      ))
+    }
+    <path d={area} fill={col} fill-opacity="0.1" />
+    <path d={line} fill="none" stroke={col} stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+    <text x={x(0)} y={H - 4} text-anchor="start">{labels[0]}</text>
+    <text x={x(last)} y={H - 4} text-anchor="end">{labels[last]}</text>
+    <circle cx={x(last)} cy={y(values[last])} r="4" fill={col} stroke="var(--bg)" stroke-width="2" />
+    <text class="v-strong" x={x(last) + 8} y={y(values[last]) + 4}>{values[last]}{unit}</text>
+    {
+      values.map((v, i) => (
+        <rect
+          x={x(i) - (W - L - R) / (values.length - 1) / 2}
+          y={T}
+          width={(W - L - R) / (values.length - 1)}
+          height={H - T - B}
+          fill="transparent"
+          data-tip={`${labels[i]} · ${v}${unit}`}
+        />
+      ))
+    }
+  </svg>
+</div>

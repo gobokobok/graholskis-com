@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Container from "../../components/Container.astro";
 import { cases } from "../../data/cases";
+import CaseVisual from "../../components/CaseVisual.astro";
 import { bookHref, bookLabel } from "../../data/site";
 
 export function getStaticPaths() {
@@ -41,6 +42,14 @@ const facts = [
           <dd>{c.stack.join(", ")}</dd>
         </div>
       </dl>
+
+      <div class="exhibit" style="margin-top:16px;">
+        <div class="exhibit-head">
+          <h3>{c.visual.kind === "bars" ? c.visual.name : "How it works"}</h3>
+          {c.placeholder && <span class="chip">Illustrative</span>}
+        </div>
+        <CaseVisual visual={c.visual} />
+      </div>
 
       <div class="case-body">
         <section>

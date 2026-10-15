@@ -1,6 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
+import CaseVisual from "../components/CaseVisual.astro";
+import LineChart from "../components/viz/LineChart.astro";
+import BarChart from "../components/viz/BarChart.astro";
+import SplitBar from "../components/viz/SplitBar.astro";
+import Gantt from "../components/viz/Gantt.astro";
+import Pipeline from "../components/viz/Pipeline.astro";
 import { cases } from "../data/cases";
 import { site, bookHref, bookLabel } from "../data/site";
 
@@ -8,6 +14,37 @@ const proof = [
   { metric: "€2M+", label: "Savings delivered" },
   { metric: "8", label: "Enterprise clients" },
   { metric: "25K+", label: "Employees impacted" },
+];
+
+const logos = ["Client 01", "Client 02", "Client 03", "Client 04", "Client 05", "Client 06"];
+
+// Illustrative figures for the exhibits. Replace with a real case's numbers.
+const wau = [40, 55, 70, 110, 160, 210, 260, 300, 340, 370, 395, 420];
+const weeks = wau.map((_, i) => `W${i + 1}`);
+const cost = [0.041, 0.032, 0.021, 0.014, 0.009, 0.006];
+const months = ["M1", "M2", "M3", "M4", "M5", "M6"];
+const effort = [
+  { label: "Data & access", value: 35 },
+  { label: "Integration", value: 25 },
+  { label: "Evaluation", value: 25 },
+  { label: "Model & prompts", value: 15 },
+];
+
+const system = [
+  { label: "Your data", sub: "docs, ERP, tickets", c: 1 },
+  { label: "Retrieval", sub: "search + permissions", c: 2 },
+  { label: "Model", sub: "Claude or similar", c: 3 },
+  { label: "Guardrails", sub: "policy, cost limits", c: 4 },
+  { label: "Human check", sub: "where it matters", gate: true },
+  { label: "In production", sub: "owned, monitored", c: 5 },
+];
+
+const phases = [
+  { label: "Diagnose", from: 1, to: 1, note: "1 use case picked", c: 1 },
+  { label: "Prototype", from: 2, to: 4, note: "on your data", c: 2 },
+  { label: "Production", from: 5, to: 8, note: "eval, limits, owner", c: 3 },
+  { label: "Rollout", from: 9, to: 12, note: "handover, metrics", c: 4 },
+  { label: "Evaluation", from: 2, to: 12, note: "runs every week", c: 5 },
 ];
 
 const services = [
@@ -27,27 +64,6 @@ const services = [
     body: "A one-week diagnostic of what is running, what it costs and where the risk sits, with a plan you can act on.",
   },
 ];
-
-const steps = [
-  {
-    title: "Diagnose",
-    body: "One week with your team and data. We pick one use case where AI clearly pays back.",
-  },
-  {
-    title: "Prototype on real data",
-    body: "A working version in two to three weeks, tested against your own examples, not demos.",
-  },
-  {
-    title: "Ship to production",
-    body: "Evaluation, monitoring, cost limits and an owner before anyone outside the team uses it.",
-  },
-  {
-    title: "Hand over and measure",
-    body: "Your team runs it. We track the agreed numbers and decide what to build next.",
-  },
-];
-
-const logos = ["Client 01", "Client 02", "Client 03", "Client 04", "Client 05", "Client 06"];
 
 const quotes = [
   {
@@ -74,34 +90,53 @@ const quotes = [
           <p class="label" style="margin-bottom:16px;">AI Builder · AI Implementation Lead</p>
           <h1 class="h-hero">I build AI that ships, and lead the work until it does.</h1>
           <p class="lede" style="margin-top:24px;">
-            Most AI projects stall between the demo and production. I take
-            them across: building the assistants and agents, and running the
+            Most AI projects stall between the demo and production. I take them
+            across: building the assistants and agents, and running the
             delivery, evaluation and rollout around them.
           </p>
           <div class="hero-links">
             <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
             <a href="#cases" class="link">See the cases</a>
           </div>
-          <div class="hero-links" style="margin-top:20px; gap:16px;">
+          <div class="hero-links" style="margin-top:16px; gap:16px;">
             <a class="link" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
             <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
           </div>
+          <div class="proof-row" style="margin-top:44px;" aria-label="Outcomes delivered">
+            {
+              proof.map((p) => (
+                <div>
+                  <p class="proof-num" style="font-size:1.75rem; margin:0;">{p.metric}</p>
+                  <p class="label" style="color:var(--muted); margin-top:4px;">{p.label}</p>
+                </div>
+              ))
+            }
+          </div>
         </div>
-        {/* Replace with <img src="/aleksandrs.jpg" alt="Aleksandrs Graholskis"> (put the file in /public). */}
-        <div class="photo" role="img" aria-label="Photo of Aleksandrs Graholskis (placeholder)">
-          <span class="label">Photo</span>
+
+        <div class="hero-visual">
+          {/* Replace with <img src="/aleksandrs.jpg" alt="Aleksandrs Graholskis"> (file in /public). */}
+          <div class="photo" role="img" aria-label="Photo of Aleksandrs Graholskis (placeholder)">
+            <span class="label">Photo</span>
+          </div>
+          <div class="console" aria-label="Example of a system in production (illustrative)">
+            <div class="console-top">
+              <span class="status-live">In production</span>
+              <span class="num">procurement-assistant</span>
+            </div>
+            <dl>
+              <div><dt>Eval pass</dt><dd>96%</dd></div>
+              <div><dt>p95</dt><dd>1.8 s</dd></div>
+              <div><dt>Per answer</dt><dd>€0.006</dd></div>
+            </dl>
+            <LineChart name="Weekly users" values={[120, 180, 210, 260, 300, 340, 390, 420]} labels={["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"]} ticks={[]} max={480} />
+          </div>
         </div>
       </div>
 
-      <div class="proof-row" aria-label="Outcomes delivered">
-        {
-          proof.map((p) => (
-            <div class="card">
-              <p class="proof-num" style="font-size:2rem;">{p.metric}</p>
-              <p class="label" style="color:var(--muted);">{p.label}</p>
-            </div>
-          ))
-        }
+      <div class="logo-strip" aria-label="Clients">
+        <span class="label" style="margin-right:8px;">Worked with</span>
+        {logos.map((l) => <div class="tile"><span class="label">{l}</span></div>)}
       </div>
     </Container>
   </section>
@@ -117,6 +152,9 @@ const quotes = [
         {
           cases.map((c) => (
             <a href={`/cases/${c.slug}`} class="card case-card">
+              <div class="case-visual">
+                <CaseVisual visual={c.visual} small />
+              </div>
               <span class="num">{c.tag}</span>
               <h3>{c.title}</h3>
               <p>{c.summary}</p>
@@ -132,32 +170,79 @@ const quotes = [
     </Container>
   </section>
 
-  {/* SERVICES + HOW I WORK */}
-  <section id="services" class="band">
+  {/* WHAT PRODUCTION LOOKS LIKE */}
+  <section id="production" class="band">
+    <Container wide>
+      <div class="sec-head">
+        <p class="label">From pilot to production</p>
+        <h2 class="h-sec" style="max-width:24ch;">The model is the small part. The system around it is the work.</h2>
+      </div>
+
+      <div class="exhibit" style="margin-bottom:16px;">
+        <div class="exhibit-head">
+          <h3>What I put into production</h3>
+          <p class="exhibit-note">Typical shape</p>
+        </div>
+        <Pipeline steps={system} loop="Evaluation and cost tracking feed back into every step" />
+      </div>
+
+      <div class="ex-grid">
+        <div class="exhibit">
+          <div class="exhibit-head">
+            <h3>Weekly active users</h3>
+            <span class="chip">Illustrative</span>
+          </div>
+          <LineChart name="Weekly active users" values={wau} labels={weeks} ticks={[0, 200, 400]} max={450} />
+          <p class="exhibit-note">Adoption after go-live, 12 weeks.</p>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-head">
+            <h3>Cost per answer</h3>
+            <span class="chip">Illustrative</span>
+          </div>
+          <BarChart
+            name="Cost per answer"
+            values={cost}
+            labels={months}
+            ticks={[0, 0.02, 0.04]}
+            max={0.045}
+            fmt={(v) => (v === 0 ? "€0" : `€${v.toFixed(3)}`)}
+          />
+          <p class="exhibit-note">Caching, routing and smaller models, month by month.</p>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-head">
+            <h3>Where the effort goes</h3>
+            <span class="chip">Illustrative</span>
+          </div>
+          <SplitBar parts={effort} />
+          <p class="exhibit-note">Share of a typical build. Model work is the smallest slice.</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* HOW I WORK + SERVICES */}
+  <section id="services" class="band band-soft">
     <Container wide>
       <div class="two-col">
         <div>
           <div class="sec-head" style="margin-bottom:24px;">
             <p class="label">How I work</p>
-            <h2 class="h-sec">Small steps, real data, an owner at the end.</h2>
+            <h2 class="h-sec">Twelve weeks from first call to a system your team owns.</h2>
           </div>
           <p class="lede">
-            I work as an embedded lead or builder, alongside your team. Each
-            step ends with something you can use or something we decide to
-            stop.
+            I work embedded with your team. Each phase ends with something you can
+            use, or a clear decision to stop.
           </p>
         </div>
-        <ol class="steps">
-          {
-            steps.map((s, i) => (
-              <li>
-                <span class="num">0{i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </li>
-            ))
-          }
-        </ol>
+        <div class="exhibit">
+          <div class="exhibit-head">
+            <h3>A typical engagement</h3>
+            <p class="exhibit-note">Weeks</p>
+          </div>
+          <Gantt phases={phases} weeks={12} />
+        </div>
       </div>
 
       <div class="svc-grid">
@@ -175,19 +260,16 @@ const quotes = [
   </section>
 
   {/* CLIENTS */}
-  <section id="clients" class="band band-soft">
+  <section id="clients" class="band">
     <Container wide>
       <div class="sec-head">
         <p class="label">Clients</p>
-        <h2 class="h-sec">Trusted by teams past the prototype stage.</h2>
+        <h2 class="h-sec">What the teams say.</h2>
       </div>
-      <div class="logo-grid">
-        {logos.map((l) => <div class="tile"><span class="label">{l}</span></div>)}
-      </div>
-      <div class="quote-grid">
+      <div class="quote-grid" style="margin-top:0;">
         {
           quotes.map((q) => (
-            <figure class="quote" style="background:var(--bg);">
+            <figure class="quote">
               <p>“{q.text}”</p>
               <footer>{q.by}</footer>
             </figure>
@@ -205,8 +287,8 @@ const quotes = [
         <h2 class="h-sec" style="max-width:24ch;">Have an AI project that needs to ship?</h2>
       </div>
       <p class="lede">
-        A 30-minute call. No deck, no follow-up sequence, just whether I can
-        help with what you are trying to do.
+        A 30-minute call. No deck, no follow-up sequence, just whether I can help
+        with what you are trying to do.
       </p>
       <div class="hero-links" style="margin-top:28px;">
         <a href={bookHref} class="btn btn-light">{bookLabel}</a>

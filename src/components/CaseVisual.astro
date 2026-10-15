@@ -1,0 +1,26 @@
+---
+import type { Case } from "../data/cases";
+import BarChart from "./viz/BarChart.astro";
+import Pipeline from "./viz/Pipeline.astro";
+
+interface Props {
+  visual: Case["visual"];
+  small?: boolean;
+}
+const { visual, small = false } = Astro.props;
+---
+
+{
+  visual.kind === "bars" ? (
+    <BarChart
+      name={visual.name}
+      values={visual.values}
+      labels={visual.labels}
+      ticks={[0, 2, 4, 6]}
+      max={6}
+      compact={small}
+    />
+  ) : (
+    <Pipeline steps={visual.steps} small={small} loop={small ? undefined : visual.loop} />
+  )
+}

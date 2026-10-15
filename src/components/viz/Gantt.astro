@@ -1,0 +1,44 @@
+---
+/** Engagement timeline: one row per phase, bar from `from` to `to` (inclusive weeks). */
+interface Phase {
+  label: string;
+  from: number;
+  to: number;
+  note: string;
+  c: number;
+}
+interface Props {
+  phases: Phase[];
+  weeks: number;
+}
+const { phases, weeks } = Astro.props;
+const pct = (w: number) => ((w - 1) / weeks) * 100;
+const ticks = [1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.round((3 * weeks) / 4) + 1, weeks];
+---
+
+<div class="gantt" role="img" aria-label={phases.map((p) => `${p.label}: weeks ${p.from} to ${p.to}`).join("; ")}>
+  {
+    phases.map((p) => (
+      <>
+        <div class="row-label">{p.label}</div>
+        <div class="track">
+          <span
+            class="bar-label"
+            style={p.from > weeks / 2 ? `right:${100 - (p.to / weeks) * 100}%` : `left:${pct(p.from)}%`}
+          >
+            {p.note}
+          </span>
+          <span
+            class="bar"
+            style={`left:${pct(p.from)}%; width:calc(${((p.to - p.from + 1) / weeks) * 100}% - 2px); --nc: var(--c${p.c})`}
+            data-tip={`${p.label} · weeks ${p.from}–${p.to}`}
+          />
+        </div>
+      </>
+    ))
+  }
+  <div />
+  <div class="axis" aria-hidden="true">
+    {ticks.map((t) => <span>W{t}</span>)}
+  </div>
+</div>

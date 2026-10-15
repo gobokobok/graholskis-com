@@ -1,0 +1,36 @@
+---
+/** 100% horizontal split: categorical slots in fixed order, 2px gaps, legend with values. */
+interface Part {
+  label: string;
+  value: number;
+}
+interface Props {
+  parts: Part[];
+  unit?: string;
+}
+const { parts, unit = "%" } = Astro.props;
+const total = parts.reduce((a, p) => a + p.value, 0);
+---
+
+<div style="display:grid; gap:14px;">
+  <div style="display:flex; gap:2px; height:28px;" role="img" aria-label={parts.map((p) => `${p.label} ${p.value}${unit}`).join(", ")}>
+    {
+      parts.map((p, i) => (
+        <span
+          data-tip={`${p.label} · ${p.value}${unit}`}
+          style={`flex:${p.value / total}; background:var(--c${i + 1}); border-radius:${i === 0 ? "4px 0 0 4px" : i === parts.length - 1 ? "0 4px 4px 0" : "0"};`}
+        />
+      ))
+    }
+  </div>
+  <ul class="legend" style="display:grid; grid-template-columns:1fr 1fr; gap:8px 14px;">
+    {
+      parts.map((p, i) => (
+        <li>
+          <span class="swatch" style={`background:var(--c${i + 1})`} />
+          {p.label} <strong style="color:var(--text); font-weight:600;">{p.value}{unit}</strong>
+        </li>
+      ))
+    }
+  </ul>
+</div>
