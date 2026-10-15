@@ -13,6 +13,9 @@ interface Props {
 }
 const { phases, weeks } = Astro.props;
 const pct = (w: number) => ((w - 1) / weeks) * 100;
+// Labels for phases in the second half anchor to the bar's end so they never run off the track.
+const labelPos = (p: Phase) =>
+  p.from * 2 <= weeks ? `left:${pct(p.from)}%` : `right:${100 - (p.to / weeks) * 100}%`;
 const ticks = [1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.round((3 * weeks) / 4) + 1, weeks];
 ---
 
@@ -24,7 +27,7 @@ const ticks = [1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.rou
         <div class="track">
           <span
             class="bar-label"
-            style={p.from > weeks / 2 ? `right:${100 - (p.to / weeks) * 100}%` : `left:${pct(p.from)}%`}
+            style={labelPos(p)}
           >
             {p.note}
           </span>
