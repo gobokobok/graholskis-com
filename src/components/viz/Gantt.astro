@@ -10,13 +10,15 @@ interface Phase {
 interface Props {
   phases: Phase[];
   weeks: number;
+  /** Tick prefix: W for weeks, M for months. */
+  unit?: string;
 }
-const { phases, weeks } = Astro.props;
+const { phases, weeks, unit = "W" } = Astro.props;
 const pct = (w: number) => ((w - 1) / weeks) * 100;
 // Labels for phases in the second half anchor to the bar's end so they never run off the track.
 const labelPos = (p: Phase) =>
   p.from * 2 <= weeks ? `left:${pct(p.from)}%` : `right:${100 - (p.to / weeks) * 100}%`;
-const ticks = [1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.round((3 * weeks) / 4) + 1, weeks];
+const ticks = [...new Set([1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.round((3 * weeks) / 4) + 1, weeks])];
 ---
 
 <div class="gantt" role="img" aria-label={phases.map((p) => `${p.label}: weeks ${p.from} to ${p.to}`).join("; ")}>
@@ -34,7 +36,7 @@ const ticks = [1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.rou
           <span
             class="bar"
             style={`left:${pct(p.from)}%; width:calc(${((p.to - p.from + 1) / weeks) * 100}% - 2px); --nc: var(--c${p.c})`}
-            data-tip={`${p.label} · weeks ${p.from}–${p.to}`}
+            data-tip={`${p.label} · ${unit}${p.from}–${unit}${p.to}`}
           />
         </div>
       </>
@@ -42,6 +44,6 @@ const ticks = [1, Math.round(weeks / 4) + 1, Math.round(weeks / 2) + 1, Math.rou
   }
   <div />
   <div class="axis" aria-hidden="true">
-    {ticks.map((t) => <span>W{t}</span>)}
+    {ticks.map((t) => <span>{unit}{t}</span>)}
   </div>
 </div>

@@ -10,13 +10,15 @@ export interface Step {
 interface Props {
   steps: Step[];
   small?: boolean;
+  /** Stretch steps to fill one row on desktop (wide containers only). */
+  fit?: boolean;
   loop?: string;
 }
-const { steps, small = false, loop } = Astro.props;
+const { steps, small = false, fit = false, loop } = Astro.props;
 ---
 
 <div>
-  <ol class:list={["pipe", small && "sm"]}>
+  <ol class:list={["pipe", small && "sm", fit && "fit"]}>
     {
       steps.map((s) => (
         <li>

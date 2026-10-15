@@ -1,74 +1,224 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Container from "../../components/Container.astro";
-import { cases } from "../../data/cases";
 import CaseVisual from "../../components/CaseVisual.astro";
-import { bookHref, bookLabel } from "../../data/site";
+import Gantt from "../../components/viz/Gantt.astro";
+import { cases, type Case } from "../../data/cases";
+import { site, bookHref, bookLabel } from "../../data/site";
 
 export function getStaticPaths() {
-  return cases.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+  return cases.map((c, i) => ({
+    params: { slug: c.slug },
+    props: { c, next: cases[(i + 1) % cases.length] },
+  }));
 }
 
-const { c } = Astro.props;
+const { c, next } = Astro.props as { c: Case; next: Case };
+
 const facts = [
   { k: "Client", v: c.client },
   { k: "Role", v: c.role },
-  { k: "Timeline", v: c.timeline },
+  { k: "Duration", v: c.duration },
+  { k: "Status", v: c.status },
 ];
+
+const linkMeta = {
+  product: { title: "Open the product", kind: "Live product" },
+  code: { title: "Code on GitHub", kind: "Repository" },
+  project: { title: "Project on GitHub", kind: "Project notes" },
+  video: { title: "Watch the walkthrough", kind: "YouTube" },
+} as const;
+const links = (Object.keys(linkMeta) as (keyof typeof linkMeta)[])
+  .filter((k) => c.links[k])
+  .map((k) => ({ ...linkMeta[k], ...c.links[k]! }));
+const primary = links.find((l) => l.href);
 ---
 
 <BaseLayout title={c.title} description={c.summary}>
-  <article class="band" style="padding-top:56px;">
-    <Container>
-      <a href="/#cases" class="link meta" style="color:var(--accent);">← All cases</a>
-      <div style="margin-top:32px;">
-        <h1 class="h-page">{c.title}</h1>
-        <p class="lede" style="margin-top:16px;">{c.summary}</p>
-        {c.placeholder && <p style="margin-top:16px;"><span class="chip">Placeholder content</span></p>}
+  {/* HEADER */}
+  <section class="hero" style="padding-bottom:96px;">
+    <Container wide>
+      <a href="/#cases" class="link meta" style="color:var(--accent); font-size:16px;">← All cases</a>
+      <div class="case-head">
+        <div>
+          <h1 class="h-sec" style="max-width:20ch; margin-top:40px;">{c.title}</h1>
+          <p class="lede" style="margin-top:28px;">{c.summary}</p>
+          <div class="hero-links">
+            {primary && (
+              <a href={primary.href} class="btn btn-primary" rel="noopener" target="_blank">{primary.title} ↗</a>
+            )}
+            <a href={bookHref} class:list={["btn", !primary && "btn-primary"]}>{primary ? "Talk about a similar project" : bookLabel}</a>
+          </div>
+          {c.placeholder && <p style="margin-top:24px;"><span class="chip">Placeholder content</span></p>}
+        </div>
+        <dl class="facts-col">
+          {
+            facts.map((f) => (
+              <div>
+                <dt>{f.k}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
+    </Container>
+  </section>
 
-      <dl class="facts">
+  {/* REQUEST + VISUAL */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="two-col" style="align-items:start;">
+        <div>
+          <h2 class="h-sec">The request</h2>
+          <blockquote class="request">“{c.request}”</blockquote>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-head">
+            <h3>{c.visual.kind === "bars" ? c.visual.name : "How it works"}</h3>
+            {c.placeholder && <span class="chip">Illustrative</span>}
+          </div>
+          <CaseVisual visual={c.visual} />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* CHALLENGES */}
+  <section class="band">
+    <Container wide>
+      <div class="sec-head">
+        <h2 class="h-sec">Main challenges</h2>
+      </div>
+      <div class="grid-4">
         {
-          facts.map((f) => (
+          c.challenges.map((ch) => (
             <div class="card">
-              <dt>{f.k}</dt>
-              <dd>{f.v}</dd>
+              <h3 class="h-card">{ch.title}</h3>
+              <p>{ch.body}</p>
             </div>
           ))
         }
-        <div class="card">
-          <dt>Stack</dt>
-          <dd>{c.stack.join(", ")}</dd>
-        </div>
-      </dl>
-
-      <div class="exhibit" style="margin-top:16px;">
-        <div class="exhibit-head">
-          <h3>{c.visual.kind === "bars" ? c.visual.name : "How it works"}</h3>
-          {c.placeholder && <span class="chip">Illustrative</span>}
-        </div>
-        <CaseVisual visual={c.visual} />
-      </div>
-
-      <div class="case-body">
-        <section>
-          <h2 class="h-card" style="font-size:24px; margin-bottom:12px;">The problem</h2>
-          <p class="prose" style="font-size:18px; margin:0; color:var(--ink-sub);">{c.problem}</p>
-        </section>
-        <section>
-          <h2 class="h-card" style="font-size:24px; margin-bottom:12px;">What I built</h2>
-          <ul style="font-size:17px;">{c.built.map((b) => <li>{b}</li>)}</ul>
-        </section>
-        <section>
-          <h2 class="h-card" style="font-size:24px; margin-bottom:12px;">Result</h2>
-          <ul style="font-size:17px;">{c.result.map((r) => <li>{r}</li>)}</ul>
-        </section>
-      </div>
-
-      <div style="margin-top:64px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
-        <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
-        <a href="/#cases" class="link">More cases</a>
       </div>
     </Container>
-  </article>
+  </section>
+
+  {/* SOLUTION + STACK */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="sec-head">
+        <h2 class="h-sec">The solution</h2>
+      </div>
+      <div class="grid-2">
+        {
+          c.solution.map((s) => (
+            <div class="card">
+              <h3 class="h-card">{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="exhibit" style="margin-top:48px;">
+        <div class="exhibit-head">
+          <h3>Stack</h3>
+        </div>
+        <div class="stack-grid">
+          {
+            c.stack.map((s, i) => (
+              <div class="stack-layer" style={`--nc: var(--c${i + 1})`}>
+                <span class="stack-name">{s.layer}</span>
+                <div class="chips">{s.items.map((it) => <span class="chip">{it}</span>)}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* TIMELINE + RESULTS */}
+  <section class="band">
+    <Container wide>
+      <div class="two-col" style="align-items:start;">
+        <div>
+          <h2 class="h-sec">Timeline</h2>
+          <p class="lede" style="margin-top:28px;">{c.duration === "Ongoing" ? "Built in phases and still evolving." : `${c.duration} from first conversation to ${c.status.toLowerCase()}.`}</p>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-head">
+            <h3>Phases</h3>
+            <p class="exhibit-note">{c.timeline.unit === "M" ? "Months" : "Weeks"}</p>
+          </div>
+          <Gantt phases={c.timeline.phases} weeks={c.timeline.length} unit={c.timeline.unit} />
+        </div>
+      </div>
+
+      <div class="sec-head" style="margin-top:120px;">
+        <h2 class="h-sec">Results</h2>
+      </div>
+      <div class="grid-3">
+        {
+          c.results.map((r) => (
+            <div class="card">
+              <p class="proof-num" style="font-size:3rem; font-weight:700; letter-spacing:-0.03em; margin:0;">{r.metric}</p>
+              <p style="margin-top:8px;">{r.label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  {/* LINKS */}
+  {
+    links.length > 0 && (
+      <section class="band band-soft">
+        <Container wide>
+          <div class="sec-head">
+            <h2 class="h-sec">See it for yourself</h2>
+          </div>
+          <div class="grid-3">
+            {links.map((l) =>
+              l.href ? (
+                <a href={l.href} class="card res-card" rel="noopener" target="_blank">
+                  <span class="meta">{l.kind}</span>
+                  <h3 class="h-card">{l.title} ↗</h3>
+                  <p>{l.note}</p>
+                </a>
+              ) : (
+                <div class="card res-card is-soon">
+                  <span class="meta">{l.kind}</span>
+                  <h3 class="h-card">{l.title}</h3>
+                  <p>{l.note}</p>
+                  <span class="chip" style="align-self:start; margin-top:auto;">Coming soon</span>
+                </div>
+              ),
+            )}
+          </div>
+        </Container>
+      </section>
+    )
+  }
+
+  {/* NEXT + CTA */}
+  <section class="band band-ink">
+    <Container wide>
+      <div class="two-col" style="align-items:end;">
+        <div>
+          <h2 class="h-sec">Have a project like this?</h2>
+          <p class="lede" style="margin-top:24px;">A 30-minute call to see whether I can help.</p>
+          <div class="hero-links">
+            <a href={bookHref} class="btn btn-light">{bookLabel}</a>
+            <a class="btn btn-ghost-light" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+          </div>
+        </div>
+        <a href={`/cases/${next.slug}`} class="next-case">
+          <span class="meta" style="color:#8b8b92;">Next case</span>
+          <span class="next-title">{next.title} →</span>
+        </a>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>

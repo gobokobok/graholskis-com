@@ -6,6 +6,7 @@ export const site = {
   calendly: "", // TODO: e.g. "https://calendly.com/graholskis/intro"; falls back to mailto
   github: "https://github.com/gobokobok", // TODO: confirm profile
   linkedin: "https://www.linkedin.com/in/aleksandrs-graholskis/",
+  youtube: "", // TODO: channel URL; hidden while empty
 };
 
 export const bookHref =

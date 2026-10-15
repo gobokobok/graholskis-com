@@ -8,6 +8,7 @@ import SplitBar from "../components/viz/SplitBar.astro";
 import Gantt from "../components/viz/Gantt.astro";
 import Pipeline from "../components/viz/Pipeline.astro";
 import { cases } from "../data/cases";
+import { products } from "../data/products";
 import { site, bookHref, bookLabel } from "../data/site";
 
 const proof = [
@@ -155,7 +156,7 @@ const quotes = [
               <h3>{c.title}</h3>
               <p>{c.summary}</p>
               <div class="chips">
-                {c.stack.slice(0, 3).map((s) => <span class="chip">{s}</span>)}
+                {c.stack.flatMap((s) => s.items).slice(0, 3).map((s) => <span class="chip">{s}</span>)}
                 {c.placeholder && <span class="chip">Placeholder</span>}
               </div>
               <span class="more">Read the case →</span>
@@ -178,7 +179,7 @@ const quotes = [
           <h3>What I put into production</h3>
           <p class="exhibit-note">Typical shape</p>
         </div>
-        <Pipeline steps={system} loop="Evaluation and cost tracking feed back into every step" />
+        <Pipeline steps={system} fit loop="Evaluation and cost tracking feed back into every step" />
       </div>
 
       <div class="ex-grid">
@@ -252,8 +253,38 @@ const quotes = [
     </Container>
   </section>
 
+  {/* PRODUCTS */}
+  <section id="products" class="band">
+    <Container wide>
+      <div class="sec-head">
+        <h2 class="h-sec">Prefer to do it yourself?</h2>
+        <p class="lede">The guides and templates I use with clients, packaged so your team can run them.</p>
+      </div>
+      <div class="grid-3">
+        {
+          products.map((p) => (
+            <div class="card prod-card" style={`--nc: var(--c${p.c})`}>
+              <div class="prod-cover" aria-hidden="true" />
+              <h3 class="h-card">{p.title}</h3>
+              <p>{p.body}</p>
+              <div class="chips">{p.format.map((f) => <span class="chip">{f}</span>)}</div>
+              <div class="prod-foot">
+                <span class="price">{p.price}</span>
+                {p.available ? (
+                  <a href={p.href} class="btn btn-primary" rel="noopener" target="_blank">Buy</a>
+                ) : (
+                  <span class="btn" aria-disabled="true">Coming soon</span>
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
   {/* CLIENTS */}
-  <section id="clients" class="band">
+  <section id="clients" class="band band-soft">
     <Container wide>
       <div class="sec-head">
         <h2 class="h-sec">What the teams say.</h2>
@@ -285,6 +316,7 @@ const quotes = [
         <a href={bookHref} class="btn btn-light">{bookLabel}</a>
         <a class="btn btn-ghost-light" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
         <a class="btn btn-ghost-light" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
+        {site.youtube && <a class="btn btn-ghost-light" href={site.youtube} rel="noopener" target="_blank">YouTube ↗</a>}
       </div>
       <p class="meta" style="margin-top:20px; color:#8b8b92;">{site.email}</p>
     </Container>
