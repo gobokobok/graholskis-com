@@ -196,7 +196,7 @@ export const cases: Case[] = [
       { metric: "—", label: "cost per video (to add)" },
     ],
     links: {
-      product: { href: "", note: "studio.graholskis.com, opens with the beta" },
+      product: { href: "https://cf.graholskis.com", note: "cf.graholskis.com, the Content Factory studio" },
       code: { href: "https://github.com/gobokobok/content-factory-saas", note: "Full source, FastAPI + vanilla JS" },
       video: { href: "", note: "How I built it, step by step" },
     },
