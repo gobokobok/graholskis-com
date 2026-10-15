@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/Container.astro";
+import { cases } from "../../data/cases";
+import { bookHref, bookLabel } from "../../data/site";
+
+export function getStaticPaths() {
+  return cases.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+
+const { c } = Astro.props;
+const facts = [
+  { k: "Client", v: c.client },
+  { k: "Role", v: c.role },
+  { k: "Timeline", v: c.timeline },
+];
+---
+
+<BaseLayout title={c.title} description={c.summary}>
+  <article class="band" style="padding-top:56px;">
+    <Container>
+      <a href="/#cases" class="link meta" style="color:var(--accent);">← All cases</a>
+      <div style="margin-top:32px;">
+        <p class="label" style="margin-bottom:12px;">{c.tag}</p>
+        <h1 class="h-page">{c.title}</h1>
+        <p class="lede" style="margin-top:16px;">{c.summary}</p>
+        {c.placeholder && <p style="margin-top:16px;"><span class="chip">Placeholder content</span></p>}
+      </div>
+
+      <dl class="facts">
+        {
+          facts.map((f) => (
+            <div class="card">
+              <dt>{f.k}</dt>
+              <dd>{f.v}</dd>
+            </div>
+          ))
+        }
+        <div class="card">
+          <dt>Stack</dt>
+          <dd>{c.stack.join(", ")}</dd>
+        </div>
+      </dl>
+
+      <div class="case-body">
+        <section>
+          <p class="label" style="margin-bottom:12px;">The problem</p>
+          <p class="prose" style="font-size:18px; margin:0; color:var(--ink-sub);">{c.problem}</p>
+        </section>
+        <section>
+          <p class="label" style="margin-bottom:12px;">What I built</p>
+          <ul style="font-size:17px;">{c.built.map((b) => <li>{b}</li>)}</ul>
+        </section>
+        <section>
+          <p class="label" style="margin-bottom:12px;">Result</p>
+          <ul style="font-size:17px;">{c.result.map((r) => <li>{r}</li>)}</ul>
+        </section>
+      </div>
+
+      <div style="margin-top:64px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
+        <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
+        <a href="/#cases" class="link">More cases</a>
+      </div>
+    </Container>
+  </article>
+</BaseLayout>

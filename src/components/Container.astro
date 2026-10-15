@@ -1,12 +1,14 @@
 ---
 interface Props {
   as?: "div" | "section" | "article";
+  /** Wide (1120px) for landing bands; default is the 760px reading column. */
+  wide?: boolean;
   class?: string;
 }
 
-const { as: Tag = "div", class: extra = "" } = Astro.props;
+const { as: Tag = "div", wide = false, class: extra = "" } = Astro.props;
 ---
 
-<Tag class:list={["wrap", extra]}>
+<Tag class:list={[wide ? "wide" : "wrap", extra]}>
   <slot />
 </Tag>

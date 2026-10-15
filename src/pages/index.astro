@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
+import { cases } from "../data/cases";
+import { site, bookHref, bookLabel } from "../data/site";
 
 const proof = [
   { metric: "€2M+", label: "Savings delivered" },
@@ -8,91 +10,210 @@ const proof = [
   { metric: "25K+", label: "Employees impacted" },
 ];
 
-const work = [
+const services = [
   {
-    label: "Lab",
-    title: "Evidence over portfolio",
-    body: "Working demos, architecture diagrams, and the things that broke first.",
-    href: "/lab",
+    label: "Lead",
+    title: "AI implementation lead",
+    body: "I own delivery from pilot to production: scope, team, evaluation, rollout and the numbers that show it works.",
   },
   {
-    label: "Frameworks",
-    title: "Intellectual capital, made tangible",
-    body: "AI Debt assessment, governance checklists, RAG evaluation rubrics, decision canvases.",
-    href: "/frameworks",
+    label: "Build",
+    title: "Assistants, agents and pipelines",
+    body: "Hands-on builds on real data: retrieval assistants, agentic workflows and the plumbing around them.",
+  },
+  {
+    label: "Assess",
+    title: "AI audit and governance",
+    body: "A one-week diagnostic of what is running, what it costs and where the risk sits, with a plan you can act on.",
+  },
+];
+
+const steps = [
+  {
+    title: "Diagnose",
+    body: "One week with your team and data. We pick one use case where AI clearly pays back.",
+  },
+  {
+    title: "Prototype on real data",
+    body: "A working version in two to three weeks, tested against your own examples, not demos.",
+  },
+  {
+    title: "Ship to production",
+    body: "Evaluation, monitoring, cost limits and an owner before anyone outside the team uses it.",
+  },
+  {
+    title: "Hand over and measure",
+    body: "Your team runs it. We track the agreed numbers and decide what to build next.",
+  },
+];
+
+const logos = ["Client 01", "Client 02", "Client 03", "Client 04", "Client 05", "Client 06"];
+
+const quotes = [
+  {
+    text: "Placeholder quote. One or two sentences on what changed for the team and how it was to work together.",
+    by: "Name, Role · Company",
+  },
+  {
+    text: "Placeholder quote. A second voice, ideally from a different industry or function.",
+    by: "Name, Role · Company",
   },
 ];
 ---
 
 <BaseLayout
-  title="Enterprise AI Architect"
+  title="AI Builder & AI Implementation Lead"
   bareTitle
-  description="From AI Debt to AI Architecture. Audits, governance, and architecture for senior transformation leaders past the prototype stage."
+  description="I take AI from pilot to production: assistants, agents and the delivery around them."
 >
-  <Container as="section" class="" >
-    <div style="margin-top:96px;">
-      <h1 class="h-hero">From AI debt<br />to AI architecture.</h1>
-      <p class="lede" style="margin-top:24px;">
-        I help enterprise leaders translate AI ambition into systems that
-        survive contact with reality. Audits, governance, and architecture
-        for organisations past the prototype stage.
-      </p>
-      <div style="margin-top:32px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
-        <a href="/contact" class="btn btn-primary">Get in touch</a>
-        <a href="/frameworks" class="link">See the frameworks</a>
-      </div>
-    </div>
-
-    <div class="section proof" aria-label="Outcomes delivered">
-      {
-        proof.map((p) => (
-          <div class="card">
-            <p class="proof-num">{p.metric}</p>
-            <p class="label">{p.label}</p>
+  {/* HERO */}
+  <section class="hero">
+    <Container wide>
+      <div class="hero-grid">
+        <div>
+          <p class="label" style="margin-bottom:16px;">AI Builder · AI Implementation Lead</p>
+          <h1 class="h-hero">I build AI that ships, and lead the work until it does.</h1>
+          <p class="lede" style="margin-top:24px;">
+            Most AI projects stall between the demo and production. I take
+            them across: building the assistants and agents, and running the
+            delivery, evaluation and rollout around them.
+          </p>
+          <div class="hero-links">
+            <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
+            <a href="#cases" class="link">See the cases</a>
           </div>
-        ))
-      }
-    </div>
+          <div class="hero-links" style="margin-top:20px; gap:16px;">
+            <a class="link" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
+            <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+          </div>
+        </div>
+        {/* Replace with <img src="/aleksandrs.jpg" alt="Aleksandrs Graholskis"> (put the file in /public). */}
+        <div class="photo" role="img" aria-label="Photo of Aleksandrs Graholskis (placeholder)">
+          <span class="label">Photo</span>
+        </div>
+      </div>
 
-    <div class="section">
-      <p class="label" style="margin-bottom:12px;">Work</p>
-      <div class="stack">
+      <div class="proof-row" aria-label="Outcomes delivered">
         {
-          work.map((w) => (
-            <a href={w.href} class="card">
-              <span class="num">{w.label}</span>
-              <h2 class="h-card" style="margin-top:4px;">{w.title}</h2>
-              <p>{w.body}</p>
+          proof.map((p) => (
+            <div class="card">
+              <p class="proof-num" style="font-size:2rem;">{p.metric}</p>
+              <p class="label" style="color:var(--muted);">{p.label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  {/* CASES */}
+  <section id="cases" class="band band-soft">
+    <Container wide>
+      <div class="sec-head">
+        <p class="label">Cases</p>
+        <h2 class="h-sec">Work that made it to production.</h2>
+      </div>
+      <div class="case-grid">
+        {
+          cases.map((c) => (
+            <a href={`/cases/${c.slug}`} class="card case-card">
+              <span class="num">{c.tag}</span>
+              <h3>{c.title}</h3>
+              <p>{c.summary}</p>
+              <div class="chips">
+                {c.stack.slice(0, 3).map((s) => <span class="chip">{s}</span>)}
+                {c.placeholder && <span class="chip">Placeholder</span>}
+              </div>
+              <span class="more">Read the case →</span>
             </a>
           ))
         }
       </div>
-    </div>
+    </Container>
+  </section>
 
-    <div class="section">
-      <p class="label" style="margin-bottom:12px;">About</p>
-      <div class="prose">
-        <p>
-          I'm <strong>Aleksandrs Graholskis</strong>, an enterprise AI
-          architect working with CIOs, transformation leaders and governance
-          functions across Europe. I focus on the part of the AI lifecycle most
-          teams skip: the architecture that decides whether a prototype
-          becomes a production system or quietly turns into AI debt.
-        </p>
+  {/* SERVICES + HOW I WORK */}
+  <section id="services" class="band">
+    <Container wide>
+      <div class="two-col">
+        <div>
+          <div class="sec-head" style="margin-bottom:24px;">
+            <p class="label">How I work</p>
+            <h2 class="h-sec">Small steps, real data, an owner at the end.</h2>
+          </div>
+          <p class="lede">
+            I work as an embedded lead or builder, alongside your team. Each
+            step ends with something you can use or something we decide to
+            stop.
+          </p>
+        </div>
+        <ol class="steps">
+          {
+            steps.map((s, i) => (
+              <li>
+                <span class="num">0{i + 1}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))
+          }
+        </ol>
       </div>
-      <a href="/about" class="link">More about me</a>
-    </div>
 
-    <div class="section">
-      <p class="label" style="margin-bottom:12px;">Contact</p>
-      <h2 class="h-page">Considering an AI audit?</h2>
-      <p class="lede" style="margin-top:12px;">
-        A 30-minute conversation. No pitch deck, no follow-up sequence, just
-        whether this is the right engagement for what you're trying to do.
+      <div class="svc-grid">
+        {
+          services.map((s) => (
+            <div class="card">
+              <span class="num">{s.label}</span>
+              <h3 class="h-card" style="margin-top:4px;">{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  {/* CLIENTS */}
+  <section id="clients" class="band band-soft">
+    <Container wide>
+      <div class="sec-head">
+        <p class="label">Clients</p>
+        <h2 class="h-sec">Trusted by teams past the prototype stage.</h2>
+      </div>
+      <div class="logo-grid">
+        {logos.map((l) => <div class="tile"><span class="label">{l}</span></div>)}
+      </div>
+      <div class="quote-grid">
+        {
+          quotes.map((q) => (
+            <figure class="quote" style="background:var(--bg);">
+              <p>“{q.text}”</p>
+              <footer>{q.by}</footer>
+            </figure>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  {/* CONTACT */}
+  <section id="contact" class="band band-ink">
+    <Container wide>
+      <div class="sec-head" style="margin-bottom:28px;">
+        <p class="label">Contact</p>
+        <h2 class="h-sec" style="max-width:24ch;">Have an AI project that needs to ship?</h2>
+      </div>
+      <p class="lede">
+        A 30-minute call. No deck, no follow-up sequence, just whether I can
+        help with what you are trying to do.
       </p>
-      <div style="margin-top:24px;">
-        <a href="/contact" class="btn btn-primary">Get in touch</a>
+      <div class="hero-links" style="margin-top:28px;">
+        <a href={bookHref} class="btn btn-light">{bookLabel}</a>
+        <a class="btn btn-ghost-light" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+        <a class="btn btn-ghost-light" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
       </div>
-    </div>
-  </Container>
+      <p class="meta" style="margin-top:20px; color:#8b8b92;">{site.email}</p>
+    </Container>
+  </section>
 </BaseLayout>
