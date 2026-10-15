@@ -87,7 +87,6 @@ const quotes = [
     <Container wide>
       <div class="hero-grid">
         <div>
-          <p class="label" style="margin-bottom:16px;">AI Builder · AI Implementation Lead</p>
           <h1 class="h-hero">I build AI that ships, and lead the work until it does.</h1>
           <p class="lede" style="margin-top:24px;">
             Most AI projects stall between the demo and production. I take them
@@ -106,8 +105,8 @@ const quotes = [
             {
               proof.map((p) => (
                 <div>
-                  <p class="proof-num" style="font-size:1.75rem; margin:0;">{p.metric}</p>
-                  <p class="label" style="color:var(--muted); margin-top:4px;">{p.label}</p>
+                  <p class="proof-num" style="font-size:2.5rem; font-weight:700; letter-spacing:-0.03em; margin:0;">{p.metric}</p>
+                  <p class="meta" style="margin-top:6px;">{p.label}</p>
                 </div>
               ))
             }
@@ -135,8 +134,7 @@ const quotes = [
       </div>
 
       <div class="logo-strip" aria-label="Clients">
-        <span class="label" style="margin-right:8px;">Worked with</span>
-        {logos.map((l) => <div class="tile"><span class="label">{l}</span></div>)}
+                {logos.map((l) => <div class="tile"><span class="label">{l}</span></div>)}
       </div>
     </Container>
   </section>
@@ -145,7 +143,6 @@ const quotes = [
   <section id="cases" class="band band-soft">
     <Container wide>
       <div class="sec-head">
-        <p class="label">Cases</p>
         <h2 class="h-sec">Work that made it to production.</h2>
       </div>
       <div class="case-grid">
@@ -155,7 +152,6 @@ const quotes = [
               <div class="case-visual">
                 <CaseVisual visual={c.visual} small />
               </div>
-              <span class="num">{c.tag}</span>
               <h3>{c.title}</h3>
               <p>{c.summary}</p>
               <div class="chips">
@@ -174,7 +170,6 @@ const quotes = [
   <section id="production" class="band">
     <Container wide>
       <div class="sec-head">
-        <p class="label">From pilot to production</p>
         <h2 class="h-sec" style="max-width:24ch;">The model is the small part. The system around it is the work.</h2>
       </div>
 
@@ -228,7 +223,6 @@ const quotes = [
       <div class="two-col">
         <div>
           <div class="sec-head" style="margin-bottom:24px;">
-            <p class="label">How I work</p>
             <h2 class="h-sec">Twelve weeks from first call to a system your team owns.</h2>
           </div>
           <p class="lede">
@@ -249,8 +243,7 @@ const quotes = [
         {
           services.map((s) => (
             <div class="card">
-              <span class="num">{s.label}</span>
-              <h3 class="h-card" style="margin-top:4px;">{s.title}</h3>
+              <h3 class="h-card">{s.title}</h3>
               <p>{s.body}</p>
             </div>
           ))
@@ -263,7 +256,6 @@ const quotes = [
   <section id="clients" class="band">
     <Container wide>
       <div class="sec-head">
-        <p class="label">Clients</p>
         <h2 class="h-sec">What the teams say.</h2>
       </div>
       <div class="quote-grid" style="margin-top:0;">
@@ -283,7 +275,6 @@ const quotes = [
   <section id="contact" class="band band-ink">
     <Container wide>
       <div class="sec-head" style="margin-bottom:28px;">
-        <p class="label">Contact</p>
         <h2 class="h-sec" style="max-width:24ch;">Have an AI project that needs to ship?</h2>
       </div>
       <p class="lede">

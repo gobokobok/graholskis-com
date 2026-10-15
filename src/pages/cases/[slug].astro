@@ -22,7 +22,6 @@ const facts = [
     <Container>
       <a href="/#cases" class="link meta" style="color:var(--accent);">← All cases</a>
       <div style="margin-top:32px;">
-        <p class="label" style="margin-bottom:12px;">{c.tag}</p>
         <h1 class="h-page">{c.title}</h1>
         <p class="lede" style="margin-top:16px;">{c.summary}</p>
         {c.placeholder && <p style="margin-top:16px;"><span class="chip">Placeholder content</span></p>}
@@ -53,15 +52,15 @@ const facts = [
 
       <div class="case-body">
         <section>
-          <p class="label" style="margin-bottom:12px;">The problem</p>
+          <h2 class="h-card" style="font-size:24px; margin-bottom:12px;">The problem</h2>
           <p class="prose" style="font-size:18px; margin:0; color:var(--ink-sub);">{c.problem}</p>
         </section>
         <section>
-          <p class="label" style="margin-bottom:12px;">What I built</p>
+          <h2 class="h-card" style="font-size:24px; margin-bottom:12px;">What I built</h2>
           <ul style="font-size:17px;">{c.built.map((b) => <li>{b}</li>)}</ul>
         </section>
         <section>
-          <p class="label" style="margin-bottom:12px;">Result</p>
+          <h2 class="h-card" style="font-size:24px; margin-bottom:12px;">Result</h2>
           <ul style="font-size:17px;">{c.result.map((r) => <li>{r}</li>)}</ul>
         </section>
       </div>

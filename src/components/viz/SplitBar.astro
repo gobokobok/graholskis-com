@@ -23,12 +23,12 @@ const total = parts.reduce((a, p) => a + p.value, 0);
       ))
     }
   </div>
-  <ul class="legend" style="display:grid; grid-template-columns:1fr 1fr; gap:8px 14px;">
+  <ul class="legend" style="display:grid; grid-template-columns:1fr; gap:10px;">
     {
       parts.map((p, i) => (
-        <li>
+        <li style="display:flex;">
           <span class="swatch" style={`background:var(--c${i + 1})`} />
-          {p.label} <strong style="color:var(--text); font-weight:600;">{p.value}{unit}</strong>
+          {p.label} <strong style="color:var(--text); font-weight:600; margin-left:auto;">{p.value}{unit}</strong>
         </li>
       ))
     }
