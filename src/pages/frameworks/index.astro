@@ -34,53 +34,34 @@ const frameworks = [
   title="Frameworks"
   description="Frameworks, checklists, and decision canvases for enterprise AI architecture and governance."
 >
-  <section class="bg-paper border-b-2 border-rule">
-    <Container width="page" class="py-16 sm:py-24">
-      <p class="eyebrow mb-5">Frameworks</p>
-      <h1
-        class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] tracking-[-0.01em] leading-[1.05] text-ink max-w-[34rem]"
-      >
-        Intellectual capital,<br />made tangible.
-      </h1>
-      <p class="prose-serif max-w-[36rem] mt-6">
-        These are the documents I'd send a CIO at the start of an engagement.
-        Free where useful, gated where dense — but always defensible because
-        they come from the same engagements that paid for them.
+  <Container as="section">
+    <div style="margin-top:72px;">
+      <p class="label" style="margin-bottom:12px;">Frameworks</p>
+      <h1 class="h-page">Intellectual capital, made tangible.</h1>
+      <p class="lede" style="margin-top:16px;">
+        The documents I'd send a CIO at the start of an engagement. Free where
+        useful, gated where dense, and defensible because they come from the
+        engagements that paid for them.
       </p>
-    </Container>
-  </section>
+    </div>
 
-  <section class="bg-paper">
-    <Container width="page" class="py-12 sm:py-16">
-      <ul class="border-y border-rule">
-        {
-          frameworks.map((f) => (
-            <li class="grid sm:grid-cols-[7rem_1fr_10rem] gap-x-8 gap-y-2 py-8 border-b border-rule last:border-b-0">
-              <p class="metadata text-amber">{f.code}</p>
-              <div>
-                <h2 class="font-[family-name:var(--font-display)] font-bold text-[22px] leading-[1.15] text-ink mb-2">
-                  {f.title}
-                </h2>
-                <p class="prose-serif text-[15px] leading-[1.55] text-graphite">
-                  {f.body}
-                </p>
-              </div>
-              <p class="metadata text-muted sm:text-right">
-                <span class="inline-block w-1.5 h-1.5 bg-amber rounded-full mr-2 align-middle" />
-                {f.status}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
+    <div class="stack" style="margin-top:44px;">
+      {
+        frameworks.map((f) => (
+          <div class="card">
+            <span class="num">{f.code}</span>
+            <h2 class="h-card" style="margin-top:4px;">{f.title}</h2>
+            <p>{f.body}</p>
+            <div class="card-foot"><span class="chip">{f.status}</span></div>
+          </div>
+        ))
+      }
+    </div>
 
-      <p class="prose-serif text-muted italic mt-10 max-w-[36rem]">
-        AI Debt Assessment is the keystone — once it ships, the rest follow on
-        a two-week cadence. The
-        <a class="underline decoration-amber underline-offset-4" href="/contact"
-          >contact page</a
-        > has the most reliable way to be notified.
-      </p>
-    </Container>
-  </section>
+    <p class="meta" style="margin-top:28px;">
+      AI Debt Assessment is the keystone; the rest follow on a two-week
+      cadence. The <a class="link" href="/contact">contact page</a> is the
+      most reliable way to be notified.
+    </p>
+  </Container>
 </BaseLayout>

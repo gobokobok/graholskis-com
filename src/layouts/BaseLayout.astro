@@ -56,7 +56,7 @@ const canonicalURL = canonical
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fragment+Mono&display=swap"
     />
 
     {/* Schema.org Person — establishes professional identity for search */}
@@ -86,14 +86,14 @@ const canonicalURL = canonical
   <body>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-ink focus:text-paper focus:px-3 focus:py-2"
+      class="sr-only"
     >
       Skip to content
     </a>
 
     <TopBar />
 
-    <main id="main" class="bg-paper">
+    <main id="main">
       <slot />
     </main>
 

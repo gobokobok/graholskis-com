@@ -2,10 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
 
-/* Replace `calendlyUrl` with your real link. Until then, the button gracefully
-   falls back to mailto. */
+/* Replace `calendlyUrl` with your real link. Until then, the button falls back to mailto. */
 const calendlyUrl = ""; // e.g. "https://calendly.com/graholskis/discovery"
-const emailAddress = "alex@graholskis.com"; // placeholder — confirm with Aleksandrs
+const emailAddress = "alex@graholskis.com"; // placeholder: confirm with Aleksandrs
 
 const ctaHref = calendlyUrl || `mailto:${emailAddress}?subject=Discovery call`;
 const ctaLabel = calendlyUrl ? "Book a 30-minute call" : "Email to schedule";
@@ -13,74 +12,40 @@ const ctaLabel = calendlyUrl ? "Book a 30-minute call" : "Email to schedule";
 
 <BaseLayout
   title="Contact"
-  description="Book a 30-minute discovery call. No pitch, no sequence — just whether the engagement makes sense."
+  description="Book a 30-minute discovery call. No pitch, no sequence, just whether the engagement makes sense."
 >
-  <article class="bg-paper">
-    <Container width="prose" class="py-20 sm:py-28">
-      <p class="eyebrow mb-6">Contact</p>
-      <h1
-        class="font-[family-name:var(--font-display)] font-extrabold text-[length:var(--text-h1)] tracking-[-0.01em] leading-[1.1] text-ink mb-8"
-      >
-        A 30-minute conversation, or a written message — whichever
-        you prefer.
-      </h1>
+  <Container as="article">
+    <div style="margin-top:72px;">
+      <p class="label" style="margin-bottom:12px;">Contact</p>
+      <h1 class="h-page">A 30-minute conversation, or a written message.</h1>
+    </div>
 
-      <p class="prose-serif mb-10">
-        The discovery call is for senior leaders evaluating whether an
-        external architect makes sense for what you're trying to build. It
-        is a working conversation — not a sales call. If the engagement
-        isn't a fit, I'll say so and point you to someone closer.
+    <div class="prose" style="margin-top:28px; font-size:18px; line-height:1.6;">
+      <p>
+        The discovery call is for senior leaders evaluating whether an external
+        architect makes sense for what they are building. It is a working
+        conversation, not a sales call. If the engagement isn't a fit, I'll say
+        so and point you to someone closer.
       </p>
+    </div>
 
-      <div class="flex flex-wrap gap-3 mb-12">
-        <a
-          href={ctaHref}
-          class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[10px] tracking-[0.18em] uppercase border-2 border-ink hover:bg-amber hover:border-amber transition-colors"
-        >
-          {ctaLabel}
-          <span aria-hidden="true">→</span>
+    <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap;">
+      <a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
+      <a href={`mailto:${emailAddress}`} class="btn">Email directly</a>
+    </div>
+
+    <div class="section">
+      <p class="label" style="margin-bottom:12px;">Elsewhere</p>
+      <div class="stack">
+        <a class="card" href={`mailto:${emailAddress}`}>
+          <p class="meta">Email</p>
+          <h2 class="h-card" style="margin-top:2px;">{emailAddress}</h2>
         </a>
-        <a
-          href={`mailto:${emailAddress}`}
-          class="inline-flex items-center gap-2 px-5 py-3 text-[10px] tracking-[0.18em] uppercase border-2 border-ink/15 text-graphite hover:border-amber hover:text-ink transition-colors"
-        >
-          Email directly
+        <a class="card" href="https://www.linkedin.com/in/aleksandrs-graholskis/" rel="noopener" target="_blank">
+          <p class="meta">LinkedIn</p>
+          <h2 class="h-card" style="margin-top:2px;">aleksandrs-graholskis</h2>
         </a>
       </div>
-
-      <hr class="border-rule" />
-
-      <div class="grid sm:grid-cols-2 gap-10 mt-12">
-        <div>
-          <p class="metadata mb-3">Direct</p>
-          <p class="font-[family-name:var(--font-serif)] text-[16px] text-ink">
-            <a class="underline decoration-amber underline-offset-4" href={`mailto:${emailAddress}`}
-              >{emailAddress}</a
-            >
-          </p>
-        </div>
-        <div>
-          <p class="metadata mb-3">Elsewhere</p>
-          <ul
-            class="font-[family-name:var(--font-serif)] text-[16px] text-ink space-y-1"
-          >
-            <li>
-              <a
-                class="underline decoration-amber underline-offset-4"
-                href="https://www.linkedin.com/in/aleksandrs-graholskis/"
-                rel="noopener"
-                target="_blank">LinkedIn</a
-              >
-            </li>
-            <li>
-              <a
-                class="underline decoration-amber underline-offset-4"
-                href="/lab">The Lab</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </Container>
-  </article>
+    </div>
+  </Container>
 </BaseLayout>

@@ -1,214 +1,302 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   GRAHOLSKIS.COM — Design System v0.2
-   Editorial warm-authority.
-   Body: Inter (readable, contemporary).
-   Display: Syne (bold, architectural).
-   Accent: Instrument Serif (warmth in headlines, pull-quotes).
-   Metadata only: JetBrains Mono (code, labels, tags, timestamps).
+   GRAHOLSKIS.COM — "Monochrome Console", personal-brand adaptation.
+   Light page, near-black ink, one blue accent, hairline borders.
+   Body and headings: Inter. Labels and numbers: Fragment Mono.
+   Source brief: Content Factory UI guideline (sections 1-9).
    ------------------------------------------------------------------ */
+
+:root {
+  /* surface */
+  --bg: #fafafa;
+  --bg-soft: #f0f0f2;
+  /* lines */
+  --border: #e7e7e9;
+  --border-strong: #b4b4ba;
+  /* ink */
+  --text: #121215;
+  --ink-sub: #55555c;
+  --muted: #8b8b92;
+  --faint: #b4b4ba;
+  /* accent */
+  --accent: #2743c9;
+  --accent-h: #1d35a6;
+  --accent-soft: #ecf0fb;
+  --accent-ring: rgba(39, 67, 201, 0.26);
+  /* semantic */
+  --red: #d92d20;
+  /* type */
+  --font: "Inter", system-ui, sans-serif;
+  --mono: "Fragment Mono", ui-monospace, monospace;
+  /* shape */
+  --r: 8px;
+  --r-sm: 6px;
+  --r-pill: 999px;
+  /* layout */
+  --col: 760px;
+}
 
 @theme {
-  /* ── Surfaces ── */
-  --color-paper:    #F5F2EC;
-  --color-surface:  #EDE9E0;
-  --color-page:     #DDD8CC;
-  --color-white:    #FFFFFF;
-  --color-rule:     #D8D3C8;
-
-  /* ── Ink ── */
-  --color-ink:      #0D0D0D;
-  --color-graphite: #3D3D3A;
-  --color-muted:    #7A7570;
-
-  /* ── Brand accents ── */
-  --color-amber:     #D4922A;
-  --color-amber-dim: rgba(212, 146, 42, 0.10);
-  --color-amber-glow: rgba(212, 146, 42, 0.05);
-  --color-red:       #C0392B;
-  --color-red-dim:   rgba(192, 57, 43, 0.08);
-
-  /* ── Track colours (reserved for content / roadmap diagrams) ── */
-  --color-track-a: #D4922A;
-  --color-track-b: #2980B9;
-  --color-track-c: #27AE60;
-
-  /* ── Typefaces ── */
-  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
-  --font-serif:   "Instrument Serif", ui-serif, Georgia, serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
-
-  /* ── Type scale ──
-     Previous scale used 9–11.5px throughout — too small, looked cheap.
-     Rebuilt for readable authority at real screen distances.           */
-
-  --text-display: clamp(2.75rem, 6vw, 5rem);    /* 44px → 80px */
-  --text-display--line-height: 1.0;
-  --text-display--letter-spacing: -0.025em;
-
-  --text-h1: clamp(2rem, 3.5vw, 3rem);           /* 32px → 48px */
-  --text-h1--line-height: 1.1;
-  --text-h1--letter-spacing: -0.015em;
-
-  --text-h2: clamp(1.375rem, 2vw, 1.875rem);     /* 22px → 30px */
-  --text-h2--line-height: 1.2;
-
-  --text-h3: 1.25rem;                             /* 20px */
-  --text-h3--line-height: 1.3;
-
-  --text-lede: 1.125rem;                          /* 18px — Instrument Serif narrative */
-  --text-lede--line-height: 1.7;
-
-  --text-body: 1rem;                              /* 16px — Inter body */
-  --text-body--line-height: 1.75;
-
-  --text-small: 0.875rem;                         /* 14px — Inter secondary */
-  --text-small--line-height: 1.65;
-
-  --text-label: 0.6875rem;                        /* 11px — JetBrains Mono labels */
-  --text-label--line-height: 1.5;
-  --text-label--letter-spacing: 0.16em;
-
-  --text-eyebrow: 0.625rem;                       /* 10px — JetBrains Mono caps */
-  --text-eyebrow--letter-spacing: 0.24em;
-
-  /* ── Spacing ── */
-  --container-page:  1100px;
-  --container-prose: 44rem;
-
-  /* ── Motion ── */
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-
-  /* ── Radii — near-zero. Squared edges signal architectural rigour. ── */
-  --radius-xs: 1px;
-  --radius-sm: 2px;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, monospace;
 }
 
-/* ------------------------------------------------------------------
-   Base + element defaults
-   ------------------------------------------------------------------ */
-
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  background: var(--color-page);
+@layer base {
+  html {
+    background: var(--bg);
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-ring);
+    border-radius: var(--r-sm);
+  }
 }
 
-body {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  line-height: 1.75;
-  color: var(--color-graphite);
-  background: var(--color-page);
-  min-height: 100vh;
+@layer components {
+  /* One working column, centred */
+  .wrap {
+    max-width: var(--col);
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  @media (min-width: 640px) {
+    .wrap {
+      padding: 0 24px;
+    }
+  }
+
+  /* Vertical rhythm: sections are separated by space, not lines */
+  .section {
+    margin-top: 96px;
+  }
+
+  /* Type */
+  .h-hero {
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0;
+  }
+  .h-page {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .h-card {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-sub);
+    max-width: 38rem;
+    margin: 0;
+  }
+  .prose p {
+    margin: 0 0 20px;
+    color: var(--ink-sub);
+  }
+  .prose p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--faint);
+    margin: 0;
+  }
+  .meta {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--muted);
+    margin: 0;
+  }
+  .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Links: the accent marks what is interactive */
+  .link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .link:hover {
+    color: var(--accent-h);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Buttons: 38px, radius 6, 1px border */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 150ms,
+      border-color 150ms;
+  }
+  .btn:hover {
+    background: var(--bg-soft);
+    border-color: var(--border-strong);
+  }
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--accent-h);
+    border-color: var(--accent-h);
+  }
+
+  /* Cards, not rows */
+  .card {
+    display: block;
+    padding: 20px 22px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    text-decoration: none;
+    transition:
+      border-color 150ms,
+      box-shadow 150ms;
+  }
+  a.card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 2px 8px rgba(18, 18, 21, 0.05);
+  }
+  .card p {
+    margin: 6px 0 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-sub);
+  }
+  .card .card-foot {
+    margin-top: 14px;
+  }
+  .stack {
+    display: grid;
+    gap: 8px;
+  }
+
+  /* Chips show what is set, never actions */
+  .chip {
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    background: var(--bg-soft);
+    color: var(--ink-sub);
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* Proof points */
+  .proof {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .proof .card {
+    padding: 18px 20px;
+  }
+  .card .proof-num {
+    color: var(--text);
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 6px;
+  }
+  @media (max-width: 520px) {
+    .proof {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Header and footer stay lighter than content */
+  .site-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-sub);
+    text-decoration: none;
+    padding: 10px 10px;
+    border-radius: var(--r-sm);
+    transition: background 150ms;
+  }
+  .site-nav a:hover {
+    background: var(--bg-soft);
+  }
+  .site-nav a[aria-current="page"] {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
 }
 
-::selection {
-  background: var(--color-amber);
-  color: var(--color-paper);
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.18s var(--ease-out-quart);
-}
-
-/* ------------------------------------------------------------------
-   Button components
-   ------------------------------------------------------------------ */
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--color-amber);
-  color: #FFFFFF;
-  padding: 16px 28px;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border: 2px solid var(--color-amber);
-  transition: background 0.18s var(--ease-out-quart), border-color 0.18s var(--ease-out-quart);
-}
-
-.btn-primary:hover {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-  color: #FFFFFF;
-}
-
-/* ------------------------------------------------------------------
-   Narrative type helpers
-   ------------------------------------------------------------------ */
-
-/* Large serif paragraphs — for lede text / pull-quotes */
-.prose-serif {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: var(--text-lede);
-  line-height: 1.7;
-  color: var(--color-graphite);
-}
-.prose-serif strong {
-  font-weight: 600;
-  color: var(--color-ink);
-  font-style: normal;
-}
-.prose-serif em {
-  font-style: italic;
-  color: var(--color-amber);
-}
-
-/* Standard body paragraphs — Inter */
-.prose {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  line-height: 1.75;
-  color: var(--color-graphite);
-}
-.prose strong { font-weight: 600; color: var(--color-ink); }
-
-/* JetBrains Mono for small uppercase labels only */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-amber);
-}
-
-.label {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  letter-spacing: var(--text-label--letter-spacing);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-/* ------------------------------------------------------------------
-   Page entry animation
-   ------------------------------------------------------------------ */
-
-@keyframes arrive {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.arrive {
-  animation: arrive 0.55s var(--ease-out-quart) both;
-}
-.arrive-stagger {
-  animation: arrive 0.55s var(--ease-out-quart) both;
-  animation-delay: calc(var(--i, 0) * 90ms);
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  clip: auto;
+  padding: 8px 12px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .arrive, .arrive-stagger { animation: none; }
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+  }
 }
