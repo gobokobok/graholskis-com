@@ -17,8 +17,6 @@ const proof = [
   { metric: "25K+", label: "Employees impacted" },
 ];
 
-const logos = ["Client 01", "Client 02", "Client 03", "Client 04", "Client 05", "Client 06"];
-
 // Illustrative figures for the exhibits. Replace with a real case's numbers.
 const wau = [40, 55, 70, 110, 160, 210, 260, 300, 340, 370, 395, 420];
 const weeks = wau.map((_, i) => `W${i + 1}`);
@@ -66,16 +64,6 @@ const services = [
   },
 ];
 
-const quotes = [
-  {
-    text: "Placeholder quote. One or two sentences on what changed for the team and how it was to work together.",
-    by: "Name, Role · Company",
-  },
-  {
-    text: "Placeholder quote. A second voice, ideally from a different industry or function.",
-    by: "Name, Role · Company",
-  },
-];
 ---
 
 <BaseLayout
@@ -134,9 +122,6 @@ const quotes = [
         </div>
       </div>
 
-      <div class="logo-strip" aria-label="Clients">
-                {logos.map((l) => <div class="tile"><span class="label">{l}</span></div>)}
-      </div>
     </Container>
   </section>
 
@@ -277,25 +262,6 @@ const quotes = [
                 )}
               </div>
             </div>
-          ))
-        }
-      </div>
-    </Container>
-  </section>
-
-  {/* CLIENTS */}
-  <section id="clients" class="band band-soft">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">What the teams say.</h2>
-      </div>
-      <div class="quote-grid" style="margin-top:0;">
-        {
-          quotes.map((q) => (
-            <figure class="quote">
-              <p>“{q.text}”</p>
-              <footer>{q.by}</footer>
-            </figure>
           ))
         }
       </div>
