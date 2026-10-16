@@ -53,6 +53,22 @@ const primary = links.find((l) => l.href);
           ))
         }
       </dl>
+      {
+        c.showcase && (
+          <div class="showcase" role="img" aria-label={c.showcase.alt}>
+            <div class="shot-desktop">
+              <img src={c.showcase.desktop} alt="" width="1600" height="859" />
+            </div>
+            <div class="shot-phones">
+              {c.showcase.mobile.map((m) => (
+                <div class="shot-phone">
+                  <img src={m} alt="" width="570" height="1090" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
     </Container>
   </section>
 
@@ -141,25 +157,6 @@ const primary = links.find((l) => l.href);
             <ul class="case-list">
               {c.solution.points.items.map((it) => <li class="card"><p>{it}</p></li>)}
             </ul>
-          </div>
-        )
-      }
-
-      {
-        c.screens && (
-          <div class="screens case-media">
-            {c.screens.map((sc) => (
-              <figure class:list={["screen", sc.src && "screen-wide"]}>
-                {sc.src ? (
-                  <img src={sc.src} alt={sc.caption} loading="lazy" width="1600" height="869" />
-                ) : (
-                  <div class="screen-empty" role="img" aria-label={`${sc.caption} (screenshot to add)`}>
-                    <span class="chip">Screenshot to add</span>
-                  </div>
-                )}
-                <figcaption>{sc.caption}</figcaption>
-              </figure>
-            ))}
           </div>
         )
       }

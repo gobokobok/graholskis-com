@@ -149,7 +149,7 @@ const quotes = [
       <div class="case-grid">
         {
           cases.map((c) => (
-            <a href={`/cases/${c.slug}`} class="card case-card">
+            <a href={`/cases/${c.slug}`} class:list={["card case-card", c.featured && "case-featured"]}>
               <div class="case-visual">
                 <CaseVisual visual={c.visual} small />
               </div>

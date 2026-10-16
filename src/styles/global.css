@@ -1407,3 +1407,97 @@
     max-width: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Featured case card (dark) and the product showcase in a case header.
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Re-points the tokens so everything inside (chips, pipeline tints) follows. */
+  .case-featured {
+    --bg: #121215;
+    --bg-soft: #1c1c21;
+    --text: #fafafa;
+    --ink-sub: #b4b4ba;
+    --muted: #8b8b92;
+    --border: #2c2c32;
+    --border-strong: #55555c;
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--bg);
+  }
+  .case-featured.card:hover {
+    border-color: #55555c;
+    box-shadow: 0 8px 28px rgba(18, 18, 21, 0.18);
+  }
+  .case-featured .case-visual {
+    background: var(--bg-soft);
+  }
+  .case-featured .more {
+    color: #9fb0f7;
+  }
+
+  .showcase {
+    position: relative;
+    margin-top: 96px;
+    padding-bottom: 72px;
+  }
+  .shot-desktop {
+    width: 88%;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: 0 24px 64px rgba(18, 18, 21, 0.1);
+  }
+  .shot-desktop img,
+  .shot-phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .shot-phones {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 36%;
+    display: flex;
+    gap: 4%;
+    align-items: flex-end;
+  }
+  .shot-phone {
+    flex: 1;
+    padding: 6px;
+    border-radius: 28px;
+    background: #121215;
+    box-shadow: 0 24px 56px rgba(18, 18, 21, 0.22);
+  }
+  .shot-phone img {
+    border-radius: 22px;
+  }
+  .shot-phone:first-child {
+    margin-bottom: 48px;
+  }
+  @media (max-width: 760px) {
+    .showcase {
+      margin-top: 56px;
+      padding-bottom: 40px;
+    }
+    .shot-desktop {
+      width: 100%;
+    }
+    .shot-phones {
+      width: 58%;
+      right: -4px;
+    }
+    .shot-phone {
+      padding: 4px;
+      border-radius: 18px;
+    }
+    .shot-phone img {
+      border-radius: 14px;
+    }
+    .shot-phone:first-child {
+      margin-bottom: 24px;
+    }
+  }
+}
