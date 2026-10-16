@@ -1468,8 +1468,8 @@
     flex: 1;
     padding: 6px;
     border-radius: 28px;
-    background: #121215;
-    box-shadow: 0 24px 56px rgba(18, 18, 21, 0.22);
+    background: var(--border-strong);
+    box-shadow: 0 24px 56px rgba(18, 18, 21, 0.16);
   }
   .shot-phone img {
     border-radius: 22px;
