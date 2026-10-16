@@ -1340,8 +1340,9 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 32px;
     }
-    .screen:first-child {
+    .screen-wide {
       grid-column: 1 / -1;
+      order: -1;
     }
   }
   .screen {
@@ -1385,5 +1386,24 @@
 @media (min-width: 1100px) {
   .case-hero {
     padding: 120px 0 128px;
+  }
+}
+@layer components {
+  .case-list .card .h-card {
+    margin: 0 0 8px;
+  }
+  .case-list .card .ch-body {
+    color: var(--ink-sub);
+  }
+  .screen-empty {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1600 / 869;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--r);
+    background: var(--bg);
+  }
+  .case-text .case-list {
+    max-width: none;
   }
 }

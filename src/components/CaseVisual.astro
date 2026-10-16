@@ -6,8 +6,9 @@ import Pipeline from "./viz/Pipeline.astro";
 interface Props {
   visual: Case["visual"];
   small?: boolean;
+  fit?: boolean;
 }
-const { visual, small = false } = Astro.props;
+const { visual, small = false, fit = false } = Astro.props;
 ---
 
 {
@@ -21,6 +22,6 @@ const { visual, small = false } = Astro.props;
       compact={small}
     />
   ) : (
-    <Pipeline steps={visual.steps} small={small} loop={small ? undefined : visual.loop} />
+    <Pipeline steps={visual.steps} small={small} fit={fit} loop={small ? undefined : visual.loop} />
   )
 }

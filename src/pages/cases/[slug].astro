@@ -74,7 +74,18 @@ const primary = links.find((l) => l.href);
       <div class="case-row">
         <h2 class="h-sec">Challenges</h2>
         <ul class="case-list">
-          {c.challenges.map((ch) => <li class="card"><p>{ch}</p></li>)}
+          {
+            c.challenges.map((ch) =>
+              typeof ch === "string" ? (
+                <li class="card"><p>{ch}</p></li>
+              ) : (
+                <li class="card">
+                  <h3 class="h-card">{ch.title}</h3>
+                  <p class="ch-body">{ch.body}</p>
+                </li>
+              ),
+            )
+          }
         </ul>
       </div>
     </Container>
@@ -91,22 +102,12 @@ const primary = links.find((l) => l.href);
       </div>
 
       {
-        c.screens && (
-          <div class="case-media">
-            <div class="exhibit">
-              <div class="exhibit-head">
-                <h3>The pipeline</h3>
-              </div>
-              <CaseVisual visual={c.visual} />
+        c.solution.showVisual && (
+          <div class="exhibit case-media">
+            <div class="exhibit-head">
+              <h3>Pipeline flow</h3>
             </div>
-            <div class="screens">
-              {c.screens.map((s) => (
-                <figure class="screen">
-                  <img src={s.src} alt={s.caption} loading="lazy" width="1600" height="866" />
-                  <figcaption>{s.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
+            <CaseVisual visual={c.visual} fit />
           </div>
         )
       }
@@ -126,9 +127,39 @@ const primary = links.find((l) => l.href);
 
       {
         c.solution.outro && (
-          <div class="case-row" style="margin-top:64px;">
+          <div class="case-row" style="margin-top:72px;">
             <div />
             <div class="case-text">{c.solution.outro.map((p) => <p>{p}</p>)}</div>
+          </div>
+        )
+      }
+
+      {
+        c.solution.points && (
+          <div class="case-row" style="margin-top:72px;">
+            <h3 class="h-card" style="font-size:24px;">{c.solution.points.title}</h3>
+            <ul class="case-list">
+              {c.solution.points.items.map((it) => <li class="card"><p>{it}</p></li>)}
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        c.screens && (
+          <div class="screens case-media">
+            {c.screens.map((sc) => (
+              <figure class:list={["screen", sc.src && "screen-wide"]}>
+                {sc.src ? (
+                  <img src={sc.src} alt={sc.caption} loading="lazy" width="1600" height="869" />
+                ) : (
+                  <div class="screen-empty" role="img" aria-label={`${sc.caption} (screenshot to add)`}>
+                    <span class="chip">Screenshot to add</span>
+                  </div>
+                )}
+                <figcaption>{sc.caption}</figcaption>
+              </figure>
+            ))}
           </div>
         )
       }
@@ -143,7 +174,11 @@ const primary = links.find((l) => l.href);
       <div class="case-row">
         <h2 class="h-sec">Outcome</h2>
         <div class="case-text">
-          {c.outcome.map((p) => <p class="case-lead">{p}</p>)}
+          {c.outcomeAsList ? (
+            <ul class="case-list">{c.outcome.map((p) => <li class="card"><p>{p}</p></li>)}</ul>
+          ) : (
+            c.outcome.map((p) => <p class="case-lead">{p}</p>)
+          )}
         </div>
       </div>
       {

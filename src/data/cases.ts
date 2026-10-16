@@ -18,16 +18,23 @@ export interface Case {
   /** Keywords shown as chips on the card. */
   chips: string[];
   request: string[];
-  challenges: string[];
+  /** Plain sentences, or a short title with a body. */
+  challenges: (string | { title: string; body: string })[];
   solution: {
     intro: string[];
     /** Named parts of the solution, rendered as cards. */
     parts?: { title: string; body: string }[];
+    /** Show the case diagram after the intro (Content Factory). */
+    showVisual?: boolean;
     /** Paragraphs after the parts. */
     outro?: string[];
+    /** A titled list after the paragraphs. */
+    points?: { title: string; items: string[] };
     stack: string;
   };
   outcome: string[];
+  /** Render the outcome as a list of cards instead of paragraphs. */
+  outcomeAsList?: boolean;
   /** Optional headline figures shown above the outcome text. */
   figures?: { metric: string; label: string }[];
   lessons: string[];
@@ -181,55 +188,79 @@ export const cases: Case[] = [
   {
     slug: "content-factory",
     cardTitle: "Content Factory",
-    title: "Content Factory: an AI video pipeline run daily in production",
-    summary:
-      "A niche in, a finished video out, with a human approval gate at each editorial step.",
+    title: "Content Factory",
+    summary: "A pipeline that turns a topic into a finished short video, with a human approving each step.",
     meta: [
-      { k: "Role", v: "Builder" },
-      { k: "Type", v: "Own product" },
-      { k: "Status", v: "Live, friends beta" },
-      { k: "Duration", v: "Ongoing" },
+      { k: "Role", v: "Product owner and builder" },
+      { k: "Status", v: "Running on a test environment, friends beta in preparation" },
+      { k: "Period", v: "2026" },
+      { k: "Built with", v: "Claude Code" },
     ],
-    chips: ["FastAPI", "Claude", "Postgres"],
+    chips: ["LangGraph", "FastAPI", "Claude"],
     request: [
-      "Draft, waiting for your text. Make a finished short video from a niche in under an hour, with a person deciding at every editorial step.",
+      "I wanted to run a faceless YouTube Shorts channel about American housing economics. Producing one video by hand takes hours: finding an idea, writing a fact-checked script, collecting footage, recording a voice and editing. I wanted this to take minutes of my attention per video, without losing control over quality.",
     ],
     challenges: [
-      "Scenes have to cut on the exact words of the voiceover, not on guesses.",
-      "Every paid call is estimated and reserved before it runs, and refunded if it fails.",
-      "Each step writes a versioned artifact, so any step can be inspected and rerun.",
-      "Accounts, credits, limits and moderation had to exist before other people could use it.",
+      { title: "Quality at every step", body: "A fully automatic flow produced wrong facts, mismatched footage and misheard words in captions. The pipeline needed human approval points." },
+      { title: "Cost", body: "Every video calls several paid APIs for text, voice, images and transcription. Costs had to be visible and capped before anyone else could use the tool." },
+      { title: "Reliability", body: "A render with ten steps fails somewhere. Every step had to be repeatable without redoing the previous ones." },
+      { title: "A second audience", body: "The tool started as an operator tool. Friends needed a simpler flow, with their own accounts and their own data." },
     ],
     solution: {
       intro: [
-        "Draft, waiting for your text. A pipeline of six steps, each producing a stored, versioned artifact that the operator reviews before the next step unlocks.",
+        "The platform takes a project through five steps, and each step stores its result so it can be reviewed or repeated.",
       ],
-      stack: "Python, FastAPI, Claude, Gemini TTS, Deepgram, Postgres, Cloudflare R2, Railway.",
+      showVisual: true,
+      outro: [
+        "Behind it, each step is a small stateless worker. LangGraph runs the workers and a Postgres checkpoint allows a run to resume after a restart. Every output is a versioned artifact, so I can see which prompt and model produced it. The render runs either on the server with FFmpeg or on my laptop through a CapCut export, both from the same timeline.",
+      ],
+      points: {
+        title: "Other parts",
+        items: [
+          "Operator mode for me, and a simplified “Creator” flow for friends (pick a story, a voice and characters, see the cost, get a video).",
+          "Google sign-in, per-user data isolation and server-side access checks.",
+          "Credits with a hold before each paid call, a refund if the call fails, and hard limits so nobody can overspend. The owner tops up accounts and sees usage.",
+          "Two security audits, with findings tracked and fixed, and a backup and restore drill.",
+        ],
+      },
+      stack:
+        "Python, FastAPI, LangGraph, Postgres, Cloudflare R2, FFmpeg, Claude and other model APIs, plain HTML and JavaScript, Railway.",
     },
-    outcome: ["Draft, waiting for your text."],
-    lessons: ["Draft, waiting for your text."],
+    outcome: [
+      "The full flow works from idea to rendered video on the test environment, in 9:16 and 16:9, with real runs reviewed by hand.",
+      "Around 3,400 automated tests pass.",
+      "Credits, limits and the owner admin view are built. They are switched off until the friends beta opens.",
+      "Not yet done: production release, online payments, publishing to YouTube.",
+    ],
+    outcomeAsList: true,
+    lessons: [
+      "Human approval points cost little and catch most errors. I would add them earlier next time.",
+      "Store every step’s output as its own artifact. Retrying one step is then cheap and debugging is simple.",
+      "Plan billing and access control before a second user arrives, not after. Adding them later touched almost every paid call.",
+      "A fixed flow with an LLM at some steps worked better than an autonomous agent. I knew the order of the steps in advance, so I did not need an agent to decide it.",
+    ],
     links: {
       product: { href: "https://cf.graholskis.com", note: "cf.graholskis.com, the Content Factory studio" },
       code: { href: "https://github.com/gobokobok/content-factory-saas", note: "Full source, FastAPI and vanilla JS" },
       video: { href: "", note: "How I built it, step by step" },
     },
+    // Empty src = screenshot still to add (a marked empty frame is shown).
     screens: [
-      { src: "/cases/content-factory/storyboard.webp", caption: "Storyboard: scene by scene, cut on word timestamps" },
-      { src: "/cases/content-factory/script.webp", caption: "Script: paste or generate, with a live word count" },
-      { src: "/cases/content-factory/video.webp", caption: "Video: the render with captions and music" },
+      { src: "", caption: "Project and idea shortlist" },
+      { src: "/cases/content-factory/storyboard.webp", caption: "Storyboard editor with per-scene image, video and prompt controls" },
+      { src: "", caption: "Creator flow with the cost shown before the video is made" },
     ],
-    placeholder: true,
+    placeholder: false,
     visual: {
       kind: "flow",
       steps: [
-        { label: "Niche", sub: "topic discovery", c: 1 },
-        { label: "Script", sub: "fact-checked", c: 2 },
-        { label: "Voice", sub: "TTS + timestamps", c: 3 },
-        { label: "Storyboard", sub: "scene by scene", c: 4 },
-        { label: "Footage", sub: "stock or generated", c: 5 },
-        { label: "Render", sub: "captions, music", c: 6 },
+        { label: "Idea shortlist", c: 1 },
+        { label: "Fact-checked script", c: 2 },
+        { label: "Storyboard", sub: "scenes, visuals, on-screen text", c: 3 },
+        { label: "Assets", sub: "stock footage, AI images, voiceover", c: 4 },
+        { label: "Render and metadata", c: 5 },
       ],
-      loop: "Approval gate at each editorial step",
+      loop: "A human approves each step before the next one starts",
     },
   },
 ];
