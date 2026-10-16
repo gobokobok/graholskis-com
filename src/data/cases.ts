@@ -62,10 +62,10 @@ export const cases: Case[] = [
   {
     slug: "content-factory",
     cardTitle: "GenAI for online content creators",
-    cardSummary: "A pipeline that turns a creator’s idea into a finished video, with human-in-the-loop approvals.",
-    title: "Content Factory",
-    summary: "A pipeline that turns a topic into a finished short video, with a human approving each step.",
+    title: "GenAI for online content creators",
+    summary: "A pipeline that turns a creator’s idea into a finished video, with human-in-the-loop approvals.",
     meta: [
+      { k: "Product", v: "Content Factory" },
       { k: "Role", v: "Product owner and builder" },
       { k: "Status", v: "Running on a test environment, friends beta in preparation" },
       { k: "Period", v: "2026" },
@@ -141,7 +141,7 @@ export const cases: Case[] = [
   {
     slug: "industrial-iot",
     cardTitle: "Equipment tracking with IoT devices",
-    title: "Connected asset tracking for a road safety equipment provider",
+    title: "Equipment tracking with IoT devices",
     summary:
       "From a 20-line requirements list to an RFID business case with over €500K in identified annual savings.",
     meta: [
@@ -199,7 +199,7 @@ export const cases: Case[] = [
   {
     slug: "enterprise-iam",
     cardTitle: "Enterprise IAM, aligned onboarding and offboarding",
-    title: "Identity and access management after the Siemens–Gamesa merger",
+    title: "Enterprise IAM, aligned onboarding and offboarding",
     summary:
       "A governed identity lifecycle for employees and external users across a 25,000-person organisation.",
     meta: [
