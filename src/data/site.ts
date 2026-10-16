@@ -11,4 +11,4 @@ export const site = {
 
 export const bookHref =
   site.calendly || `mailto:${site.email}?subject=Intro call`;
-export const bookLabel = site.calendly ? "Book an intro call" : "Email me";
+export const bookLabel = "Get in touch";
