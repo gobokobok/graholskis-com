@@ -1749,3 +1749,46 @@
     margin-top: 48px;
   }
 }
+
+/* Hero stats as a one-row table, same look as the case meta strip. */
+@layer components {
+  .stat-table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .stat-table > div {
+    padding: 22px 24px;
+  }
+  .stat-table > div + div {
+    border-left: 1px solid var(--border);
+  }
+  .stat-num {
+    margin: 0;
+    font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .stat-label {
+    margin: 8px 0 0;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+  @media (max-width: 560px) {
+    .stat-table > div {
+      padding: 16px 14px;
+    }
+    .stat-num {
+      font-size: 1.5rem;
+    }
+    .stat-label {
+      font-size: 13px;
+    }
+  }
+}

@@ -88,12 +88,12 @@ const services = [
             <a class="link" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
             <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
           </div>
-          <div class="proof-row" style="margin-top:44px;" aria-label="Outcomes delivered">
+          <div class="stat-table" aria-label="Outcomes delivered">
             {
               proof.map((p) => (
                 <div>
-                  <p class="proof-num" style="font-size:2.5rem; font-weight:700; letter-spacing:-0.03em; margin:0;">{p.metric}</p>
-                  <p class="meta" style="margin-top:6px;">{p.label}</p>
+                  <p class="stat-num">{p.metric}</p>
+                  <p class="stat-label">{p.label}</p>
                 </div>
               ))
             }
