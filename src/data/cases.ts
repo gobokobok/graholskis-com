@@ -14,6 +14,8 @@ export interface Case {
   title: string;
   /** One-line summary under the title, also used on the card. */
   summary: string;
+  /** Overrides the summary on the landing-page card. */
+  cardSummary?: string;
   meta: { k: string; v: string }[];
   /** Keywords shown as chips on the card. */
   chips: string[];
@@ -59,7 +61,8 @@ export interface Case {
 export const cases: Case[] = [
   {
     slug: "content-factory",
-    cardTitle: "Content Factory",
+    cardTitle: "GenAI for online content creators",
+    cardSummary: "A pipeline that turns a creator’s idea into a finished video, with human-in-the-loop approvals.",
     title: "Content Factory",
     summary: "A pipeline that turns a topic into a finished short video, with a human approving each step.",
     meta: [
@@ -137,7 +140,7 @@ export const cases: Case[] = [
   },
   {
     slug: "industrial-iot",
-    cardTitle: "Industrial IoT, road safety equipment",
+    cardTitle: "Equipment tracking with IoT devices",
     title: "Connected asset tracking for a road safety equipment provider",
     summary:
       "From a 20-line requirements list to an RFID business case with over €500K in identified annual savings.",
@@ -195,7 +198,7 @@ export const cases: Case[] = [
   },
   {
     slug: "enterprise-iam",
-    cardTitle: "Enterprise IAM at Siemens Gamesa",
+    cardTitle: "Enterprise IAM, aligned onboarding and offboarding",
     title: "Identity and access management after the Siemens–Gamesa merger",
     summary:
       "A governed identity lifecycle for employees and external users across a 25,000-person organisation.",

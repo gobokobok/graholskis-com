@@ -140,7 +140,7 @@ const services = [
                 <CaseVisual visual={c.visual} small />
               </div>
               <h3>{c.cardTitle}</h3>
-              <p>{c.summary}</p>
+              <p>{c.cardSummary ?? c.summary}</p>
               <div class="chips">
                 {c.chips.map((s) => <span class="chip">{s}</span>)}
                 {c.placeholder && <span class="chip">Draft</span>}
