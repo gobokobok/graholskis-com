@@ -1676,3 +1676,36 @@
     font-size: 14px;
   }
 }
+
+/* Meta strip as a one-row, four-column table. */
+@layer components {
+  .meta-strip {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 80px 0 0;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .meta-strip > div {
+    padding: 22px 26px;
+  }
+  .meta-strip > div + div {
+    border-top: 1px solid var(--border);
+  }
+  @media (min-width: 760px) {
+    .meta-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .meta-strip > div + div {
+      border-top: 0;
+      border-left: 1px solid var(--border);
+    }
+  }
+  .meta-strip dd {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}

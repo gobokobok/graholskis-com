@@ -67,7 +67,6 @@ export const cases: Case[] = [
     meta: [
       { k: "Product", v: "Content Factory" },
       { k: "Role", v: "Product owner and builder" },
-      { k: "Status", v: "Running on a test environment, friends beta in preparation" },
       { k: "Period", v: "2026" },
       { k: "Built with", v: "Claude Code" },
     ],
@@ -205,8 +204,7 @@ export const cases: Case[] = [
     meta: [
       { k: "Role", v: "Enterprise Architect, owner of the IAM capability" },
       { k: "Organisation", v: "Siemens Gamesa Renewable Energy" },
-      { k: "Scope", v: "Global, employees and external workforce" },
-      { k: "Duration", v: "Multi-year, phased" },
+      { k: "Scope", v: "Global, employees and external workforce, multi-year and phased" },
       { k: "Partners", v: "Deloitte, Infosys" },
     ],
     chips: ["Workday", "Azure AD", "ServiceNow"],
