@@ -1798,3 +1798,11 @@
   grid-auto-flow: column;
   max-width: 34rem;
 }
+
+.console dl.console-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.console dl.console-2 dd {
+  font-size: 26px;
+  letter-spacing: -0.03em;
+}

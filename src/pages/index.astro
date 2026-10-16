@@ -11,11 +11,6 @@ import { cases } from "../data/cases";
 import { products } from "../data/products";
 import { site, bookHref, bookLabel } from "../data/site";
 
-const proof = [
-  { metric: "€10M+", label: "Savings delivered" },
-  { metric: "25K+", label: "Employees impacted" },
-];
-
 // Illustrative figures for the exhibits. Replace with a real case's numbers.
 // Share of the manual steps the system now handles, by week after go-live (illustrative).
 const saved = [14, 30, 46, 59, 69, 75, 79, 81, 82, 83, 84, 84];
@@ -87,16 +82,6 @@ const services = [
             <a class="link" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
             <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
           </div>
-          <div class="stat-table" aria-label="Outcomes delivered">
-            {
-              proof.map((p) => (
-                <div>
-                  <p class="stat-num">{p.metric}</p>
-                  <p class="stat-label">{p.label}</p>
-                </div>
-              ))
-            }
-          </div>
         </div>
 
         <div class="hero-visual">
@@ -104,17 +89,16 @@ const services = [
           <div class="photo" role="img" aria-label="Photo of Aleksandrs Graholskis (placeholder)">
             <span class="label">Photo</span>
           </div>
-          <div class="console" aria-label="Example of a system in production (illustrative)">
+          <div class="console" aria-label="Track record: €10M+ savings delivered, 25K+ employees impacted">
             <div class="console-top">
-              <span class="status-live">In production</span>
-              <span class="num">procurement-assistant</span>
+              <span class="status-live">Delivered</span>
+              <span class="num">track record</span>
             </div>
-            <dl>
-              <div><dt>Eval pass</dt><dd>96%</dd></div>
-              <div><dt>p95</dt><dd>1.8 s</dd></div>
-              <div><dt>Per answer</dt><dd>€0.006</dd></div>
+            <dl class="console-2">
+              <div><dt>Savings delivered</dt><dd>€10M+</dd></div>
+              <div><dt>Employees impacted</dt><dd>25K+</dd></div>
             </dl>
-            <LineChart name="Weekly users" values={[120, 180, 210, 260, 300, 340, 390, 420]} labels={["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"]} ticks={[]} max={480} />
+            <LineChart name="Cumulative savings" values={[0.2, 0.6, 1.1, 1.9, 3.0, 4.4, 6.1, 7.9, 10]} labels={[]} axisLabels={["First project", "Today"]} tips={[0.2, 0.6, 1.1, 1.9, 3.0, 4.4, 6.1, 7.9, 10].map((v) => `€${v}M saved`)} ticks={[]} max={11} endLabel="€10M+" />
           </div>
         </div>
       </div>
