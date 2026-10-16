@@ -1,0 +1,34 @@
+---
+/** A left-to-right flow of steps. Each step takes a palette slot (1-6);
+ *  `gate: true` draws a human checkpoint (dashed, no colour). Wraps on narrow screens. */
+export interface Step {
+  label: string;
+  sub?: string;
+  c?: number;
+  gate?: boolean;
+}
+interface Props {
+  steps: Step[];
+  small?: boolean;
+  /** Stretch steps to fill one row on desktop (wide containers only). */
+  fit?: boolean;
+  loop?: string;
+}
+const { steps, small = false, fit = false, loop } = Astro.props;
+---
+
+<div>
+  <ol class:list={["pipe", small && "sm", fit && "fit"]}>
+    {
+      steps.map((s) => (
+        <li>
+          <div class:list={["node", s.gate && "gate"]} style={s.c ? `--nc: var(--c${s.c})` : undefined}>
+            <b>{s.label}</b>
+            {s.sub && !small && <span>{s.sub}</span>}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  {loop && <p class="loop">↺ {loop}</p>}
+</div>

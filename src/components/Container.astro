@@ -1,19 +1,14 @@
 ---
 interface Props {
-  /** Visual width: "page" matches the topbar (1100px), "prose" is 42rem narrative */
-  width?: "page" | "prose";
   as?: "div" | "section" | "article";
+  /** Wide (1120px) for landing bands; default is the 760px reading column. */
+  wide?: boolean;
   class?: string;
 }
 
-const { width = "page", as: Tag = "div", class: extra = "" } = Astro.props;
-
-const widthClass =
-  width === "prose"
-    ? "max-w-[var(--container-prose)]"
-    : "max-w-[var(--container-page)]";
+const { as: Tag = "div", wide = false, class: extra = "" } = Astro.props;
 ---
 
-<Tag class:list={["mx-auto px-6 sm:px-12", widthClass, extra]}>
+<Tag class:list={[wide ? "wide" : "wrap", extra]}>
   <slot />
 </Tag>

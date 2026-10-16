@@ -1,0 +1,54 @@
+---
+/** Single-series vertical bars, 4px rounded tops anchored to the baseline, 2px gaps. */
+interface Props {
+  values: number[];
+  labels: string[];
+  ticks: number[];
+  max: number;
+  fmt?: (v: number) => string;
+  name: string;
+  c?: number;
+  compact?: boolean;
+}
+const { values, labels, ticks, max, name, c = 1, compact = false } = Astro.props;
+const fmt = Astro.props.fmt ?? ((v: number) => String(v));
+const W = 320, H = compact ? 96 : 150, L = compact ? 4 : 34, R = 4, T = compact ? 16 : 10, B = 20;
+const slot = (W - L - R) / values.length;
+const bw = Math.min(slot - 2, compact ? 40 : 30);
+const y = (v: number) => T + (1 - v / max) * (H - T - B);
+const base = y(0);
+const col = `var(--c${c})`;
+const bar = (i: number, v: number) => {
+  const x0 = L + i * slot + (slot - bw) / 2;
+  const y0 = y(v);
+  const r = Math.min(4, base - y0);
+  return `M${x0},${base} V${y0 + r} Q${x0},${y0} ${x0 + r},${y0} H${x0 + bw - r} Q${x0 + bw},${y0} ${x0 + bw},${y0 + r} V${base} Z`;
+};
+---
+
+<div class="viz">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${name}: ${values.map((v, i) => `${labels[i]} ${fmt(v)}`).join(", ")}`}>
+    {
+      !compact &&
+        ticks.map((t) => (
+          <g>
+            <line x1={L} x2={W - R} y1={y(t)} y2={y(t)} stroke="var(--grid)" stroke-width="1" />
+            <text x={L - 6} y={y(t) + 3} text-anchor="end">{fmt(t)}</text>
+          </g>
+        ))
+    }
+    <line x1={L} x2={W - R} y1={base} y2={base} stroke="var(--axis)" stroke-width="1" />
+    {
+      values.map((v, i) => (
+        <g data-tip={`${labels[i]} · ${fmt(v)}`}>
+          <rect x={L + i * slot} y={T} width={slot} height={H - T - B} fill="transparent" />
+          <path d={bar(i, v)} fill={col} />
+          <text x={L + i * slot + slot / 2} y={H - 5} text-anchor="middle">{labels[i]}</text>
+        </g>
+      ))
+    }
+    <text class="v-strong" x={L + (values.length - 0.5) * slot} y={y(values[values.length - 1]) - 6} text-anchor="middle">
+      {fmt(values[values.length - 1])}
+    </text>
+  </svg>
+</div>

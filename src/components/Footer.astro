@@ -1,19 +1,15 @@
 ---
+import { site } from "../data/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--color-surface)] border-t-2 border-[var(--color-rule)]">
-  <div class="max-w-[var(--container-page)] mx-auto px-6 sm:px-12 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-
-    <p class="font-[family-name:var(--font-serif)] italic text-[15px] text-[var(--color-muted)]">
-      <strong class="text-[var(--color-ink)] not-italic font-semibold">Aleksandrs Graholskis</strong>
-       — Enterprise AI Architect ·
-      <span class="text-[var(--color-graphite)]">"From AI Debt to AI Architecture."</span>
-    </p>
-
-    <p class="font-[family-name:var(--font-mono)] text-[9px] tracking-[0.14em] uppercase text-[var(--color-muted)]">
-      © {year}
-    </p>
-
+<footer class="wide" style="padding-top:40px; padding-bottom:48px;">
+  <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center;">
+    <p class="meta">{site.name} · {site.role} · © {year}</p>
+    <div class="foot-links">
+      <a class="link" href={site.github} rel="noopener" target="_blank">GitHub</a>
+      <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn</a>
+      {site.youtube && <a class="link" href={site.youtube} rel="noopener" target="_blank">YouTube</a>}
+    </div>
   </div>
 </footer>

@@ -1,58 +1,28 @@
 ---
-const navLinks = [
-  { href: "/lab",        label: "Lab" },
-  { href: "/frameworks", label: "Frameworks" },
-  { href: "/about",      label: "About" },
-  { href: "/contact",    label: "Contact" },
+import { bookHref } from "../data/site";
+const links = [
+  { href: "/#cases", label: "Cases" },
+  { href: "/#services", label: "Services" },
+  { href: "/#products", label: "Products" },
 ];
-
-const path = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
 ---
 
-<header class="sticky top-0 z-40 bg-[var(--color-ink)] border-b-2 border-[var(--color-amber)]">
-  <div class="max-w-[var(--container-page)] mx-auto px-6 sm:px-12 py-4 flex items-center justify-between gap-8">
-
-    {/* Wordmark */}
-    <a
-      href="/"
-      class="flex items-baseline gap-3 group shrink-0"
-      aria-label="Aleksandrs Graholskis — home"
-    >
-      <span
-        class="font-[family-name:var(--font-display)] font-extrabold text-[16px] tracking-[-0.01em] text-[var(--color-paper)] group-hover:text-[var(--color-amber)] transition-colors"
-      >
-        graholskis.com
-      </span>
-      <span
-        class="font-[family-name:var(--font-mono)] text-[9px] tracking-[0.2em] uppercase text-white/35 hidden sm:inline leading-none"
-      >
-        Enterprise&nbsp;AI&nbsp;Architect
-      </span>
+<header class="site-head">
+  <div class="wide row">
+    <a href="/" style="font-weight:600; font-size:17px; letter-spacing:-0.01em; text-decoration:none;" aria-label="Aleksandrs Graholskis — home">
+      Aleksandrs Graholskis
     </a>
-
-    {/* Nav */}
-    <nav aria-label="Primary navigation">
-      <ul class="flex items-center gap-0.5 sm:gap-1">
-        {navLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              class:list={[
-                "block px-3.5 py-2 font-[family-name:var(--font-sans)] text-[12.5px] font-medium tracking-[0.02em] transition-colors rounded-none",
-                isActive(link.href)
-                  ? "text-[var(--color-amber)]"
-                  : "text-white/55 hover:text-white",
-              ]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav class="site-nav" aria-label="Primary navigation" style="display:flex; align-items:center; gap:2px;">
+      {links.map((l) => <a href={l.href} class="hide-sm">{l.label}</a>)}
+      <a href={bookHref} class="btn btn-primary btn-sm" style="margin-left:8px; color:#fff;">Get in touch</a>
     </nav>
-
   </div>
 </header>
+
+<style>
+  @media (max-width: 560px) {
+    .hide-sm {
+      display: none;
+    }
+  }
+</style>
