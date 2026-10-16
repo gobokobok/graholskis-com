@@ -1514,7 +1514,7 @@
   }
   @media (min-width: 900px) {
     .price-tag {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 64px;
       margin-top: 40px;
@@ -1536,5 +1536,18 @@
     font-size: 17px;
     line-height: 1.55;
     color: var(--ink-sub);
+  }
+}
+
+@layer components {
+  .price-cta {
+    justify-self: start;
+    margin-top: 8px;
+  }
+  @media (min-width: 900px) {
+    .price-cta {
+      margin-top: 0;
+      justify-self: end;
+    }
   }
 }
