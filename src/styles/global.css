@@ -1572,3 +1572,28 @@
 .sub-head + .svc-grid {
   margin-top: 24px;
 }
+
+/* Dark exhibit: re-points the tokens, so text, chips and pipeline tints follow. */
+@layer components {
+  .exhibit-dark {
+    --bg: #121215;
+    --bg-soft: #1c1c21;
+    --text: #fafafa;
+    --ink-sub: #b4b4ba;
+    --muted: #8b8b92;
+    --faint: #55555c;
+    --border: #2c2c32;
+    --border-strong: #55555c;
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--bg);
+  }
+  .exhibit-dark .node {
+    background: color-mix(in oklab, var(--nc) 16%, var(--bg));
+    border-color: color-mix(in oklab, var(--nc) 45%, var(--bg));
+  }
+  .exhibit-dark .node.gate {
+    background: var(--bg);
+    border-color: var(--border-strong);
+  }
+}

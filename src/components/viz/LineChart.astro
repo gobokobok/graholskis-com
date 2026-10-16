@@ -10,7 +10,7 @@ interface Props {
   c?: number;
 }
 const { values, labels, ticks, max, unit = "", name, c = 1 } = Astro.props;
-const W = 320, H = 150, L = 30, R = 34, T = 10, B = 20;
+const W = 320, H = 150, L = unit ? 36 : 30, R = unit ? 40 : 34, T = 10, B = 20;
 const x = (i: number) => L + (i * (W - L - R)) / (values.length - 1);
 const y = (v: number) => T + (1 - v / max) * (H - T - B);
 const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
@@ -26,7 +26,7 @@ const col = `var(--c${c})`;
       ticks.map((t) => (
         <g>
           <line x1={L} x2={W - R} y1={y(t)} y2={y(t)} stroke={t === 0 ? "var(--axis)" : "var(--grid)"} stroke-width="1" />
-          <text x={L - 6} y={y(t) + 3} text-anchor="end">{t}</text>
+          <text x={L - 6} y={y(t) + 3} text-anchor="end">{t}{unit}</text>
         </g>
       ))
     }

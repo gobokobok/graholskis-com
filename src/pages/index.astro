@@ -18,8 +18,9 @@ const proof = [
 ];
 
 // Illustrative figures for the exhibits. Replace with a real case's numbers.
-const wau = [40, 55, 70, 110, 160, 210, 260, 300, 340, 370, 395, 420];
-const weeks = wau.map((_, i) => `W${i + 1}`);
+// Share of the manual steps the system now handles, by week after go-live (illustrative).
+const saved = [14, 30, 46, 59, 69, 75, 79, 81, 82, 83, 84, 84];
+const weeks = saved.map((_, i) => `W${i + 1}`);
 const cost = [0.041, 0.032, 0.021, 0.014, 0.009, 0.006];
 const months = ["M1", "M2", "M3", "M4", "M5", "M6"];
 const effort = [
@@ -159,7 +160,7 @@ const services = [
         <h2 class="h-sec" style="max-width:24ch;">The model is the small part. The system around it is the work.</h2>
       </div>
 
-      <div class="exhibit" style="margin-bottom:16px;">
+      <div class="exhibit exhibit-dark" style="margin-bottom:16px;">
         <div class="exhibit-head">
           <h3>What I put into production</h3>
           <p class="exhibit-note">Typical shape</p>
@@ -170,16 +171,14 @@ const services = [
       <div class="ex-grid">
         <div class="exhibit">
           <div class="exhibit-head">
-            <h3>Weekly active users</h3>
-            <span class="chip">Illustrative</span>
+            <h3>Manual work saved</h3>
           </div>
-          <LineChart name="Weekly active users" values={wau} labels={weeks} ticks={[0, 200, 400]} max={450} />
-          <p class="exhibit-note">Adoption after go-live, 12 weeks.</p>
+          <LineChart name="Manual work saved" values={saved} labels={weeks} ticks={[0, 50, 100]} max={100} unit="%" />
+          <p class="exhibit-note">Share of the manual steps the system now handles, 12 weeks after go-live.</p>
         </div>
         <div class="exhibit">
           <div class="exhibit-head">
             <h3>Cost per answer</h3>
-            <span class="chip">Illustrative</span>
           </div>
           <BarChart
             name="Cost per answer"
@@ -194,7 +193,6 @@ const services = [
         <div class="exhibit">
           <div class="exhibit-head">
             <h3>Where the effort goes</h3>
-            <span class="chip">Illustrative</span>
           </div>
           <SplitBar parts={effort} />
           <p class="exhibit-note">Share of a typical build. Model work is the smallest slice.</p>
