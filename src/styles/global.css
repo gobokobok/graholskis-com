@@ -1597,3 +1597,81 @@
     border-color: var(--border-strong);
   }
 }
+
+/* ------------------------------------------------------------------
+   Dark surfaces, higher contrast: brighter text, stronger tinted
+   fills and borders, bigger markers. Applies to the dark exhibit and
+   the featured case card.
+   ------------------------------------------------------------------ */
+@layer components {
+  .exhibit-dark,
+  .case-featured {
+    --ink-sub: #d2d2d8;
+    --muted: #a8a8b0;
+    --border-strong: #8b8b94;
+  }
+  .exhibit-dark .node,
+  .case-featured .node {
+    background: color-mix(in oklab, var(--nc) 30%, #121215);
+    border-color: color-mix(in oklab, var(--nc) 75%, #121215);
+  }
+  .exhibit-dark .node b,
+  .case-featured .node b {
+    color: #fff;
+  }
+  .exhibit-dark .node span,
+  .case-featured .node span {
+    color: #d8d8de;
+  }
+  .exhibit-dark .node b::before,
+  .case-featured .node b::before {
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--nc) 35%, #121215);
+  }
+  .exhibit-dark .node.gate,
+  .case-featured .node.gate {
+    background: #1c1c21;
+    border-color: #a8a8b0;
+  }
+  .exhibit-dark .node.gate b::before,
+  .case-featured .node.gate b::before {
+    border-color: #fff;
+    box-shadow: none;
+  }
+  .exhibit-dark .pipe li + li::before,
+  .case-featured .pipe li + li::before {
+    color: #a8a8b0;
+  }
+  .exhibit-dark .exhibit-head h3 {
+    color: #fff;
+    font-size: 20px;
+  }
+  .exhibit-dark .loop {
+    color: #c4c4cc;
+  }
+  .case-featured .chip {
+    background: #2b2b33;
+    border-color: #4a4a52;
+    color: #e4e4ea;
+  }
+  .case-featured .case-visual {
+    background: #2b2b33;
+  }
+  .case-featured h3 {
+    color: #fff;
+  }
+  .case-featured .more {
+    color: #b6c3ff;
+  }
+}
+
+@layer components {
+  .exhibit-dark .pipe li + li::before,
+  .case-featured .pipe li + li::before {
+    color: #d2d2d8;
+  }
+  .case-featured .pipe.sm li + li::before {
+    font-size: 14px;
+  }
+}
