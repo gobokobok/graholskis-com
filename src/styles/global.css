@@ -1806,3 +1806,39 @@
   font-size: 26px;
   letter-spacing: -0.03em;
 }
+
+.console.console-slim {
+  padding: 24px 28px;
+  width: min(380px, 88%);
+}
+.console.console-slim dl.console-2 {
+  margin: 0;
+  gap: 24px;
+}
+.console.console-slim dt {
+  font-family: var(--font);
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.console.console-slim dd {
+  margin: 6px 0 0;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+@media (max-width: 879px) {
+  .console.console-slim {
+    padding: 18px 20px;
+  }
+  .console.console-slim dd {
+    font-size: 28px;
+  }
+}
+.console.console-slim dl.console-2 > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

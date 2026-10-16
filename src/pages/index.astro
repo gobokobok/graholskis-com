@@ -89,16 +89,11 @@ const services = [
           <div class="photo" role="img" aria-label="Photo of Aleksandrs Graholskis (placeholder)">
             <span class="label">Photo</span>
           </div>
-          <div class="console" aria-label="Track record: €10M+ savings delivered, 25K+ employees impacted">
-            <div class="console-top">
-              <span class="status-live">Delivered</span>
-              <span class="num">track record</span>
-            </div>
+          <div class="console console-slim" aria-label="Savings delivered: €10M+. Employees impacted: 25K+.">
             <dl class="console-2">
               <div><dt>Savings delivered</dt><dd>€10M+</dd></div>
               <div><dt>Employees impacted</dt><dd>25K+</dd></div>
             </dl>
-            <LineChart name="Cumulative savings" values={[0.2, 0.6, 1.1, 1.9, 3.0, 4.4, 6.1, 7.9, 10]} labels={[]} axisLabels={["First project", "Today"]} tips={[0.2, 0.6, 1.1, 1.9, 3.0, 4.4, 6.1, 7.9, 10].map((v) => `€${v}M saved`)} ticks={[]} max={11} endLabel="€10M+" />
           </div>
         </div>
       </div>
