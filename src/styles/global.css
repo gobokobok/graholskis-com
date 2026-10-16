@@ -416,6 +416,7 @@
     }
   }
   .hero .h-hero {
+    text-wrap: balance;
     font-size: clamp(2.75rem, 5.2vw, 4.5rem);
     letter-spacing: -0.04em;
   }
