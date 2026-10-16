@@ -1256,3 +1256,134 @@
     white-space: nowrap;
   }
 }
+
+/* ------------------------------------------------------------------
+   Case page: six fixed parts, heading left / text right.
+   ------------------------------------------------------------------ */
+@layer components {
+  .case-title {
+    margin-top: 40px;
+    max-width: 22ch;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+  }
+  .meta-strip {
+    display: grid;
+    gap: 24px 32px;
+    margin: 80px 0 0;
+  }
+  @media (min-width: 760px) {
+    .meta-strip {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+  }
+  .meta-strip dt {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .meta-strip dd {
+    margin: 6px 0 0;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  .case-row {
+    display: grid;
+    gap: 32px;
+  }
+  @media (min-width: 980px) {
+    .case-row {
+      grid-template-columns: 1fr 1.7fr;
+      gap: 96px;
+    }
+  }
+  .case-text {
+    display: grid;
+    gap: 24px;
+    max-width: 46rem;
+  }
+  .case-text p {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink-sub);
+  }
+  .case-text .case-lead {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .case-list {
+    display: grid;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .case-list .card p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .case-media {
+    display: grid;
+    gap: 32px;
+    margin-top: 88px;
+  }
+  .screens {
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 900px) {
+    .screens {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .screen:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+  .screen {
+    margin: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    background: var(--bg);
+  }
+  .screen figcaption {
+    font-size: 15px;
+    color: var(--ink-sub);
+  }
+  .case-parts {
+    margin-top: 88px;
+  }
+  .tech-stack {
+    margin: 88px 0 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-sub);
+  }
+  .tech-stack strong {
+    color: var(--text);
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  .lesson {
+    font-size: 19px !important;
+    line-height: 1.55 !important;
+    color: var(--text) !important;
+    margin: 0 !important;
+  }
+}
+@media (min-width: 1100px) {
+  .case-hero {
+    padding: 120px 0 128px;
+  }
+}

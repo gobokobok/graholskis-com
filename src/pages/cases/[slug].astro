@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Container from "../../components/Container.astro";
 import CaseVisual from "../../components/CaseVisual.astro";
-import Gantt from "../../components/viz/Gantt.astro";
 import { cases, type Case } from "../../data/cases";
 import { site, bookHref, bookLabel } from "../../data/site";
 
@@ -15,166 +14,169 @@ export function getStaticPaths() {
 
 const { c, next } = Astro.props as { c: Case; next: Case };
 
-const facts = [
-  { k: "Client", v: c.client },
-  { k: "Role", v: c.role },
-  { k: "Duration", v: c.duration },
-  { k: "Status", v: c.status },
-];
-
 const linkMeta = {
   product: { title: "Open the product", kind: "Live product" },
   code: { title: "Code on GitHub", kind: "Repository" },
   project: { title: "Project on GitHub", kind: "Project notes" },
   video: { title: "Watch the walkthrough", kind: "YouTube" },
 } as const;
-const links = (Object.keys(linkMeta) as (keyof typeof linkMeta)[])
-  .filter((k) => c.links[k])
-  .map((k) => ({ ...linkMeta[k], ...c.links[k]! }));
+const links = c.links
+  ? (Object.keys(linkMeta) as (keyof typeof linkMeta)[])
+      .filter((k) => c.links![k])
+      .map((k) => ({ ...linkMeta[k], ...c.links![k]! }))
+  : [];
 const primary = links.find((l) => l.href);
 ---
 
 <BaseLayout title={c.title} description={c.summary}>
-  {/* HEADER */}
-  <section class="hero" style="padding-bottom:96px;">
+  {/* 1. HEADER */}
+  <section class="hero case-hero">
     <Container wide>
-      <a href="/#cases" class="link meta" style="color:var(--accent); font-size:16px;">← All cases</a>
-      <div class="case-head">
-        <div>
-          <h1 class="h-sec" style="max-width:20ch; margin-top:40px;">{c.title}</h1>
-          <p class="lede" style="margin-top:28px;">{c.summary}</p>
+      <a href="/#cases" class="link" style="font-size:16px;">← All cases</a>
+      <h1 class="h-sec case-title">{c.title}</h1>
+      <p class="lede" style="margin-top:28px;">{c.summary}</p>
+      {
+        primary && (
           <div class="hero-links">
-            {primary && (
-              <a href={primary.href} class="btn btn-primary" rel="noopener" target="_blank">{primary.title} ↗</a>
-            )}
-            <a href={bookHref} class:list={["btn", !primary && "btn-primary"]}>{primary ? "Talk about a similar project" : bookLabel}</a>
+            <a href={primary.href} class="btn btn-primary" rel="noopener" target="_blank">{primary.title} ↗</a>
           </div>
-          {c.placeholder && <p style="margin-top:24px;"><span class="chip">Placeholder content</span></p>}
-        </div>
-        <dl class="facts-col">
-          {
-            facts.map((f) => (
-              <div>
-                <dt>{f.k}</dt>
-                <dd>{f.v}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
-    </Container>
-  </section>
-
-  {/* REQUEST + VISUAL */}
-  <section class="band band-soft">
-    <Container wide>
-      <div class="two-col" style="align-items:start;">
-        <div>
-          <h2 class="h-sec">The request</h2>
-          <blockquote class="request">“{c.request}”</blockquote>
-        </div>
-        <div class="exhibit">
-          <div class="exhibit-head">
-            <h3>{c.visual.kind === "bars" ? c.visual.name : "How it works"}</h3>
-            {c.placeholder && <span class="chip">Illustrative</span>}
-          </div>
-          <CaseVisual visual={c.visual} />
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  {/* CHALLENGES */}
-  <section class="band">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">Main challenges</h2>
-      </div>
-      <div class="grid-4">
+        )
+      }
+      {c.placeholder && <p style="margin-top:24px;"><span class="chip">Draft content</span></p>}
+      <dl class="meta-strip">
         {
-          c.challenges.map((ch) => (
-            <div class="card">
-              <h3 class="h-card">{ch.title}</h3>
-              <p>{ch.body}</p>
+          c.meta.map((m) => (
+            <div>
+              <dt>{m.k}</dt>
+              <dd>{m.v}</dd>
             </div>
           ))
         }
+      </dl>
+    </Container>
+  </section>
+
+  {/* 2. BUSINESS REQUEST */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Business request</h2>
+        <div class="case-text">
+          {c.request.map((p) => <p class="case-lead">{p}</p>)}
+        </div>
       </div>
     </Container>
   </section>
 
-  {/* SOLUTION + STACK */}
+  {/* 3. CHALLENGES */}
+  <section class="band">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Challenges</h2>
+        <ul class="case-list">
+          {c.challenges.map((ch) => <li class="card"><p>{ch}</p></li>)}
+        </ul>
+      </div>
+    </Container>
+  </section>
+
+  {/* 4. DELIVERED SOLUTION */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Delivered solution</h2>
+        <div class="case-text">
+          {c.solution.intro.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+
+      {
+        c.screens && (
+          <div class="case-media">
+            <div class="exhibit">
+              <div class="exhibit-head">
+                <h3>The pipeline</h3>
+              </div>
+              <CaseVisual visual={c.visual} />
+            </div>
+            <div class="screens">
+              {c.screens.map((s) => (
+                <figure class="screen">
+                  <img src={s.src} alt={s.caption} loading="lazy" width="1600" height="866" />
+                  <figcaption>{s.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      {
+        c.solution.parts && (
+          <div class="grid-2 case-parts">
+            {c.solution.parts.map((p) => (
+              <div class="card">
+                <h3 class="h-card">{p.title}</h3>
+                <p>{p.body}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        c.solution.outro && (
+          <div class="case-row" style="margin-top:64px;">
+            <div />
+            <div class="case-text">{c.solution.outro.map((p) => <p>{p}</p>)}</div>
+          </div>
+        )
+      }
+
+      <p class="tech-stack"><strong>Tech stack</strong> {c.solution.stack}</p>
+    </Container>
+  </section>
+
+  {/* 5. OUTCOME */}
+  <section class="band">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Outcome</h2>
+        <div class="case-text">
+          {c.outcome.map((p) => <p class="case-lead">{p}</p>)}
+        </div>
+      </div>
+      {
+        c.figures && (
+          <div class="grid-3" style="margin-top:72px;">
+            {c.figures.map((f) => (
+              <div class="card">
+                <p class="proof-num" style="font-size:3rem; font-weight:700; letter-spacing:-0.035em; margin:0; color:var(--text);">{f.metric}</p>
+                <p style="margin-top:10px;">{f.label}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </Container>
+  </section>
+
+  {/* 6. LESSONS LEARNED */}
   <section class="band band-soft">
     <Container wide>
       <div class="sec-head">
-        <h2 class="h-sec">The solution</h2>
+        <h2 class="h-sec">Lessons learned</h2>
       </div>
       <div class="grid-2">
-        {
-          c.solution.map((s) => (
-            <div class="card">
-              <h3 class="h-card">{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="exhibit" style="margin-top:48px;">
-        <div class="exhibit-head">
-          <h3>Stack</h3>
-        </div>
-        <div class="stack-grid">
-          {
-            c.stack.map((s, i) => (
-              <div class="stack-layer" style={`--nc: var(--c${i + 1})`}>
-                <span class="stack-name">{s.layer}</span>
-                <div class="chips">{s.items.map((it) => <span class="chip">{it}</span>)}</div>
-              </div>
-            ))
-          }
-        </div>
+        {c.lessons.map((l) => <div class="card"><p class="lesson">{l}</p></div>)}
       </div>
     </Container>
   </section>
 
-  {/* TIMELINE + RESULTS */}
-  <section class="band">
-    <Container wide>
-      <div class="two-col" style="align-items:start;">
-        <div>
-          <h2 class="h-sec">Timeline</h2>
-          <p class="lede" style="margin-top:28px;">{c.duration === "Ongoing" ? "Built in phases and still evolving." : `${c.duration} from first conversation to ${c.status.toLowerCase()}.`}</p>
-        </div>
-        <div class="exhibit">
-          <div class="exhibit-head">
-            <h3>Phases</h3>
-            <p class="exhibit-note">{c.timeline.unit === "M" ? "Months" : "Weeks"}</p>
-          </div>
-          <Gantt phases={c.timeline.phases} weeks={c.timeline.length} unit={c.timeline.unit} />
-        </div>
-      </div>
-
-      <div class="sec-head" style="margin-top:120px;">
-        <h2 class="h-sec">Results</h2>
-      </div>
-      <div class="grid-3">
-        {
-          c.results.map((r) => (
-            <div class="card">
-              <p class="proof-num" style="font-size:3rem; font-weight:700; letter-spacing:-0.03em; margin:0;">{r.metric}</p>
-              <p style="margin-top:8px;">{r.label}</p>
-            </div>
-          ))
-        }
-      </div>
-    </Container>
-  </section>
-
-  {/* LINKS */}
+  {/* LINKS (only when a case has them) */}
   {
     links.length > 0 && (
-      <section class="band band-soft">
+      <section class="band">
         <Container wide>
           <div class="sec-head">
             <h2 class="h-sec">See it for yourself</h2>
