@@ -1,219 +1,70 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
-import CaseVisual from "../components/CaseVisual.astro";
-import LineChart from "../components/viz/LineChart.astro";
-import BarChart from "../components/viz/BarChart.astro";
-import SplitBar from "../components/viz/SplitBar.astro";
-import Gantt from "../components/viz/Gantt.astro";
 import Pipeline from "../components/viz/Pipeline.astro";
-import { cases } from "../data/cases";
-import { products } from "../data/products";
-import { site, bookHref, bookLabel } from "../data/site";
+import LabTile from "../components/LabTile.astro";
+import ResourceCard from "../components/ResourceCard.astro";
+import ContactForm from "../components/ContactForm.astro";
+import {
+  site,
+  bookHref,
+  bookLabel,
+  services,
+  work,
+  labs,
+  workshops,
+  resources,
+  background,
+  links,
+  calendarUrl,
+  contactEmail,
+} from "../config";
 
-// Illustrative figures for the exhibits. Replace with a real case's numbers.
-// Share of the manual steps the system now handles, by week after go-live (illustrative).
-const saved = [14, 30, 46, 59, 69, 75, 79, 81, 82, 83, 84, 84];
-const weeks = saved.map((_, i) => `W${i + 1}`);
-const cost = [0.041, 0.032, 0.021, 0.014, 0.009, 0.006];
-const months = ["M1", "M2", "M3", "M4", "M5", "M6"];
-const effort = [
-  { label: "Data & access", value: 35 },
-  { label: "Integration", value: 25 },
-  { label: "Evaluation", value: 25 },
-  { label: "Model & prompts", value: 15 },
-];
-
-const system = [
-  { label: "Your data", sub: "docs, ERP, tickets", c: 1 },
-  { label: "Retrieval", sub: "search + permissions", c: 2 },
-  { label: "Model", sub: "Claude or similar", c: 3 },
-  { label: "Guardrails", sub: "policy, cost limits", c: 4 },
-  { label: "Human check", sub: "where it matters", gate: true },
-  { label: "In production", sub: "owned, monitored", c: 5 },
-];
-
-const phases = [
-  { label: "Diagnose", from: 1, to: 1, note: "1 use case picked", c: 1 },
-  { label: "Prototype", from: 2, to: 4, note: "on your data", c: 2 },
-  { label: "Production", from: 5, to: 8, note: "eval, limits, owner", c: 3 },
-  { label: "Rollout", from: 9, to: 12, note: "handover, metrics", c: 4 },
-  { label: "Evaluation", from: 2, to: 12, note: "runs every week", c: 5 },
-];
-
-const services = [
-  {
-    label: "Lead",
-    title: "AI implementation lead",
-    body: "I own delivery from pilot to production: scope, team, evaluation, rollout and the numbers that show it works.",
-  },
-  {
-    label: "Build",
-    title: "Assistants, agents and pipelines",
-    body: "Hands-on builds on real data: retrieval assistants, agentic workflows and the plumbing around them.",
-  },
-  {
-    label: "Assess",
-    title: "AI audit and governance",
-    body: "A one-week diagnostic of what is running, what it costs and where the risk sits, with a plan you can act on.",
-  },
-];
-
+const anyCheckout = resources.some((r) => r.checkoutUrl);
+const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
 ---
 
-<BaseLayout
-  title="AI Builder & AI Implementation Lead"
-  bareTitle
-  description="I take AI from pilot to production: assistants, agents and the delivery around them."
->
-  {/* HERO */}
-  <section class="hero">
+<BaseLayout title={site.role} bareTitle description={site.tagline}>
+  {/* 1. HERO */}
+  <section class="hero hero-pos">
     <Container wide>
-      <div class="hero-grid">
-        <div>
-          <h1 class="h-hero">
-            <span class="hero-l1">I build AI systems,</span>
-            <span class="hero-l2">from <mark>discovery</mark> to <mark>adoption</mark></span>
-          </h1>
-          <div class="hero-links">
-            <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
-          </div>
-          <div class="hero-links" style="margin-top:16px; gap:16px;">
-            <a class="link" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
-            <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          {/* Replace with <img src="/aleksandrs.jpg" alt="Aleksandrs Graholskis"> (file in /public). */}
-          <div class="photo" role="img" aria-label="Photo of Aleksandrs Graholskis (placeholder)">
-            <span class="label">Photo</span>
-          </div>
-          <div class="console console-slim" aria-label="Savings delivered: €10M+. Employees impacted: 25K+.">
-            <dl class="console-2">
-              <div><dt>Savings delivered</dt><dd>€10M+</dd></div>
-              <div><dt>Employees impacted</dt><dd>25K+</dd></div>
-            </dl>
-          </div>
-        </div>
+      <h1 class="h-hero hero-h1">
+        I help organisations move from AI experiments to <mark>governed, scaled adoption</mark>.
+      </h1>
+      <p class="lede hero-sub">
+        I build working AI solutions, design the platform that keeps them under control, and train
+        teams to use them. 15 years in enterprise architecture, now applied to AI.
+      </p>
+      <div class="hero-links">
+        <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
+        <a href="#work" class="btn">See what I have built</a>
       </div>
-
     </Container>
   </section>
 
-  {/* CASES */}
-  <section id="cases" class="band band-soft">
+  {/* 2. PROBLEM */}
+  <section class="band band-soft" aria-labelledby="problem-h">
+    <Container wide>
+      <h2 id="problem-h" class="sr-only">The problem</h2>
+      <p class="statement">
+        Most organisations do not have an AI problem. They have an adoption problem: scattered tools,
+        unclear costs, no control over what data leaves the company, and teams that do not know where
+        to start. I work on all three layers.
+      </p>
+    </Container>
+  </section>
+
+  {/* 3. WHAT I DO */}
+  <section id="services" class="band">
     <Container wide>
       <div class="sec-head">
-        <h2 class="h-sec">Selected work.</h2>
+        <h2 class="h-sec">What I do</h2>
       </div>
-      <div class="case-grid">
+      <div class="grid-3">
         {
-          cases.map((c) => (
-            <a href={`/cases/${c.slug}`} class:list={["card case-card", c.featured && "case-featured"]}>
-              <div class="case-visual">
-                <CaseVisual visual={c.visual} small />
-              </div>
-              <h3>{c.cardTitle}</h3>
-              <p>{c.cardSummary ?? c.summary}</p>
-              <div class="chips">
-                {c.chips.map((s) => <span class="chip">{s}</span>)}
-                {c.placeholder && <span class="chip">Draft</span>}
-              </div>
-              <span class="more">Read the case →</span>
-            </a>
-          ))
-        }
-      </div>
-    </Container>
-  </section>
-
-  {/* WHAT PRODUCTION LOOKS LIKE */}
-  <section id="production" class="band">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec" style="max-width:24ch;">The model is the small part. The system around it is the work.</h2>
-      </div>
-
-      <div class="exhibit exhibit-dark" style="margin-bottom:16px;">
-        <div class="exhibit-head">
-          <h3>What I put into production</h3>
-          <p class="exhibit-note">Typical shape</p>
-        </div>
-        <Pipeline steps={system} fit loop="Evaluation and cost tracking feed back into every step" />
-      </div>
-
-      <div class="ex-grid">
-        <div class="exhibit">
-          <div class="exhibit-head">
-            <h3>Manual work saved</h3>
-          </div>
-          <LineChart name="Manual work saved" values={saved} labels={weeks} ticks={[0, 50, 100]} max={100} unit="%" />
-          <p class="exhibit-note">Share of the manual steps the system now handles, 12 weeks after go-live.</p>
-        </div>
-        <div class="exhibit">
-          <div class="exhibit-head">
-            <h3>Cost per answer</h3>
-          </div>
-          <BarChart
-            name="Cost per answer"
-            values={cost}
-            labels={months}
-            ticks={[0, 0.02, 0.04]}
-            max={0.045}
-            fmt={(v) => (v === 0 ? "€0" : `€${v.toFixed(3)}`)}
-          />
-          <p class="exhibit-note">Caching, routing and smaller models, month by month.</p>
-        </div>
-        <div class="exhibit">
-          <div class="exhibit-head">
-            <h3>Where the effort goes</h3>
-          </div>
-          <SplitBar parts={effort} />
-          <p class="exhibit-note">Share of a typical build. Model work is the smallest slice.</p>
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  {/* HOW I WORK + SERVICES */}
-  <section id="services" class="band band-soft">
-    <Container wide>
-      <div class="two-col">
-        <div>
-          <div class="sec-head" style="margin-bottom:24px;">
-            <h2 class="h-sec">Twelve weeks from first call to a system your team owns.</h2>
-          </div>
-          <p class="lede">
-            I work embedded with your team. Each phase ends with something you can
-            use, or a clear decision to stop.
-          </p>
-        </div>
-        <div class="exhibit">
-          <div class="exhibit-head">
-            <h3>A typical engagement</h3>
-            <p class="exhibit-note">Weeks</p>
-          </div>
-          <Gantt phases={phases} weeks={12} />
-        </div>
-      </div>
-
-      <div class="price-tag">
-        <p class="price-fig">€15–35K</p>
-        <p class="price-note">
-          A three-month project costs between €15,000 and €35,000, depending on the
-          business scope and the architecture complexity.
-        </p>
-        <a href={bookHref} class="btn btn-primary price-cta">Get in touch</a>
-      </div>
-
-      <h3 class="sub-head">Other services I provide</h3>
-
-      <div class="svc-grid">
-        {
-          services.map((s) => (
-            <div class="card">
-              <h3 class="h-card">{s.title}</h3>
+          services.map((s, i) => (
+            <div class="card mode" style={`--nc: var(--c${i + 1})`}>
+              <h3 class="h-card mode-title">{s.title}</h3>
               <p>{s.body}</p>
             </div>
           ))
@@ -222,52 +73,116 @@ const services = [
     </Container>
   </section>
 
-  {/* PRODUCTS */}
-  <section id="products" class="band">
+  {/* 4. SELECTED WORK */}
+  <section id="work" class="band band-soft">
     <Container wide>
       <div class="sec-head">
-        <h2 class="h-sec">Prefer to do it yourself?</h2>
-        <p class="lede">The guides and templates I use with clients, packaged so your team can run them.</p>
+        <h2 class="h-sec">Selected work</h2>
       </div>
-      <div class="grid-3">
+      <div class="case-grid">
         {
-          products.map((p) => (
-            <div class="card prod-card" style={`--nc: var(--c${p.c})`}>
-              <div class="prod-cover" aria-hidden="true" />
-              <h3 class="h-card">{p.title}</h3>
-              <p>{p.body}</p>
-              <div class="chips">{p.format.map((f) => <span class="chip">{f}</span>)}</div>
-              <div class="prod-foot">
-                <span class="price">{p.price}</span>
-                {p.available ? (
-                  <a href={p.href} class="btn btn-primary" rel="noopener" target="_blank">Buy</a>
-                ) : (
-                  <span class="btn" aria-disabled="true">Coming soon</span>
+          work.map((w) => (
+            <article class:list={["card case-card", w.dark && "case-featured"]}>
+              <div class="case-visual">
+                <Pipeline steps={w.flow} small />
+              </div>
+              <h3>{w.title}</h3>
+              <p>{w.summary}</p>
+              {w.badge && (
+                <div class="chips"><span class="chip">{w.badge}</span></div>
+              )}
+              <div class="work-links">
+                {w.caseHref && <a href={w.caseHref} class="more">Read case →</a>}
+                {w.liveHref && (
+                  <a href={w.liveHref} class="more" rel="noopener" target="_blank">Live tool ↗</a>
                 )}
               </div>
-            </div>
+            </article>
           ))
         }
       </div>
     </Container>
   </section>
 
-  {/* CONTACT */}
-  <section id="contact" class="band band-ink">
+  {/* 5. LABS */}
+  <section id="labs" class="band">
     <Container wide>
-      <div class="sec-head" style="margin-bottom:28px;">
-        <h2 class="h-sec" style="max-width:24ch;">Have an AI project that needs to ship?</h2>
+      <div class="sec-head">
+        <h2 class="h-sec">Labs</h2>
       </div>
-      <p class="lede">
-        A 30-minute call. No deck, no follow-up sequence, just whether I can help
-        with what you are trying to do.
-      </p>
-      <div class="hero-links" style="margin-top:28px;">
-        <a href={bookHref} class="btn btn-light">{bookLabel}</a>
-        <a class="btn btn-ghost-light" href={site.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
-        <a class="btn btn-ghost-light" href={site.github} rel="noopener" target="_blank">GitHub ↗</a>
-        {site.youtube && <a class="btn btn-ghost-light" href={site.youtube} rel="noopener" target="_blank">YouTube ↗</a>}
+      <div class="lab-grid">
+        {labs.map((l) => <LabTile item={l} />)}
       </div>
     </Container>
   </section>
+
+  {/* 6. WORKSHOPS */}
+  <section id="workshops" class="band band-soft">
+    <Container wide>
+      <div class="sec-head">
+        <h2 class="h-sec">Workshops</h2>
+      </div>
+      <div class="grid-3">
+        {
+          workshops.topics.map((t) => (
+            <div class="card">
+              <h3 class="h-card">{t}</h3>
+            </div>
+          ))
+        }
+      </div>
+      <p class="formats"><strong>Formats:</strong> {workshops.formats}</p>
+      {
+        workshops.testimonial && (
+          <figure class="quote" style="margin-top:48px;">
+            <p>“{workshops.testimonial.quote}”</p>
+            <footer>{workshops.testimonial.by}</footer>
+          </figure>
+        )
+      }
+    </Container>
+  </section>
+
+  {/* 7. RESOURCES */}
+  <section id="resources" class="band">
+    <Container wide>
+      <div class="sec-head">
+        <h2 class="h-sec">Resources</h2>
+      </div>
+      <div class="grid-3">
+        {resources.map((r) => <ResourceCard item={r} />)}
+      </div>
+    </Container>
+  </section>
+
+  {/* 8. BACKGROUND */}
+  <section class="band band-soft" aria-labelledby="bg-h">
+    <Container wide>
+      <div class="case-row">
+        <h2 id="bg-h" class="h-sec">Background</h2>
+        <div class="case-text">
+          <p class="case-lead">{background}</p>
+          <p><a href="/earlier-work" class="link">Earlier work</a></p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* 9. CONTACT */}
+  <section id="contact" class="band band-ink">
+    <Container wide>
+      <div class="contact-grid">
+        <div>
+          <h2 class="h-sec">Contact</h2>
+          <div class="hero-links">
+            <a class="btn btn-ghost-light" href={links.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+            <a class="btn btn-ghost-light" href={callHref} rel="noopener" target={calendarUrl ? "_blank" : undefined}>Book a call{calendarUrl ? " ↗" : ""}</a>
+          </div>
+        </div>
+        <ContactForm />
+      </div>
+    </Container>
+  </section>
+
+  {anyCheckout && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
 </BaseLayout>

@@ -1,15 +1,15 @@
 ---
-import { site } from "../data/site";
+import { site, links } from "../config";
 const year = new Date().getFullYear();
 ---
 
-<footer class="wide" style="padding-top:40px; padding-bottom:48px;">
-  <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center;">
+<footer class="wide site-foot">
+  <div class="foot-row">
     <p class="meta">{site.name} · {site.role} · © {year}</p>
     <div class="foot-links">
-      <a class="link" href={site.github} rel="noopener" target="_blank">GitHub</a>
-      <a class="link" href={site.linkedin} rel="noopener" target="_blank">LinkedIn</a>
-      {site.youtube && <a class="link" href={site.youtube} rel="noopener" target="_blank">YouTube</a>}
+      <a class="link" href={links.github} rel="noopener" target="_blank">GitHub</a>
+      <a class="link" href={links.linkedin} rel="noopener" target="_blank">LinkedIn</a>
+      {links.youtube && <a class="link" href={links.youtube} rel="noopener" target="_blank">YouTube</a>}
     </div>
   </div>
 </footer>

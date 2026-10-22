@@ -1,0 +1,12 @@
+---
+// Inline email capture for the free download. Same behaviour as the contact form.
+---
+
+<form class="capture" data-form data-subject="Checklist request" data-success="Thank you. The checklist is on its way.">
+  <label for="cap-email" class="sr-only">Email address</label>
+  <input id="cap-email" name="email" type="email" placeholder="Your email" autocomplete="email" required />
+  <input type="hidden" name="request" value="AI Adoption Readiness Checklist" />
+  <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <button type="submit" class="btn btn-primary">Get the checklist</button>
+  <p class="form-status" data-status role="status" aria-live="polite"></p>
+</form>

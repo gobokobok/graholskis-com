@@ -1,11 +1,13 @@
 ---
 import "../styles/global.css";
+import "@fontsource-variable/inter";
+import "@fontsource/fragment-mono/400.css";
 import TopBar from "../components/TopBar.astro";
 import Footer from "../components/Footer.astro";
 import Tooltip from "../components/Tooltip.astro";
 
 interface Props {
-  /** SEO title — appended with site name unless `bareTitle` is true */
+  /** SEO title, appended with site name unless `bareTitle` is true */
   title: string;
   /** SEO description (≤ 160 chars) */
   description?: string;
@@ -17,13 +19,13 @@ interface Props {
 
 const {
   title,
-  description = "AI Builder and AI Implementation Lead. I take AI from pilot to production: assistants, agents and the delivery around them.",
+  description = "I help organisations move from AI experiments to governed, scaled adoption.",
   bareTitle = false,
   canonical,
 } = Astro.props;
 
 const siteName = "Aleksandrs Graholskis";
-const fullTitle = bareTitle ? title : `${title} — ${siteName}`;
+const fullTitle = bareTitle ? title : `${title} | ${siteName}`;
 const canonicalURL = canonical
   ? new URL(canonical, Astro.site ?? Astro.url).href
   : new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
@@ -52,22 +54,14 @@ const canonicalURL = canonical
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
 
-    {/* Fonts — preconnect and load in one shot for above-the-fold weight */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fragment+Mono&display=swap"
-    />
-
-    {/* Schema.org Person — establishes professional identity for search */}
+    {/* Schema.org Person: establishes professional identity for search */}
     <script
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Person",
         name: "Aleksandrs Graholskis",
-        jobTitle: "AI Builder & AI Implementation Lead",
+        jobTitle: "AI Enablement Lead",
         url: "https://graholskis.com",
         sameAs: [
           "https://www.linkedin.com/in/aleksandrs-graholskis/",

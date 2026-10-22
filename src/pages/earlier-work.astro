@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import { earlierWork } from "../config";
+---
+
+<BaseLayout title="Earlier work" description="Projects from before I focused on AI enablement.">
+  <section class="hero" style="padding-bottom:96px;">
+    <Container wide>
+      <a href="/#work" class="link" style="font-size:16px;">← Back to selected work</a>
+      <h1 class="h-sec case-title">Earlier work</h1>
+      <div class="grid-2" style="margin-top:72px;">
+        {
+          earlierWork.map((e) =>
+            e.href ? (
+              <a href={e.href} class="card case-card">
+                <h2 class="card-h2">{e.title}</h2>
+                {e.summary && <p>{e.summary}</p>}
+                <span class="more">Read case →</span>
+              </a>
+            ) : (
+              <div class="card case-card">
+                <h2 class="card-h2">{e.title}</h2>
+                {e.summary && <p>{e.summary}</p>}
+                <div class="chips"><span class="chip">Case to be added</span></div>
+              </div>
+            ),
+          )
+        }
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -101,10 +101,10 @@ export const cases: Case[] = [
         "Python, FastAPI, LangGraph, Postgres, Cloudflare R2, FFmpeg, Claude and other model APIs, plain HTML and JavaScript, Railway.",
     },
     outcome: [
-      "The full flow works from idea to rendered video on the test environment, in 9:16 and 16:9, with real runs reviewed by hand.",
+      "The full flow works from idea to rendered video in production, in 9:16 and 16:9, with real runs reviewed by hand.",
       "Around 3,400 automated tests pass.",
       "Credits, limits and the owner admin view are built. They are switched off until the friends beta opens.",
-      "Not yet done: production release, online payments, publishing to YouTube.",
+      "Not yet done: online payments, publishing to YouTube.",
     ],
     outcomeAsList: true,
     lessons: [

@@ -1,0 +1,31 @@
+---
+import type { LabItem } from "../config";
+
+interface Props {
+  item: LabItem;
+}
+const { item } = Astro.props;
+---
+
+<div class="card lab">
+  {
+    item.video !== undefined && (
+      <div class="lab-video">
+        {item.video ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${item.video}`}
+            title={`${item.name}: 60-second walkthrough`}
+            loading="lazy"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen
+          />
+        ) : (
+          <span class="meta">60-second walkthrough slot</span>
+        )}
+      </div>
+    )
+  }
+  <h3 class="h-card">{item.name}</h3>
+  <p>{item.line}</p>
+  <a href={item.href} class="link" rel="noopener" target="_blank">Open the tool ↗</a>
+</div>

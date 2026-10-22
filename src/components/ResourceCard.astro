@@ -1,0 +1,26 @@
+---
+import EmailCapture from "./EmailCapture.astro";
+import type { ResourceItem } from "../config";
+
+interface Props {
+  item: ResourceItem;
+}
+const { item } = Astro.props;
+const price = item.price || "Price TBC";
+---
+
+<div class="card res">
+  <h3 class="h-card">{item.title}</h3>
+  <p>{item.line}</p>
+  <div class="res-foot">
+    <span class="price">{price}</span>
+    {
+      item.kind === "free" ? null : item.checkoutUrl ? (
+        <a href={item.checkoutUrl} class="btn btn-primary lemonsqueezy-button">Buy</a>
+      ) : (
+        <span class="btn" aria-disabled="true">Coming soon</span>
+      )
+    }
+  </div>
+  {item.kind === "free" && <EmailCapture />}
+</div>

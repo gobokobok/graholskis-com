@@ -1,28 +1,31 @@
 ---
-import { bookHref } from "../data/site";
-const links = [
-  { href: "/#cases", label: "Cases" },
-  { href: "/#services", label: "Services" },
-  { href: "/#products", label: "Products" },
-];
+import { nav, site } from "../config";
+const last = nav[nav.length - 1];
+const rest = nav.slice(0, -1);
 ---
 
 <header class="site-head">
   <div class="wide row">
-    <a href="/" style="font-weight:600; font-size:17px; letter-spacing:-0.01em; text-decoration:none;" aria-label="Aleksandrs Graholskis — home">
-      Aleksandrs Graholskis
-    </a>
-    <nav class="site-nav" aria-label="Primary navigation" style="display:flex; align-items:center; gap:2px;">
-      {links.map((l) => <a href={l.href} class="hide-sm">{l.label}</a>)}
-      <a href={bookHref} class="btn btn-primary btn-sm" style="margin-left:8px; color:#fff;">Get in touch</a>
+    <a href="/" class="brand" aria-label={`${site.name}, home`}>{site.name}</a>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      {rest.map((l) => <a href={l.href} class="hide-md">{l.label}</a>)}
+      <a href={last.href} class="btn btn-primary btn-sm nav-cta">{last.label}</a>
+      <details class="mnav show-md">
+        <summary class="btn btn-sm" aria-label="Menu">Menu</summary>
+        <ul>
+          {rest.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </details>
     </nav>
   </div>
 </header>
 
-<style>
-  @media (max-width: 560px) {
-    .hide-sm {
-      display: none;
-    }
-  }
-</style>
+<script>
+  // Close the mobile menu after choosing a link.
+  document.querySelectorAll<HTMLDetailsElement>(".mnav").forEach((d) => {
+    d.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) d.removeAttribute("open");
+    });
+  });
+</script>
