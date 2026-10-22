@@ -1929,9 +1929,9 @@
     padding-bottom: 120px;
   }
   .hero-pos .hero-h1 {
-    max-width: 22ch;
+    max-width: 20ch;
     text-wrap: balance;
-    font-size: clamp(2.1rem, 5.2vw, 4.5rem);
+    font-size: clamp(2.4rem, 6.4vw, 5.75rem);
     letter-spacing: -0.04em;
     line-height: 1.08;
   }
