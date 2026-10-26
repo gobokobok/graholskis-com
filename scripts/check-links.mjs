@@ -25,6 +25,10 @@ let bad = 0;
 for (const page of pages) {
   const html = readFileSync(page, "utf8");
   const here = "/" + page.slice(dist.length + 1).replace(/index\.html$/, "");
+  for (const m of html.matchAll(/<a\b(?![^>]*\shref=)[^>]*>/g)) {
+    console.log(`NO HREF  ${page}: ${m[0].slice(0, 90)}`);
+    bad++;
+  }
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const u = m[1];
     if (/^(https?:|mailto:|tel:|data:|javascript:)/.test(u)) continue;

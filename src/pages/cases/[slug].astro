@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Container from "../../components/Container.astro";
 import CaseVisual from "../../components/CaseVisual.astro";
 import { cases, type Case } from "../../data/cases";
-import { links } from "../../config";
+import { links as siteLinks } from "../../config";
 
 export function getStaticPaths() {
   return cases.map((c, i) => ({
@@ -245,7 +245,7 @@ const primary = links.find((l) => l.href);
           <p class="lede" style="margin-top:24px;">A 30-minute call to see whether I can help.</p>
           <div class="hero-links">
             <a href="/#contact" class="btn btn-light">Get in touch</a>
-            <a class="btn btn-ghost-light" href={links.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+            <a class="btn btn-ghost-light" href={siteLinks.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
           </div>
         </div>
         <a href={`/cases/${next.slug}`} class="next-case">

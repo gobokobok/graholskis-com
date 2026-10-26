@@ -3,7 +3,7 @@
 /* ------------------------------------------------------------------
    GRAHOLSKIS.COM — "Monochrome Console", personal-brand adaptation.
    Light page, near-black ink, one blue accent, hairline borders.
-   Titles: Inter. Body text and UI: Schibsted Grotesk. Labels and numbers: Fragment Mono.
+   Titles: Poppins. Body text and UI: Schibsted Grotesk. Labels and numbers: Fragment Mono.
    Source brief: Content Factory UI guideline (sections 1-9).
    ------------------------------------------------------------------ */
 
@@ -28,7 +28,7 @@
   --red: #d92d20;
   /* type */
   --font: "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, sans-serif;
-  --font-head: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-head: "Poppins", system-ui, sans-serif;
   --mono: "Fragment Mono", ui-monospace, monospace;
   /* shape */
   --r: 8px;
@@ -2188,7 +2188,7 @@
   white-space: nowrap;
 }
 
-/* Titles and display figures stay in Inter; Schibsted Grotesk sets word spaces too tight at large sizes. */
+/* Titles and display figures use Poppins; Schibsted Grotesk sets word spaces too tight at large sizes. */
 h1,
 h2,
 h3,
@@ -2210,4 +2210,35 @@ h4,
 .facts-col dd,
 .meta-strip dd {
   font-family: var(--font-head);
+}
+
+/* Poppins tuning: wider letters, so a slightly smaller display size and looser tracking than the Inter values above. */
+.h-sec {
+  letter-spacing: -0.025em;
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  line-height: 1.15;
+}
+.hero-pos .hero-h1 {
+  font-size: clamp(2.1rem, 5.6vw, 5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+}
+.statement {
+  letter-spacing: -0.015em;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  line-height: 1.4;
+}
+.h-card,
+.mode-title,
+.case-card h3,
+.card-h2,
+.next-title,
+.h-page {
+  letter-spacing: -0.01em;
+}
+.case-title {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+}
+.request {
+  letter-spacing: -0.01em;
 }
