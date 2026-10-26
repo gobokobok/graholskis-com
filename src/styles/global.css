@@ -3,7 +3,7 @@
 /* ------------------------------------------------------------------
    GRAHOLSKIS.COM — "Monochrome Console", personal-brand adaptation.
    Light page, near-black ink, one blue accent, hairline borders.
-   Body and headings: Inter. Labels and numbers: Fragment Mono.
+   Titles: Inter. Body text and UI: Schibsted Grotesk. Labels and numbers: Fragment Mono.
    Source brief: Content Factory UI guideline (sections 1-9).
    ------------------------------------------------------------------ */
 
@@ -27,7 +27,8 @@
   /* semantic */
   --red: #d92d20;
   /* type */
-  --font: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font: "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, sans-serif;
+  --font-head: "Inter Variable", "Inter", system-ui, sans-serif;
   --mono: "Fragment Mono", ui-monospace, monospace;
   /* shape */
   --r: 8px;
@@ -38,7 +39,7 @@
 }
 
 @theme {
-  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-sans: "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, sans-serif;
   --font-mono: "Fragment Mono", ui-monospace, monospace;
 }
 
@@ -2185,4 +2186,28 @@
 }
 .res-foot .price {
   white-space: nowrap;
+}
+
+/* Titles and display figures stay in Inter; Schibsted Grotesk sets word spaces too tight at large sizes. */
+h1,
+h2,
+h3,
+h4,
+.h-hero,
+.h-sec,
+.h-card,
+.h-page,
+.statement,
+.request,
+.brand,
+.price,
+.price-fig,
+.stat-num,
+.proof-num,
+.next-title,
+.mode-title,
+.card-h2,
+.facts-col dd,
+.meta-strip dd {
+  font-family: var(--font-head);
 }
