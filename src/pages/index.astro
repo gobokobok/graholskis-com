@@ -4,7 +4,6 @@ import Container from "../components/Container.astro";
 import WorkVisual from "../components/WorkVisual.astro";
 import LabTile from "../components/LabTile.astro";
 import ResourceCard from "../components/ResourceCard.astro";
-import ContactForm from "../components/ContactForm.astro";
 import {
   site,
   bookHref,
@@ -17,13 +16,9 @@ import {
   workshops,
   resources,
   background,
-  links,
-  calendarUrl,
-  contactEmail,
 } from "../config";
 
 const anyCheckout = resources.some((r) => r.checkoutUrl);
-const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
 ---
 
 <BaseLayout title={site.role} bareTitle description={site.tagline}>
@@ -163,23 +158,6 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
           <p class="case-lead">{background}</p>
           <p><a href="/earlier-work" class="link">Earlier work</a></p>
         </div>
-      </div>
-    </Container>
-  </section>
-
-  {/* 9. CONTACT */}
-  <section id="contact" class="band band-ink">
-    <Container wide>
-      <div class="contact-grid">
-        <div>
-          <h2 class="h-sec">Contact</h2>
-          <div class="hero-links">
-            <a class="btn btn-ghost-light" href={links.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
-            <a class="btn btn-ghost-light" href={links.github} rel="noopener" target="_blank">GitHub ↗</a>
-            <a class="btn btn-ghost-light" href={callHref} rel="noopener" target={calendarUrl ? "_blank" : undefined}>Book a call{calendarUrl ? " ↗" : ""}</a>
-          </div>
-        </div>
-        <ContactForm />
       </div>
     </Container>
   </section>

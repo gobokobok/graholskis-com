@@ -1,0 +1,62 @@
+---
+// Contact panel, bottom right. Opens from any link to #contact, on every page.
+// Non-modal on purpose: the page stays usable, like a chat widget.
+// The body holds the message form for now; the AI assistant will slot in here later.
+import { bookHref, calendarUrl } from "../config";
+import ContactForm from "./ContactForm.astro";
+
+const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
+---
+
+<dialog id="contact" class="cdlg glass" aria-labelledby="cdlg-title">
+  <div class="cdlg-head">
+    <div>
+      <h2 id="cdlg-title" class="cdlg-title">Send a message</h2>
+      <p class="cdlg-sub">
+        I reply by email. Prefer to talk? <a href={bookHref} class="link" {...bookAttrs}>Book a call</a>.
+      </p>
+    </div>
+    <button type="button" class="pill pill-line pill-icon" data-cdlg-close aria-label="Close">
+      <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+        <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="cdlg-body">
+    <ContactForm />
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.getElementById("contact") as HTMLDialogElement | null;
+  if (dlg) {
+    let opener: HTMLElement | null = null;
+
+    const open = (from?: HTMLElement | null) => {
+      opener = from ?? null;
+      if (!dlg.open) dlg.show();
+      dlg.querySelector<HTMLInputElement>("input:not([type=hidden]):not(.sr-only)")?.focus();
+    };
+    const close = () => {
+      dlg.close();
+      opener?.focus();
+      if (location.hash === "#contact") history.replaceState(null, "", location.pathname + location.search);
+    };
+
+    // Any link to #contact opens the panel instead of jumping.
+    document.addEventListener("click", (e) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href$="#contact"]');
+      if (!a) return;
+      e.preventDefault();
+      a.closest("details")?.removeAttribute("open");
+      open(a);
+    });
+    dlg.querySelector("[data-cdlg-close]")?.addEventListener("click", close);
+    dlg.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+
+    // Arriving at /#contact from another page or a shared link.
+    if (location.hash === "#contact") open();
+  }
+</script>

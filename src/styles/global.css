@@ -2578,10 +2578,6 @@ body {
 .band {
   scroll-margin-top: 0;
 }
-/* the last section fills the screen so its link can stop there too */
-#contact {
-  min-height: 100svh;
-}
 
 /* space: sections */
 .band {
@@ -2971,4 +2967,85 @@ body {
 .legal strong {
   color: var(--text);
   font-weight: 600;
+}
+
+/* Contact panel: bottom right, same glass as the bar, opens from any #contact link. */
+.cdlg {
+  position: fixed;
+  inset: auto 24px 24px auto;
+  z-index: 40;
+  width: min(400px, calc(100vw - 32px));
+  max-height: calc(100svh - 48px);
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border-radius: 24px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 2px 8px rgba(39, 67, 201, 0.06),
+    0 24px 64px rgba(18, 18, 21, 0.18);
+}
+.cdlg[open] {
+  animation: cdlg-in 0.18s ease-out;
+}
+@keyframes cdlg-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cdlg[open] {
+    animation: none;
+  }
+}
+.cdlg-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 20px 0;
+}
+.cdlg-title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.cdlg-sub {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.cdlg-body {
+  padding: 16px 20px 20px;
+}
+.cdlg .form {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.cdlg .field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-sub);
+}
+.cdlg .field textarea {
+  min-height: 112px;
+}
+.cdlg .form-foot .pill {
+  height: 44px;
+  padding: 0 20px;
+}
+@media (max-width: 479px) {
+  .cdlg {
+    inset: auto 8px 8px 8px;
+    width: auto;
+    max-height: calc(100svh - 16px);
+    border-radius: 20px;
+  }
 }

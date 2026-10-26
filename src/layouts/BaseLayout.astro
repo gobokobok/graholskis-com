@@ -8,6 +8,7 @@ import "@fontsource/fragment-mono/400.css";
 import TopBar from "../components/TopBar.astro";
 import Footer from "../components/Footer.astro";
 import Tooltip from "../components/Tooltip.astro";
+import ContactDialog from "../components/ContactDialog.astro";
 
 interface Props {
   /** SEO title, appended with site name unless `bareTitle` is true */
@@ -97,6 +98,7 @@ const canonicalURL = canonical
     </main>
 
     <Footer />
+    <ContactDialog />
     <Tooltip />
   </body>
 </html>
