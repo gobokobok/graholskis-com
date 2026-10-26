@@ -1,0 +1,14 @@
+---
+// Monogram plus name, links home. Shared by the top bar and the footer.
+import { site } from "../config";
+
+interface Props {
+  class?: string;
+}
+const { class: extra = "" } = Astro.props;
+---
+
+<a href="/" class:list={["brand-link", extra]} aria-label={`${site.name}, home`}>
+  <span class="mark" aria-hidden="true">AG</span>
+  <span class="brand-name">{site.name}</span>
+</a>

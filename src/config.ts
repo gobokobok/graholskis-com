@@ -26,6 +26,13 @@ export const links = {
  *  Empty src shows a grey placeholder frame. Recommended: 1440 x 1800 px (4:5). */
 export const heroPhoto = { src: "/images/aleksandrs.webp", alt: "Aleksandrs Graholskis" };
 
+/** TODO: confirm. Used on the privacy policy and terms of use pages. */
+export const legal = {
+  owner: "Aleksandrs Graholskis",
+  country: "Latvia",
+  updated: "26 October 2026",
+};
+
 /** TODO: base domain for live tools on subdomains. */
 export const domain = "graholskis.com";
 
@@ -50,6 +57,12 @@ export const nav = [
   { href: "/#workshops", label: "Workshops" },
   { href: "/#resources", label: "Resources" },
   { href: "/#contact", label: "Contact" },
+];
+
+/** Footer menu. */
+export const footerNav = [
+  { href: "/privacy", label: "Privacy policy" },
+  { href: "/terms", label: "Terms of use" },
 ];
 
 // ---- What I do --------------------------------------------------------------

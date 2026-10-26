@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import { contactEmail, legal, domain } from "../config";
+---
+
+<BaseLayout title="Terms of use" description="The terms for using graholskis.com, its content and its resources.">
+  <section class="legal-hero">
+    <Container>
+      <h1 class="h-sec">Terms of use</h1>
+      <p class="meta legal-updated">Last updated {legal.updated}</p>
+    </Container>
+  </section>
+
+  <Container as="article" class="legal">
+    <p>
+      These terms apply to your use of {domain}. The site is run by {legal.owner}, based in {legal.country}.
+      By using the site you agree to them. If you do not agree, please do not use the site.
+    </p>
+
+    <h2>Information, not advice</h2>
+    <p>
+      The articles, cases, diagrams and frameworks on this site are general information based on my experience. They are not legal,
+      financial or professional advice for your situation. Consulting work and workshops are always agreed separately in writing,
+      and those agreements take priority over these terms.
+    </p>
+
+    <h2>Content and reuse</h2>
+    <p>
+      Unless stated otherwise, the text, diagrams, images and code on this site are my work and protected by copyright.
+      You are welcome to link to any page and to quote short passages with a credit and a link back. Please ask before copying whole
+      pages or using the diagrams or frameworks in commercial material.
+    </p>
+
+    <h2>Paid resources</h2>
+    <p>
+      Paid resources, such as the blueprint and the online training, are sold through Lemon Squeezy as the merchant of record.
+      Lemon Squeezy's terms apply to payment, tax and refunds, and your statutory consumer rights are not affected.
+      A purchase gives you a licence for your own use or internal use within your organisation. Reselling or publicly sharing
+      the files is not allowed.
+    </p>
+
+    <h2>Live tools</h2>
+    <p>
+      Tools linked from the Labs section, such as Content Factory, are working prototypes. They may change, have limits or be
+      unavailable at times. A tool may have its own terms, which apply when you use it.
+    </p>
+
+    <h2>Fair use of the site</h2>
+    <p>
+      Please do not try to break, overload or gain unauthorised access to the site, scrape it at scale, or use the forms to send spam.
+    </p>
+
+    <h2>Links to other sites</h2>
+    <p>
+      The site links to services I do not control, such as Calendly, LinkedIn, GitHub and YouTube. Their own terms and privacy
+      policies apply there, and I am not responsible for their content.
+    </p>
+
+    <h2>Liability</h2>
+    <p>
+      I keep the site accurate and working, but it is provided "as is" without guarantees. To the extent the law allows, I am not
+      liable for indirect or consequential losses from using the site or relying on its content. Nothing in these terms limits
+      liability that cannot be limited by law.
+    </p>
+
+    <h2>Law and changes</h2>
+    <p>
+      These terms are governed by the laws of {legal.country}. If you are a consumer, you keep any mandatory protections of the country
+      you live in. If the terms change, the new version will be posted here with a new date at the top.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions about these terms: <a class="link" href={`mailto:${contactEmail}`}>{contactEmail}</a>.</p>
+  </Container>
+</BaseLayout>

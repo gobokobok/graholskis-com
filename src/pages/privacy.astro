@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import { contactEmail, legal } from "../config";
+---
+
+<BaseLayout title="Privacy policy" description="What personal data graholskis.com collects, why, and what rights you have.">
+  <section class="legal-hero">
+    <Container>
+      <h1 class="h-sec">Privacy policy</h1>
+      <p class="meta legal-updated">Last updated {legal.updated}</p>
+    </Container>
+  </section>
+
+  <Container as="article" class="legal">
+    <p>
+      This policy explains what personal data graholskis.com collects, why, and what you can ask me to do with it.
+      The site is run by {legal.owner}, based in {legal.country}, who is responsible for your data as the data controller.
+      For any question about your data, email <a class="link" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+    </p>
+
+    <h2>The short version</h2>
+    <ul>
+      <li>The site has no analytics, no advertising and no tracking cookies.</li>
+      <li>I only receive personal data when you send it to me: through the contact form, a checklist request, a booked call or a purchase.</li>
+      <li>I use it to reply to you and to deliver what you asked for. I do not sell it or share it for marketing.</li>
+    </ul>
+
+    <h2>What I collect and why</h2>
+    <h3>Contact form</h3>
+    <p>
+      Your name, email address and message. I use them to reply. The legal basis is my legitimate interest in answering
+      your enquiry, or the steps you ask for before we agree on any work (GDPR Article 6(1)(f) and 6(1)(b)).
+    </p>
+    <h3>Checklist request</h3>
+    <p>
+      Your email address, so I can send you the checklist. The legal basis is delivering what you requested
+      (Article 6(1)(b)). Requesting the checklist does not subscribe you to a newsletter.
+    </p>
+    <h3>Booking a call</h3>
+    <p>
+      Calls are booked through Calendly. You enter your details on Calendly's page, and I receive your name, email address,
+      the time you chose and any answers you give. I use them to prepare for and hold the call (Article 6(1)(b)).
+    </p>
+    <h3>Buying a resource</h3>
+    <p>
+      Paid resources are sold through Lemon Squeezy, which acts as the merchant of record and handles payment, tax and invoices.
+      I receive your name, email address and order details, and never see your card details. I use them to deliver the product
+      and support you (Article 6(1)(b)), and keep order records as accounting law requires (Article 6(1)(c)).
+    </p>
+    <h3>Server logs</h3>
+    <p>
+      Like any website, the hosting provider records technical data when a page is requested: IP address, browser type, the page
+      and the time. This is used to run and secure the site (Article 6(1)(f)) and is kept for a short period by the host.
+    </p>
+
+    <h2>Services that handle data for me</h2>
+    <ul>
+      <li><strong>Railway</strong> hosts the site and its server logs.</li>
+      <li><strong>Web3Forms</strong> delivers contact form and checklist requests to my email inbox.</li>
+      <li><strong>Calendly</strong> handles call bookings.</li>
+      <li><strong>Lemon Squeezy</strong> handles payments for paid resources.</li>
+      <li><strong>YouTube</strong> (Google) plays the embedded videos.</li>
+    </ul>
+    <p>
+      Some of these providers are based in the United States. Where data leaves the EU, the transfer relies on safeguards such as
+      the EU-U.S. Data Privacy Framework or the European Commission's Standard Contractual Clauses.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      The site itself sets no cookies. Videos are embedded in YouTube's privacy-enhanced mode (youtube-nocookie.com), so YouTube does
+      not set cookies until you press play. Once you play a video, Google may set cookies and collect data under its own privacy policy.
+      Calendly and Lemon Squeezy set their own cookies when you use their pages.
+    </p>
+
+    <h2>How long I keep it</h2>
+    <p>
+      Messages and booking details are kept for as long as needed to handle your request and any follow-up, and deleted at the latest
+      24 months after our last contact. Purchase records are kept for as long as accounting law requires.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      You can ask me to show you the data I hold about you, correct it, delete it, limit how I use it, or send it to you in a portable
+      format. You can also object to processing based on legitimate interest. Email <a class="link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      and I will reply within one month.
+    </p>
+    <p>
+      If you think your data has been handled wrongly, you can complain to the data protection authority in your country{
+        legal.country === "Latvia" && (
+          <>, or in Latvia to the Data State Inspectorate (<a class="link" href="https://www.dvi.gov.lv" rel="noopener" target="_blank">dvi.gov.lv</a>)</>
+        )
+      }.
+    </p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the new version will be posted here with a new date at the top.</p>
+  </Container>
+</BaseLayout>

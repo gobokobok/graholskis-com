@@ -1,31 +1,47 @@
 ---
-import { nav, site } from "../config";
-const last = nav[nav.length - 1];
-const rest = nav.slice(0, -1);
+// Floating top bar: brand left, section links centred, actions right.
+// Below 1020px the links move into the menu panel.
+import { nav, bookHref, calendarUrl } from "../config";
+import Brand from "./Brand.astro";
+
+const contact = nav[nav.length - 1];
+const sections = nav.slice(0, -1);
+const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
 ---
 
-<header class="site-head">
-  <div class="wide row">
-    <a href="/" class="brand" aria-label={`${site.name}, home`}>{site.name}</a>
+<header class="topbar">
+  <div class="wide">
+    <div class="bar glass">
+      <Brand />
 
-    <nav class="site-nav" aria-label="Primary navigation">
-      {rest.map((l) => <a href={l.href} class="hide-md">{l.label}</a>)}
-      <a href={last.href} class="btn btn-primary btn-sm nav-cta">{last.label}</a>
-      <details class="mnav show-md">
-        <summary class="btn btn-sm" aria-label="Menu">Menu</summary>
-        <ul>
-          {rest.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-        </ul>
-      </details>
-    </nav>
+      <nav class="bar-nav" aria-label="Primary navigation">
+        {sections.map((l) => <a href={l.href} class="pill-link">{l.label}</a>)}
+      </nav>
+
+      <div class="bar-actions">
+        <a href={contact.href} class="pill pill-line bar-contact">{contact.label}</a>
+        <a href={bookHref} class="pill pill-fill bar-book" {...bookAttrs}>Book a call</a>
+        <details class="bar-menu">
+          <summary class="pill pill-line" aria-label="Menu">Menu</summary>
+          <div class="bar-panel glass">
+            {sections.map((l) => <a href={l.href}>{l.label}</a>)}
+            <a href={contact.href}>{contact.label}</a>
+            <a href={bookHref} class="pill pill-fill" {...bookAttrs}>Book a call</a>
+          </div>
+        </details>
+      </div>
+    </div>
   </div>
 </header>
 
 <script>
-  // Close the mobile menu after choosing a link.
-  document.querySelectorAll<HTMLDetailsElement>(".mnav").forEach((d) => {
+  // Close the menu after choosing a link, or on a click outside it.
+  document.querySelectorAll<HTMLDetailsElement>(".bar-menu").forEach((d) => {
     d.addEventListener("click", (e) => {
       if ((e.target as HTMLElement).closest("a")) d.removeAttribute("open");
+    });
+    document.addEventListener("click", (e) => {
+      if (!d.contains(e.target as Node)) d.removeAttribute("open");
     });
   });
 </script>
