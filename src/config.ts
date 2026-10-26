@@ -19,7 +19,7 @@ export const web3formsKey = "";
 export const links = {
   linkedin: "https://www.linkedin.com/in/aleksandrs-graholskis/",
   github: "https://github.com/gobokobok",
-  youtube: "", // empty = hidden
+  youtube: "https://www.youtube.com/@GraholskisAI", // empty = hidden
 };
 
 /** TODO: your portrait. Put the file in /public (for example /public/aleksandrs.webp) and set src to "/aleksandrs.webp".
@@ -141,9 +141,9 @@ export const labs: LabItem[] = [
   {
     name: "ADLM via Claude Code",
     line: "A walkthrough of my approach to delivering solutions with Claude Code.",
-    href: "", // TODO: link to the full video on YouTube
+    href: "https://www.youtube.com/watch?v=NL1U9x3Tgw0",
     cta: "Watch the video",
-    video: "", // TODO: YouTube video id
+    video: "NL1U9x3Tgw0",
   },
 ];
 
