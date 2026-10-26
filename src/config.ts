@@ -8,12 +8,12 @@
 /** TODO: your calendar booking link (Cal.com, Calendly, Google). Empty = "Book a call" jumps to the contact form. */
 export const calendarUrl = "https://calendly.com/aleksandrs-graholskis/30min";
 
-/** TODO: confirm. Used only as the mailto fallback while the form key is empty. */
-export const contactEmail = "alex@graholskis.com";
+/** Public contact address (Namecheap forward to Gmail). Footer email icon, legal pages, form fallback. */
+export const contactEmail = "contact@graholskis.com";
 
 /** TODO: free Web3Forms access key (https://web3forms.com, enter your email, they send the key).
  *  The key is public by design. Empty = the forms open an email instead. */
-export const web3formsKey = "";
+export const web3formsKey = "dfac6104-175f-43c5-ac0b-e7d1e56b6c47";
 
 /** TODO: confirm profile URLs. */
 export const links = {
