@@ -1,43 +1,19 @@
-# Astro Starter Kit: Minimal
+# graholskis.com
 
+Astro 6 + Tailwind 4 + MDX. Static build, served by Caddy on Railway (see `Dockerfile`).
+
+## Where things live
+- `src/config.ts`: every placeholder (calendar link, form key, checkout links, prices, domain) marked TODO, plus the content arrays for services, work, labs, workshops, resources and earlier work. Adding a lab tile or a resource is one entry.
+- `src/pages/index.astro`: the landing page. `src/pages/cases/[slug].astro`: case pages, content in `src/data/cases.ts`.
+- `src/styles/global.css`: design tokens and components ("Monochrome Console"). Fonts: Poppins for titles (`--font-head`), Schibsted Grotesk for body text (`--font`), Fragment Mono for labels. All self-hosted through @fontsource.
+
+## Commands
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # static site in ./dist
+npm run check     # after a build: internal links, anchors, copy rules
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Forms
+The contact form and the checklist email capture use Web3Forms (free). Set `web3formsKey` in `src/config.ts`. Until then they open an email instead.

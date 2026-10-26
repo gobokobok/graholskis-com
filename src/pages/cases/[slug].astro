@@ -1,0 +1,258 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/Container.astro";
+import CaseVisual from "../../components/CaseVisual.astro";
+import { cases, type Case } from "../../data/cases";
+import { links as siteLinks } from "../../config";
+
+export function getStaticPaths() {
+  return cases.map((c, i) => ({
+    params: { slug: c.slug },
+    props: { c, next: cases[(i + 1) % cases.length] },
+  }));
+}
+
+const { c, next } = Astro.props as { c: Case; next: Case };
+
+const linkMeta = {
+  product: { title: "Open the product", kind: "Live product" },
+  code: { title: "Code on GitHub", kind: "Repository" },
+  project: { title: "Project on GitHub", kind: "Project notes" },
+  video: { title: "Watch the walkthrough", kind: "YouTube" },
+} as const;
+const links = c.links
+  ? (Object.keys(linkMeta) as (keyof typeof linkMeta)[])
+      .filter((k) => c.links![k])
+      .map((k) => ({ ...linkMeta[k], ...c.links![k]! }))
+  : [];
+const primary = links.find((l) => l.href);
+---
+
+<BaseLayout title={c.title} description={c.summary}>
+  {/* 1. HEADER */}
+  <section class="hero case-hero">
+    <Container wide>
+      <a href="/#work" class="link" style="font-size:16px;">← All cases</a>
+      <h1 class="h-sec case-title">{c.title}</h1>
+      <p class="lede" style="margin-top:28px;">{c.summary}</p>
+      {
+        primary && (
+          <div class="hero-links">
+            <a href={primary.href} class="btn btn-primary" rel="noopener" target="_blank">{primary.title} ↗</a>
+          </div>
+        )
+      }
+      {c.placeholder && <p style="margin-top:24px;"><span class="chip">Draft content</span></p>}
+      <dl class="meta-strip">
+        {
+          c.meta.map((m) => (
+            <div>
+              <dt>{m.k}</dt>
+              <dd>{m.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      {
+        c.showcase && (
+          <div class="showcase" role="img" aria-label={c.showcase.alt}>
+            <div class="shot-desktop">
+              <img src={c.showcase.desktop} alt="" width="1600" height="859" />
+            </div>
+            <div class="shot-phones">
+              {c.showcase.mobile.map((m) => (
+                <div class="shot-phone">
+                  <img src={m} alt="" width="570" height="1090" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </Container>
+  </section>
+
+  {/* 2. BUSINESS REQUEST */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Business request</h2>
+        <div class="case-text">
+          {c.request.map((p) => <p class="case-lead">{p}</p>)}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* 3. CHALLENGES */}
+  <section class="band">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Challenges</h2>
+        <ul class="case-list">
+          {
+            c.challenges.map((ch) =>
+              typeof ch === "string" ? (
+                <li class="card"><p>{ch}</p></li>
+              ) : (
+                <li class="card">
+                  <h3 class="h-card">{ch.title}</h3>
+                  <p class="ch-body">{ch.body}</p>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </div>
+    </Container>
+  </section>
+
+  {/* 4. DELIVERED SOLUTION */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Delivered solution</h2>
+        <div class="case-text">
+          {c.solution.intro.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+
+      {
+        c.solution.showVisual && (
+          <div class="exhibit case-media">
+            <div class="exhibit-head">
+              <h3>Pipeline flow</h3>
+            </div>
+            <CaseVisual visual={c.visual} fit />
+          </div>
+        )
+      }
+
+      {
+        c.solution.parts && (
+          <div class="grid-2 case-parts">
+            {c.solution.parts.map((p) => (
+              <div class="card">
+                <h3 class="h-card">{p.title}</h3>
+                <p>{p.body}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        c.solution.outro && (
+          <div class="case-row" style="margin-top:72px;">
+            <div />
+            <div class="case-text">{c.solution.outro.map((p) => <p>{p}</p>)}</div>
+          </div>
+        )
+      }
+
+      {
+        c.solution.points && (
+          <div class="case-row" style="margin-top:72px;">
+            <h3 class="h-card" style="font-size:24px;">{c.solution.points.title}</h3>
+            <ul class="case-list">
+              {c.solution.points.items.map((it) => <li class="card"><p>{it}</p></li>)}
+            </ul>
+          </div>
+        )
+      }
+
+      <p class="tech-stack"><strong>Tech stack</strong> {c.solution.stack}</p>
+    </Container>
+  </section>
+
+  {/* 5. OUTCOME */}
+  <section class="band">
+    <Container wide>
+      <div class="case-row">
+        <h2 class="h-sec">Outcome</h2>
+        <div class="case-text">
+          {c.outcomeAsList ? (
+            <ul class="case-list">{c.outcome.map((p) => <li class="card"><p>{p}</p></li>)}</ul>
+          ) : (
+            c.outcome.map((p) => <p class="case-lead">{p}</p>)
+          )}
+        </div>
+      </div>
+      {
+        c.figures && (
+          <div class="grid-3" style="margin-top:72px;">
+            {c.figures.map((f) => (
+              <div class="card">
+                <p class="proof-num" style="font-size:3rem; font-weight:700; letter-spacing:-0.035em; margin:0; color:var(--text);">{f.metric}</p>
+                <p style="margin-top:10px;">{f.label}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </Container>
+  </section>
+
+  {/* 6. LESSONS LEARNED */}
+  <section class="band band-soft">
+    <Container wide>
+      <div class="sec-head">
+        <h2 class="h-sec">Lessons learned</h2>
+      </div>
+      <div class="grid-2">
+        {c.lessons.map((l) => <div class="card"><p class="lesson">{l}</p></div>)}
+      </div>
+    </Container>
+  </section>
+
+  {/* LINKS (only when a case has them) */}
+  {
+    links.length > 0 && (
+      <section class="band">
+        <Container wide>
+          <div class="sec-head">
+            <h2 class="h-sec">See it for yourself</h2>
+          </div>
+          <div class="grid-3">
+            {links.map((l) =>
+              l.href ? (
+                <a href={l.href} class="card res-card" rel="noopener" target="_blank">
+                  <span class="meta">{l.kind}</span>
+                  <h3 class="h-card">{l.title} ↗</h3>
+                  <p>{l.note}</p>
+                </a>
+              ) : (
+                <div class="card res-card is-soon">
+                  <span class="meta">{l.kind}</span>
+                  <h3 class="h-card">{l.title}</h3>
+                  <p>{l.note}</p>
+                  <span class="chip" style="align-self:start; margin-top:auto;">Coming soon</span>
+                </div>
+              ),
+            )}
+          </div>
+        </Container>
+      </section>
+    )
+  }
+
+  {/* NEXT + CTA */}
+  <section class="band band-ink">
+    <Container wide>
+      <div class="two-col" style="align-items:end;">
+        <div>
+          <h2 class="h-sec">Have a project like this?</h2>
+          <p class="lede" style="margin-top:24px;">A 30-minute call to see whether I can help.</p>
+          <div class="hero-links">
+            <a href="/#contact" class="btn btn-light">Get in touch</a>
+            <a class="btn btn-ghost-light" href={siteLinks.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+          </div>
+        </div>
+        <a href={`/cases/${next.slug}`} class="next-case">
+          <span class="meta" style="color:#8b8b92;">Next case</span>
+          <span class="next-title">{next.title} →</span>
+        </a>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

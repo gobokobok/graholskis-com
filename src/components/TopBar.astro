@@ -1,58 +1,31 @@
 ---
-const navLinks = [
-  { href: "/lab",        label: "Lab" },
-  { href: "/frameworks", label: "Frameworks" },
-  { href: "/about",      label: "About" },
-  { href: "/contact",    label: "Contact" },
-];
-
-const path = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
+import { nav, site } from "../config";
+const last = nav[nav.length - 1];
+const rest = nav.slice(0, -1);
 ---
 
-<header class="sticky top-0 z-40 bg-[var(--color-ink)] border-b-2 border-[var(--color-amber)]">
-  <div class="max-w-[var(--container-page)] mx-auto px-6 sm:px-12 py-4 flex items-center justify-between gap-8">
+<header class="site-head">
+  <div class="wide row">
+    <a href="/" class="brand" aria-label={`${site.name}, home`}>{site.name}</a>
 
-    {/* Wordmark */}
-    <a
-      href="/"
-      class="flex items-baseline gap-3 group shrink-0"
-      aria-label="Aleksandrs Graholskis — home"
-    >
-      <span
-        class="font-[family-name:var(--font-display)] font-extrabold text-[16px] tracking-[-0.01em] text-[var(--color-paper)] group-hover:text-[var(--color-amber)] transition-colors"
-      >
-        graholskis.com
-      </span>
-      <span
-        class="font-[family-name:var(--font-mono)] text-[9px] tracking-[0.2em] uppercase text-white/35 hidden sm:inline leading-none"
-      >
-        Enterprise&nbsp;AI&nbsp;Architect
-      </span>
-    </a>
-
-    {/* Nav */}
-    <nav aria-label="Primary navigation">
-      <ul class="flex items-center gap-0.5 sm:gap-1">
-        {navLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              class:list={[
-                "block px-3.5 py-2 font-[family-name:var(--font-sans)] text-[12.5px] font-medium tracking-[0.02em] transition-colors rounded-none",
-                isActive(link.href)
-                  ? "text-[var(--color-amber)]"
-                  : "text-white/55 hover:text-white",
-              ]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav class="site-nav" aria-label="Primary navigation">
+      {rest.map((l) => <a href={l.href} class="hide-md">{l.label}</a>)}
+      <a href={last.href} class="btn btn-primary btn-sm nav-cta">{last.label}</a>
+      <details class="mnav show-md">
+        <summary class="btn btn-sm" aria-label="Menu">Menu</summary>
+        <ul>
+          {rest.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </details>
     </nav>
-
   </div>
 </header>
+
+<script>
+  // Close the mobile menu after choosing a link.
+  document.querySelectorAll<HTMLDetailsElement>(".mnav").forEach((d) => {
+    d.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) d.removeAttribute("open");
+    });
+  });
+</script>

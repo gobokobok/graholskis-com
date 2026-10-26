@@ -1,0 +1,27 @@
+---
+// Contact form. Posts through src/scripts/forms.ts (Web3Forms when a key is set, otherwise opens an email).
+---
+
+<form class="form" data-form data-subject="Message from graholskis.com" data-success="Thank you. I will reply soon." novalidate={false}>
+  <div class="field">
+    <label for="cf-name">Name</label>
+    <input id="cf-name" name="name" type="text" autocomplete="name" required />
+  </div>
+  <div class="field">
+    <label for="cf-email">Email</label>
+    <input id="cf-email" name="email" type="email" autocomplete="email" required />
+  </div>
+  <div class="field wide-field">
+    <label for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" rows="5" required></textarea>
+  </div>
+  <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <div class="form-foot wide-field">
+    <button type="submit" class="btn btn-light">Send</button>
+    <p class="form-status" data-status role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  import "../scripts/forms";
+</script>

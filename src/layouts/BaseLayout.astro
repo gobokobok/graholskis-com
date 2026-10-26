@@ -1,10 +1,16 @@
 ---
 import "../styles/global.css";
+import "@fontsource/poppins/latin-500.css";
+import "@fontsource/poppins/latin-600.css";
+import "@fontsource/poppins/latin-700.css";
+import "@fontsource-variable/schibsted-grotesk";
+import "@fontsource/fragment-mono/400.css";
 import TopBar from "../components/TopBar.astro";
 import Footer from "../components/Footer.astro";
+import Tooltip from "../components/Tooltip.astro";
 
 interface Props {
-  /** SEO title — appended with site name unless `bareTitle` is true */
+  /** SEO title, appended with site name unless `bareTitle` is true */
   title: string;
   /** SEO description (≤ 160 chars) */
   description?: string;
@@ -16,13 +22,13 @@ interface Props {
 
 const {
   title,
-  description = "Enterprise AI Architect. From AI Debt to AI Architecture — frameworks, audits, and post-mortems for senior transformation leaders.",
+  description = "I help organisations move from AI experiments to governed, scaled adoption.",
   bareTitle = false,
   canonical,
 } = Astro.props;
 
 const siteName = "Aleksandrs Graholskis";
-const fullTitle = bareTitle ? title : `${title} — ${siteName}`;
+const fullTitle = bareTitle ? title : `${title} | ${siteName}`;
 const canonicalURL = canonical
   ? new URL(canonical, Astro.site ?? Astro.url).href
   : new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
@@ -51,25 +57,18 @@ const canonicalURL = canonical
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
 
-    {/* Fonts — preconnect and load in one shot for above-the-fold weight */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
-
-    {/* Schema.org Person — establishes professional identity for search */}
+    {/* Schema.org Person: establishes professional identity for search */}
     <script
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Person",
         name: "Aleksandrs Graholskis",
-        jobTitle: "Enterprise AI Architect",
+        jobTitle: "AI Enablement Lead",
         url: "https://graholskis.com",
         sameAs: [
           "https://www.linkedin.com/in/aleksandrs-graholskis/",
+          "https://github.com/gobokobok",
         ],
         knowsAbout: [
           "Enterprise AI Architecture",
@@ -86,17 +85,18 @@ const canonicalURL = canonical
   <body>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-ink focus:text-paper focus:px-3 focus:py-2"
+      class="sr-only"
     >
       Skip to content
     </a>
 
     <TopBar />
 
-    <main id="main" class="bg-paper">
+    <main id="main">
       <slot />
     </main>
 
     <Footer />
+    <Tooltip />
   </body>
 </html>
