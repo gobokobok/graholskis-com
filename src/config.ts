@@ -6,7 +6,7 @@
 // ---- TODO: placeholders -----------------------------------------------------
 
 /** TODO: your calendar booking link (Cal.com, Calendly, Google). Empty = "Book a call" jumps to the contact form. */
-export const calendarUrl = "";
+export const calendarUrl = "https://calendly.com/aleksandrs-graholskis/30min";
 
 /** TODO: confirm. Used only as the mailto fallback while the form key is empty. */
 export const contactEmail = "alex@graholskis.com";

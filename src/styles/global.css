@@ -2403,3 +2403,275 @@ h4,
   color: var(--accent);
   font-weight: 600;
 }
+
+/* ------------------------------------------------------------------
+   Density pass (Oct 2026): one smaller scale for type, controls and space.
+   Measured against Linear, Stripe and Vercel at the same widths:
+   big headlines are fine, but body and UI text sit at 14-16px,
+   buttons at 32-44px and cards are padded 16-24px.
+   Type: 16px body on a ~1.25 scale (13 / 15 / 16 / 18 / 20 / 26-36 / 32-52).
+   Space: 8px grid; sections 56 / 72 / 96px, cards 20 / 24px.
+   Overrides the sizes set by the passes above; remove this block to go back.
+   ------------------------------------------------------------------ */
+:root {
+  --r: 12px;
+  --r-sm: 8px;
+}
+body {
+  font-size: 16px;
+}
+
+/* titles: lighter weight reads smaller at the same size */
+.hero-pos .hero-h1 {
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.h-sec,
+.h-page {
+  font-size: clamp(1.625rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.case-title {
+  font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+  font-weight: 600;
+}
+.statement {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+}
+.sub-head {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+.request {
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+}
+.price-fig {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
+.mode-title {
+  font-size: 20px;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.mode-title::before {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+.h-card {
+  font-size: 18px;
+}
+.case-card h3,
+.card-h2 {
+  font-size: 20px;
+}
+
+/* text */
+.lede,
+.hero-sub {
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+}
+.hero-sub {
+  margin-top: 24px;
+}
+.card p,
+.mode p,
+.case-card p,
+.case-list .card p {
+  font-size: 15px;
+  line-height: 1.55;
+}
+.case-text p,
+.tech-stack,
+.formats {
+  font-size: 16px;
+}
+.case-text .case-lead {
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+}
+.price {
+  font-size: 20px;
+  font-weight: 600;
+}
+.hero-photo {
+  max-width: 320px;
+}
+@media (max-width: 879px) {
+  .hero-photo {
+    max-width: 240px;
+  }
+}
+.lesson {
+  font-size: 17px !important;
+}
+.quote p {
+  font-size: 18px;
+}
+.meta,
+.meta-strip dt,
+.facts-col dt,
+.screen figcaption,
+.price-note,
+.form-status {
+  font-size: 13px;
+}
+.meta-strip dd,
+.facts-col dd {
+  font-size: 16px;
+}
+.link-arrow,
+.case-card .more,
+.ws-card .more {
+  font-size: 15px;
+}
+
+/* controls */
+.btn {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 15px;
+}
+.btn-sm {
+  height: 36px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+.site-head .row {
+  min-height: 60px;
+}
+.brand {
+  font-size: 16px;
+}
+.site-nav a {
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.mnav li a {
+  font-size: 15px;
+  padding: 10px 12px;
+}
+.capture input[type="email"],
+.field input {
+  height: 44px;
+  font-size: 15px;
+}
+.field textarea {
+  font-size: 15px;
+}
+.band-ink .field label {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* space: sections */
+.band {
+  padding: 56px 0;
+}
+.hero-pos {
+  padding: 48px 0 64px;
+}
+.hero-pos .hero-links {
+  margin-top: 32px;
+}
+.sec-head {
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.svc-grid {
+  margin-top: 32px;
+}
+.case-hero {
+  padding: 56px 0 64px;
+}
+@media (min-width: 640px) {
+  .band {
+    padding: 72px 0;
+  }
+}
+@media (min-width: 880px) {
+  .hero-pos {
+    padding: 80px 0 96px;
+  }
+  .case-hero {
+    padding: 80px 0 88px;
+  }
+}
+@media (min-width: 1100px) {
+  .band {
+    padding: 96px 0;
+  }
+  .hero-pos {
+    padding: 96px 0 112px;
+  }
+  .sec-head {
+    margin-bottom: 40px;
+  }
+  .svc-grid {
+    margin-top: 40px;
+  }
+  .two-col {
+    gap: 80px;
+  }
+  .case-grid,
+  .ex-grid,
+  .quote-grid,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .svc-grid,
+  .lab-grid {
+    gap: 20px;
+  }
+}
+
+/* space: cards. The case visual bleeds to the card edge, so its margin follows the padding. */
+.card,
+.case-card,
+.exhibit {
+  padding: 20px;
+}
+.case-visual {
+  margin: -20px -20px 8px;
+  padding: 20px;
+}
+.quote {
+  padding: 24px;
+}
+.price-tag {
+  padding: 24px;
+}
+@media (min-width: 760px) {
+  .card,
+  .case-card,
+  .exhibit {
+    padding: 24px;
+  }
+  .case-visual {
+    margin: -24px -24px 8px;
+    padding: 24px;
+  }
+  .quote,
+  .price-tag {
+    padding: 32px;
+  }
+}
+.case-card {
+  gap: 10px;
+}
+.case-card .case-visual {
+  min-height: 180px;
+}
+/* side by side, the visuals share the platform schematic's height so titles line up */
+@media (min-width: 860px) {
+  .case-card .case-visual {
+    min-height: 346px;
+  }
+}
+.lab,
+.res,
+.ws-card {
+  gap: 10px;
+}
