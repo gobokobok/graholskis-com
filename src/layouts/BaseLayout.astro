@@ -19,6 +19,8 @@ interface Props {
   bareTitle?: boolean;
   /** Optional canonical path override (defaults to current URL) */
   canonical?: string;
+  /** Keep the page out of search results (unlisted pages reached by link only) */
+  noindex?: boolean;
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   description = "I help organisations move from AI experiments to governed, scaled adoption.",
   bareTitle = false,
   canonical,
+  noindex = false,
 } = Astro.props;
 
 const siteName = "Aleksandrs Graholskis";
@@ -45,6 +48,7 @@ const canonicalURL = canonical
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex" />}
 
     {/* Open Graph */}
     <meta property="og:type" content="website" />

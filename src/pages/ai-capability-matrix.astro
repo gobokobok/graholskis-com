@@ -1,0 +1,310 @@
+---
+// AI capability matrix. Unlisted: reached from the readiness checklist email, not linked in the site, kept out of search.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import { levels, domains, items, typeLabel, typeHelp, glossary, termsIn } from "../data/capability-matrix";
+
+const capCount = domains.reduce((a, d) => a + d.caps.length, 0);
+const terms = Object.fromEntries(domains.flatMap((d) => d.caps.map((c) => [c.id, termsIn(c)])));
+const data = { levels, domains, typeLabel, typeHelp, terms };
+---
+
+<BaseLayout
+  title="AI capability matrix"
+  description="What an organisation needs to use AI safely and at scale: capabilities across four maturity levels."
+  noindex
+>
+  <section class="legal-hero mx-hero">
+    <Container wide>
+      <h1 class="h-sec">AI capability matrix</h1>
+      <p class="lede mx-lede">
+        What an organisation needs to use AI safely and at scale: {capCount} capabilities in {domains.length} domains, across four
+        levels of maturity. Each level builds on the one before.
+      </p>
+      <p class="mx-how">
+        Read across a row to see how one capability develops. Read down a column to see what a level asks of the whole organisation.
+        Each cell shows its main item, and <span class="mx-more">+2</span> means two more. Select a cell to see them all.
+        Capabilities without a tag apply to every organisation. <span class="mx-tag mx-tag-C">Conditional</span> ones are only
+        needed if you use that technology, such as retrieval, connectors or agents. <span class="mx-tag mx-tag-I">Industry</span> ones
+        depend on your industry and regulator.
+      </p>
+    </Container>
+  </section>
+
+  <Container wide as="section" class="mx-section">
+    <div class="mx-controls">
+      <div class="mx-levels" role="group" aria-label="Show level">
+        {
+          levels.map((l) => (
+            <button type="button" class="pill pill-line mx-lv" data-lv={l.n} aria-pressed={l.n === 1 ? "true" : "false"}>
+              L{l.n}
+            </button>
+          ))
+        }
+      </div>
+      <p class="mx-lv-name" id="mx-lv-name">{levels[0].name}: {levels[0].line}</p>
+      <div class="mx-fold">
+        <button type="button" class="pill-link" data-fold="open">Expand all</button>
+        <button type="button" class="pill-link" data-fold="close">Collapse all</button>
+      </div>
+    </div>
+
+    <div class="mx-card">
+    <table class="mx" id="mx" data-lv="1" aria-label="AI capability matrix">
+      <colgroup>
+        <col class="mx-c0" />
+        {levels.map(() => <col />)}
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col" class="mx-h0">Capability</th>
+          {
+            levels.map((l) => (
+              <th scope="col" data-lv={l.n}>
+                <span class="mx-ln">Level {l.n}</span>
+                <span class="mx-lname">{l.name}</span>
+                <span class="mx-lline">{l.line}</span>
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      {
+        domains.map((d) => (
+          <tbody data-dom={d.n}>
+            <tr class="mx-dom">
+              <th colspan={levels.length + 1} scope="rowgroup">
+                <button type="button" class="mx-dtog" aria-expanded="true">
+                  <span class="mx-chev" aria-hidden="true" />
+                  <span class="mx-dnum">{d.n}</span>
+                  <span class="mx-dname">{d.name}</span>
+                  <span class="mx-dcount">{d.caps.length} capabilities</span>
+                </button>
+              </th>
+            </tr>
+            {d.caps.map((c) => (
+              <tr class="mx-row">
+                <th scope="row">
+                  <span class="mx-cname">{c.name}</span>
+                  {c.type !== "F" && <span class={`mx-tag mx-tag-${c.type}`} title={typeHelp[c.type]}>{c.type === "C" ? "Conditional" : "Industry"}</span>}
+                </th>
+                {c.cells.map((cell, i) => {
+                  const list = items(cell);
+                  return (
+                    <td data-lv={i + 1}>
+                      {cell ? (
+                        <button
+                          type="button"
+                          class="mx-cell"
+                          data-cap={c.id}
+                          data-lv={i + 1}
+                          aria-label={`${c.name}, L${i + 1} ${levels[i].name}: ${cell}`}
+                        >
+                          <span class="mx-head">{list[0]}</span>
+                          {list.length > 1 && (
+                            <span class="mx-more" title={`${list.length - 1} more ${list.length - 1 === 1 ? "item" : "items"}`}>
+                              +{list.length - 1}
+                            </span>
+                          )}
+                        </button>
+                      ) : (
+                        <span class="mx-none" title="Nothing new at this level">
+                          <span class="sr-only">Nothing new at this level</span>
+                        </span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        ))
+      }
+    </table>
+    </div>
+
+    <div class="mx-gloss">
+      <h2 class="mx-gloss-h">Terms used</h2>
+      <dl>
+        {
+          glossary.map((g) => (
+            <div>
+              <dt>{g.term}</dt>
+              <dd>{g.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Container>
+
+  <aside id="mx-panel" class="mx-panel glass" role="dialog" aria-modal="false" aria-labelledby="mx-p-title" hidden>
+    <div class="mx-p-top">
+      <p class="mx-p-eye" id="mx-p-eye"></p>
+      <button type="button" class="pill pill-line pill-icon" id="mx-p-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+    <h2 class="mx-p-title" id="mx-p-title"></h2>
+    <div id="mx-p-body"></div>
+  </aside>
+
+  <script is:inline type="application/json" id="mx-data" set:html={JSON.stringify(data)}></script>
+</BaseLayout>
+
+<script>
+  import type { Domain, Level, CapabilityType } from "../data/capability-matrix";
+
+  const data = JSON.parse(document.getElementById("mx-data")!.textContent!) as {
+    levels: Level[];
+    domains: Domain[];
+    typeLabel: Record<CapabilityType, string>;
+    typeHelp: Record<CapabilityType, string>;
+    terms: Record<string, { term: string; text: string }[]>;
+  };
+  const table = document.getElementById("mx") as HTMLTableElement;
+  const panel = document.getElementById("mx-panel") as HTMLElement;
+  const body = document.getElementById("mx-p-body")!;
+  const byId = new Map(data.domains.flatMap((d) => d.caps.map((c) => [c.id, { d, c }] as const)));
+  let active: HTMLButtonElement | null = null;
+  let opener: HTMLElement | null = null;
+
+  const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls = "", text?: string) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  };
+  const split = (cell: string | null) => (cell ? cell.split(";").map((s) => s.trim()).filter(Boolean) : []);
+  const cellBtn = (cap: string, lv: number) =>
+    table.querySelector<HTMLButtonElement>(`.mx-cell[data-cap="${cap}"][data-lv="${lv}"]`);
+
+  // Domains fold open and closed.
+  const setOpen = (tb: HTMLElement, open: boolean) => {
+    tb.classList.toggle("is-closed", !open);
+    tb.querySelector(".mx-dtog")?.setAttribute("aria-expanded", String(open));
+  };
+  table.querySelectorAll<HTMLElement>("tbody[data-dom]").forEach((tb) => {
+    tb.querySelector(".mx-dtog")?.addEventListener("click", () => setOpen(tb, tb.classList.contains("is-closed")));
+  });
+  document.querySelectorAll<HTMLButtonElement>("[data-fold]").forEach((b) =>
+    b.addEventListener("click", () =>
+      table.querySelectorAll<HTMLElement>("tbody[data-dom]").forEach((tb) => setOpen(tb, b.dataset.fold === "open")),
+    ),
+  );
+
+  // Phones show one level at a time.
+  const showLevel = (lv: number) => {
+    table.dataset.lv = String(lv);
+    document.querySelectorAll<HTMLButtonElement>(".mx-lv").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.lv) === lv)));
+    const l = data.levels[lv - 1];
+    document.getElementById("mx-lv-name")!.textContent = `${l.name}: ${l.line}`;
+  };
+  document.querySelectorAll<HTMLButtonElement>(".mx-lv").forEach((b) => b.addEventListener("click", () => showLevel(Number(b.dataset.lv))));
+
+  // Detail panel for one cell.
+  const open = (capId: string, lv: number, from?: HTMLElement | null) => {
+    const hit = byId.get(capId);
+    if (!hit || !hit.c.cells[lv - 1]) return;
+    const { d, c } = hit;
+    const l = data.levels[lv - 1];
+    if (from) opener = from;
+
+    active?.removeAttribute("aria-current");
+    active = cellBtn(capId, lv);
+    active?.setAttribute("aria-current", "true");
+
+    document.getElementById("mx-p-eye")!.textContent = `${d.n} · ${d.name}`;
+    document.getElementById("mx-p-title")!.textContent = c.name;
+    body.textContent = "";
+
+    if (c.type !== "F") {
+      const t = el("p", "mx-p-type");
+      t.append(el("span", `mx-tag mx-tag-${c.type}`, c.type === "C" ? "Conditional" : "Industry"), ` ${data.typeHelp[c.type]}`);
+      body.append(t);
+    }
+
+    const lvBox = el("div", "mx-p-level");
+    lvBox.append(el("span", "mx-p-ln", `Level ${l.n}`), el("span", "mx-p-lname", l.name));
+    body.append(lvBox, el("p", "mx-p-lline", l.line));
+
+    body.append(el("h3", "mx-p-h", "What this level adds"));
+    const ul = el("ul", "mx-p-items");
+    split(c.cells[lv - 1]).forEach((s) => ul.append(el("li", "", s)));
+    body.append(ul);
+
+    body.append(el("h3", "mx-p-h", "Across levels"));
+    const ol = el("ol", "mx-p-across");
+    c.cells.forEach((cell, i) => {
+      const li = el("li");
+      const lab = el("b", "", `L${i + 1}`);
+      if (!cell) {
+        li.className = "is-none";
+        li.append(lab, el("span", "", "Nothing new at this level"));
+      } else {
+        const b = el("button");
+        b.type = "button";
+        if (i + 1 === lv) {
+          li.className = "is-current";
+          b.setAttribute("aria-current", "true");
+        }
+        b.append(lab, el("span", "", split(cell).join("; ")));
+        b.addEventListener("click", () => {
+          showLevel(i + 1);
+          open(capId, i + 1);
+        });
+        li.append(b);
+      }
+      ol.append(li);
+    });
+    body.append(ol);
+
+    const used = data.terms[capId] ?? [];
+    if (used.length) {
+      body.append(el("h3", "mx-p-h", "Terms"));
+      const dl = el("dl", "mx-p-terms");
+      used.forEach((g) => dl.append(el("dt", "", g.term), el("dd", "", g.text)));
+      body.append(dl);
+    }
+
+    panel.hidden = false;
+    panel.scrollTop = 0;
+    document.body.classList.add("mx-open");
+    history.replaceState(null, "", `#${capId}-${lv}`);
+    (document.getElementById("mx-p-close") as HTMLButtonElement).focus({ preventScroll: true });
+  };
+
+  const close = () => {
+    panel.hidden = true;
+    document.body.classList.remove("mx-open");
+    active?.removeAttribute("aria-current");
+    history.replaceState(null, "", location.pathname + location.search);
+    (opener ?? active)?.focus({ preventScroll: true });
+    active = null;
+  };
+
+  table.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>(".mx-cell");
+    if (b) open(b.dataset.cap!, Number(b.dataset.lv), b);
+  });
+  document.getElementById("mx-p-close")!.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !panel.hidden) close();
+  });
+
+  // Deep link: /ai-capability-matrix#eval-2 opens that cell, on load and when the hash changes.
+  const fromHash = () => {
+    const m = location.hash.match(/^#([a-z]+)-([1-4])$/);
+    if (!m) return;
+    showLevel(Number(m[2]));
+    open(m[1], Number(m[2]));
+    cellBtn(m[1], Number(m[2]))?.scrollIntoView({ block: "center", behavior: "instant" });
+  };
+  // On load the browser may restore an old scroll position after this runs, so scroll once the page has loaded.
+  if (location.hash) history.scrollRestoration = "manual";
+  if (document.readyState === "complete") fromHash();
+  else window.addEventListener("load", fromHash, { once: true });
+  window.addEventListener("hashchange", fromHash);
+</script>

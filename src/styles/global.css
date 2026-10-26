@@ -3052,3 +3052,580 @@ body {
   justify-content: space-between;
   gap: 8px 24px;
 }
+
+/* ------------------------------------------------------------------
+   AI capability matrix (/ai-capability-matrix).
+   Rows are capabilities grouped by domain, columns are maturity levels.
+   A cell shows its first item plus a count; the side panel shows all of it.
+   Phones show one level at a time, chosen with the level pills.
+   ------------------------------------------------------------------ */
+.mx-lede {
+  margin-top: 16px;
+  max-width: 46rem;
+}
+.mx-how {
+  margin: 12px 0 0;
+  max-width: 46rem;
+  color: var(--muted);
+  font-size: 15px;
+}
+.mx-tag {
+  display: inline-block;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.mx-tag-C {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.mx-tag-I {
+  border: 1px dashed var(--border-strong);
+  color: var(--ink-sub);
+}
+.mx-section {
+  padding-bottom: 96px;
+}
+
+/* controls */
+.mx-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 16px;
+  margin: 8px 0 8px;
+}
+.mx-levels,
+.mx-lv-name {
+  display: none;
+}
+.mx-fold {
+  display: flex;
+  gap: 2px;
+}
+.mx-lv[aria-pressed="true"] {
+  background: var(--text);
+  color: #fff;
+}
+
+/* table */
+.mx {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.mx-c0 {
+  width: 22%;
+}
+.mx thead th {
+  position: sticky;
+  top: 66px; /* directly under the floating bar (12px offset + 54px bar) */
+  z-index: 5;
+  padding: 12px 8px 12px;
+  border-bottom: 1px solid var(--border-strong);
+  background: var(--bg);
+  text-align: left;
+  vertical-align: bottom;
+  font-weight: 400;
+}
+.mx-h0 {
+  color: var(--muted);
+  font-size: 13px;
+}
+.mx-ln {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.mx-lname {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.mx-lline {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* domain rows */
+.mx-dom th {
+  padding: 0;
+}
+.mx-dtog {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 28px 8px 10px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.mx-chev {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin: 0 2px 3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.15s;
+}
+.is-closed .mx-chev {
+  margin-bottom: 0;
+  transform: rotate(-45deg);
+}
+.mx-dnum {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.mx-dname {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.mx-dcount {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+.is-closed .mx-row {
+  display: none;
+}
+
+/* capability rows and cells */
+.mx-row th {
+  padding: 10px 12px 10px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  vertical-align: top;
+}
+.mx-cname {
+  display: block;
+}
+.mx-row th .mx-tag {
+  margin-top: 6px;
+}
+.mx-row td {
+  height: 1px; /* lets the cell buttons fill the row height */
+  padding: 4px;
+  vertical-align: top;
+}
+.mx-cell {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 52px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.mx-cell:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(39, 67, 201, 0.08);
+}
+.mx-cell[aria-current="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+.mx-more {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.mx-none {
+  display: block;
+  height: 100%;
+  min-height: 52px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+/* phones: one level at a time */
+@media (max-width: 859px) {
+  .mx-controls {
+    position: sticky;
+    top: 70px;
+    z-index: 6;
+    justify-content: space-between;
+    margin: 0 -16px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .mx-levels {
+    display: flex;
+    gap: 6px;
+  }
+  .mx-lv {
+    height: 32px;
+    padding: 0 14px;
+  }
+  .mx-lv-name {
+    display: block;
+    order: 3;
+    width: 100%;
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .mx {
+    table-layout: auto;
+  }
+  .mx thead {
+    display: none;
+  }
+  .mx-row th {
+    width: 42%;
+    padding-left: 0;
+  }
+  .mx-dtog {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .mx[data-lv="1"] td:not([data-lv="1"]),
+  .mx[data-lv="2"] td:not([data-lv="2"]),
+  .mx[data-lv="3"] td:not([data-lv="3"]),
+  .mx[data-lv="4"] td:not([data-lv="4"]) {
+    display: none;
+  }
+}
+
+/* detail panel: floating on the right, bottom sheet on phones */
+.mx-panel {
+  position: fixed;
+  top: 76px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 35;
+  width: min(420px, calc(100vw - 32px));
+  overflow: auto;
+  padding: 18px 20px 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow:
+    0 2px 8px rgba(39, 67, 201, 0.06),
+    0 24px 64px rgba(18, 18, 21, 0.16);
+}
+.mx-panel:not([hidden]) {
+  animation: mx-in 0.2s ease-out;
+}
+@keyframes mx-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mx-panel:not([hidden]) {
+    animation: none;
+  }
+}
+@media (max-width: 859px) {
+  .mx-panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    max-height: 78svh;
+    border-radius: 20px;
+  }
+}
+.mx-p-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mx-p-eye {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.mx-p-title {
+  margin: 6px 0 12px;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.mx-p-type {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.mx-p-level {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mx-p-ln {
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.mx-p-lname {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+}
+.mx-p-lline {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.mx-p-h {
+  margin: 20px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.mx-p-items {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  font-size: 15px;
+}
+.mx-p-items li {
+  margin-bottom: 4px;
+}
+.mx-p-across {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mx-p-across button,
+.mx-p-across li.is-none {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink-sub);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+}
+.mx-p-across button {
+  cursor: pointer;
+}
+.mx-p-across button:hover {
+  border-color: var(--accent);
+}
+.mx-p-across li.is-current button {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.mx-p-across li.is-none {
+  border-style: dashed;
+  color: var(--faint);
+}
+.mx-p-across b {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.mx-p-across li.is-current b {
+  color: var(--accent);
+}
+.mx-p-items li::first-letter {
+  text-transform: uppercase; /* items after the first are written lower case in the source */
+}
+@media (max-width: 859px) {
+  /* phones: keep the sticky controls to the level pills and the level line */
+  .mx-fold,
+  .mx-dcount {
+    display: none;
+  }
+}
+
+/* matrix glossary: under the table, and per capability in the panel */
+.mx-gloss {
+  margin-top: 72px;
+}
+.mx-gloss-h {
+  margin: 0 0 16px;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+}
+.mx-gloss dl {
+  display: grid;
+  gap: 10px 32px;
+  margin: 0;
+}
+@media (min-width: 760px) {
+  .mx-gloss dl {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.mx-gloss dl > div {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 12px;
+  font-size: 14px;
+}
+.mx-gloss dt,
+.mx-p-terms dt {
+  color: var(--text);
+  font-weight: 600;
+}
+.mx-gloss dd,
+.mx-p-terms dd {
+  margin: 0;
+  color: var(--ink-sub);
+}
+.mx-p-terms {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Matrix readability pass: the table sits on a white card, domains get a tinted band,
+   cells turn light grey so they stand out on white, and the terms list is set smaller. */
+.mx-card {
+  padding: 4px 20px 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+}
+.mx thead th {
+  background: #fff;
+}
+.mx-dom th {
+  padding: 24px 0 6px;
+}
+.mx tbody:first-of-type .mx-dom th {
+  padding-top: 16px;
+}
+.mx-dtog {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg-soft);
+}
+.mx-dtog:hover {
+  background: #e9e9ec;
+}
+.mx-cell {
+  background: var(--bg);
+}
+.mx-cell:hover,
+.mx-cell[aria-current="true"] {
+  background: #fff;
+}
+@media (max-width: 859px) {
+  .mx-card {
+    margin: 12px 0 0;
+    padding: 0 12px 16px;
+    border-radius: 14px;
+  }
+  .mx-dtog {
+    padding: 10px 12px;
+  }
+  .mx-row th {
+    padding-left: 4px;
+  }
+}
+
+/* terms: smaller, secondary to the matrix */
+.mx-gloss {
+  margin-top: 48px;
+}
+.mx-gloss-h {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.mx-gloss dl {
+  gap: 6px 32px;
+}
+.mx-gloss dl > div {
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+@media (max-width: 859px) {
+  .mx-dname {
+    font-size: 15px;
+  }
+}
+/* no line under the level header: the white card and spacing carry the structure */
+.mx thead th {
+  border-bottom: 0;
+}
+@media (max-width: 859px) {
+  .mx-controls {
+    border-bottom: 0;
+  }
+}
+.mx-how .mx-more {
+  margin-left: 0;
+}
+.mx-how {
+  max-width: 52rem;
+}
+/* collapsed domains sit close together, like a list; open ones keep their breathing room */
+.mx tbody.is-closed .mx-dom th {
+  padding-bottom: 4px;
+}
+.mx tbody.is-closed + tbody.is-closed .mx-dom th {
+  padding-top: 4px;
+}
+/* tags inside the how-to paragraph sit on the text line */
+.mx-how .mx-tag {
+  vertical-align: 1px;
+}
