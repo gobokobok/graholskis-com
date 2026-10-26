@@ -1,0 +1,21 @@
+---
+import Pipeline from "./viz/Pipeline.astro";
+import PlatformDiagram from "./diagrams/PlatformDiagram.astro";
+import PersonDiagram from "./diagrams/PersonDiagram.astro";
+import type { WorkItem } from "../config";
+
+interface Props {
+  item: WorkItem;
+}
+const { item } = Astro.props;
+---
+
+{
+  item.visual === "platform" ? (
+    <PlatformDiagram />
+  ) : item.visual === "person" ? (
+    <PersonDiagram />
+  ) : (
+    <Pipeline steps={item.flow ?? []} small />
+  )
+}

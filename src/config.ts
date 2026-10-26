@@ -22,6 +22,10 @@ export const links = {
   youtube: "", // empty = hidden
 };
 
+/** TODO: your portrait. Put the file in /public (for example /public/aleksandrs.webp) and set src to "/aleksandrs.webp".
+ *  Empty src shows a grey placeholder frame. Recommended: 1440 x 1800 px (4:5). */
+export const heroPhoto = { src: "", alt: "Aleksandrs Graholskis" };
+
 /** TODO: base domain for live tools on subdomains. */
 export const domain = "graholskis.com";
 
@@ -65,8 +69,9 @@ export const services = [
   },
 ];
 
-// ---- Selected work ----------------------------------------------------------
+// ---- What I have built ------------------------------------------------------
 // Add a card by adding an object. `caseHref` and `liveHref` are optional.
+// `visual` picks the schematic on the card: "pipeline" (uses `flow`), "platform" or "person".
 
 export interface WorkItem {
   title: string;
@@ -74,9 +79,11 @@ export interface WorkItem {
   badge?: string;
   caseHref?: string;
   liveHref?: string;
-  dark?: boolean;
-  flow: { label: string; c?: number }[];
+  visual: "pipeline" | "platform" | "person";
+  flow?: { label: string; c?: number }[];
 }
+
+export const workHeading = "What I have built";
 
 export const work: WorkItem[] = [
   {
@@ -85,7 +92,7 @@ export const work: WorkItem[] = [
       "A multi-agent video production platform with 27 specialised workers, live in production. It cut a 4-minute video from up to a working day to 20 to 30 minutes.",
     caseHref: "/cases/content-factory",
     liveHref: `https://cf.${domain}`,
-    dark: true,
+    visual: "pipeline",
     flow: [
       { label: "Idea", c: 1 },
       { label: "Script", c: 2 },
@@ -98,22 +105,14 @@ export const work: WorkItem[] = [
     title: "Reference AI Platform",
     summary: "Gateway with cost tracking, agent access control and PII masking.",
     badge: "In progress",
-    flow: [
-      { label: "Teams", c: 1 },
-      { label: "AI gateway", c: 2 },
-      { label: "Models", c: 3 },
-    ],
+    visual: "platform",
   },
   {
-    title: "Enterprise IAM, Siemens Gamesa",
+    title: "Enterprise IAM, employee identity onboarding",
     summary:
       "Identity lifecycle and governance model for a 25,000-person organisation. The same principle now applies to AI agents: nothing runs without an accountable owner.",
     caseHref: "/cases/enterprise-iam",
-    flow: [
-      { label: "Workday", c: 1 },
-      { label: "Identity Manager", c: 2 },
-      { label: "Azure AD", c: 3 },
-    ],
+    visual: "person",
   },
 ];
 
@@ -125,7 +124,10 @@ export const work: WorkItem[] = [
 export interface LabItem {
   name: string;
   line: string;
+  /** Link target. Empty shows a "Coming soon" chip instead of a link. */
   href: string;
+  /** Link text. Default: "Open the tool". */
+  cta?: string;
   video?: string;
 }
 
@@ -136,16 +138,50 @@ export const labs: LabItem[] = [
     href: `https://cf.${domain}`,
     video: "", // TODO: YouTube video id of the 60-second walkthrough
   },
+  {
+    name: "ADLM via Claude Code",
+    line: "A walkthrough of my approach to delivering solutions with Claude Code.",
+    href: "", // TODO: link to the full video on YouTube
+    cta: "Watch the video",
+    video: "", // TODO: YouTube video id
+  },
 ];
 
 // ---- Workshops --------------------------------------------------------------
+// Each topic has its own page at /workshops/<slug>. Put longer content in `details`
+// (title + body pairs); they appear on the detail page once filled.
+
+export interface WorkshopTopic {
+  slug: string;
+  title: string;
+  summary: string;
+  details: { title: string; body: string }[];
+}
 
 export const workshops = {
   topics: [
-    "Building with Claude Code",
-    "Claude for teams: Cowork, Code and agents",
-    "Governing AI use across the organisation",
-  ],
+    {
+      slug: "building-with-claude-code",
+      title: "Building with Claude Code",
+      summary:
+        "A hands-on session where your team builds a working agent or app from a real use case, and learns the workflow to keep going on their own.",
+      details: [], // TODO: audience, agenda, prerequisites, outcomes
+    },
+    {
+      slug: "claude-for-teams",
+      title: "Claude for teams: Cowork, Code and agents",
+      summary:
+        "A practical tour of how teams use Claude in daily work, from Cowork and Claude Code to agents, and where each one fits.",
+      details: [],
+    },
+    {
+      slug: "governing-ai-use",
+      title: "Governing AI use across the organisation",
+      summary:
+        "How to set rules people can follow: which data may go where, who owns which agent, and how costs and access are controlled.",
+      details: [],
+    },
+  ] as WorkshopTopic[],
   formats: "Half-day or full-day, on-site or remote.",
   /** Hidden until filled: { quote: "...", by: "Name, Role, Company" } */
   testimonial: null as { quote: string; by: string } | null,

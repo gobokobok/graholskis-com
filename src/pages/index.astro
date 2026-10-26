@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/Container.astro";
-import Pipeline from "../components/viz/Pipeline.astro";
+import WorkVisual from "../components/WorkVisual.astro";
 import LabTile from "../components/LabTile.astro";
 import ResourceCard from "../components/ResourceCard.astro";
 import ContactForm from "../components/ContactForm.astro";
@@ -11,6 +11,8 @@ import {
   bookLabel,
   services,
   work,
+  workHeading,
+  heroPhoto,
   labs,
   workshops,
   resources,
@@ -28,34 +30,29 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
   {/* 1. HERO */}
   <section class="hero hero-pos">
     <Container wide>
-      <h1 class="h-hero hero-h1">
-        From AI experiments to <mark>governed adoption</mark>
-      </h1>
-      <p class="lede hero-sub">
-        I build working AI solutions, design the platform that keeps them under control, and train
-        teams to use them. 15 years in enterprise architecture, now applied to AI.
-      </p>
-      <div class="hero-links">
-        <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
-        <a href="#work" class="btn">See what I have built</a>
+      <div class="hero-grid hero-split">
+        <div>
+          <h1 class="h-hero hero-h1">
+            From AI experiments to <mark>governed adoption</mark>
+          </h1>
+          <p class="lede hero-sub">
+            I build working AI solutions, design the platform that keeps them under control, and train
+            teams to use them. 15 years in enterprise architecture, now applied to AI.
+          </p>
+          <div class="hero-links">
+            <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
+            <a href="#work" class="link link-arrow">See what I have built <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="photo hero-photo">
+          {heroPhoto.src ? <img src={heroPhoto.src} alt={heroPhoto.alt} width="1440" height="1800" fetchpriority="high" /> : <span class="photo-ph">Photo</span>}
+        </div>
       </div>
     </Container>
   </section>
 
-  {/* 2. PROBLEM */}
-  <section class="band band-soft" aria-labelledby="problem-h">
-    <Container wide>
-      <h2 id="problem-h" class="sr-only">The problem</h2>
-      <p class="statement">
-        Most organisations do not have an AI problem. They have an adoption problem: scattered tools,
-        unclear costs, no control over what data leaves the company, and teams that do not know where
-        to start. I work on all three layers.
-      </p>
-    </Container>
-  </section>
-
-  {/* 3. WHAT I DO */}
-  <section id="services" class="band">
+  {/* 2. WHAT I DO */}
+  <section id="services" class="band band-soft">
     <Container wide>
       <div class="sec-head">
         <h2 class="h-sec">What I do</h2>
@@ -73,18 +70,18 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
     </Container>
   </section>
 
-  {/* 4. SELECTED WORK */}
-  <section id="work" class="band band-soft">
+  {/* 3. WORK */}
+  <section id="work" class="band">
     <Container wide>
       <div class="sec-head">
-        <h2 class="h-sec">Selected work</h2>
+        <h2 class="h-sec">{workHeading}</h2>
       </div>
       <div class="case-grid">
         {
           work.map((w) => (
-            <article class:list={["card case-card", w.dark && "case-featured"]}>
+            <article class="card case-card">
               <div class="case-visual">
-                <Pipeline steps={w.flow} small />
+                <WorkVisual item={w} />
               </div>
               <h3>{w.title}</h3>
               <p>{w.summary}</p>
@@ -104,8 +101,8 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
     </Container>
   </section>
 
-  {/* 5. LABS */}
-  <section id="labs" class="band">
+  {/* 4. LABS */}
+  <section id="labs" class="band band-soft">
     <Container wide>
       <div class="sec-head">
         <h2 class="h-sec">Labs</h2>
@@ -116,8 +113,8 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
     </Container>
   </section>
 
-  {/* 6. WORKSHOPS */}
-  <section id="workshops" class="band band-soft">
+  {/* 5. WORKSHOPS */}
+  <section id="workshops" class="band">
     <Container wide>
       <div class="sec-head">
         <h2 class="h-sec">Workshops</h2>
@@ -125,9 +122,11 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
       <div class="grid-3">
         {
           workshops.topics.map((t) => (
-            <div class="card">
-              <h3 class="h-card">{t}</h3>
-            </div>
+            <article class="card ws-card">
+              <h3 class="h-card">{t.title}</h3>
+              <p>{t.summary}</p>
+              <a href={`/workshops/${t.slug}`} class="more">Details →</a>
+            </article>
           ))
         }
       </div>
@@ -144,7 +143,7 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
   </section>
 
   {/* 7. RESOURCES */}
-  <section id="resources" class="band">
+  <section id="resources" class="band band-soft">
     <Container wide>
       <div class="sec-head">
         <h2 class="h-sec">Resources</h2>
@@ -156,7 +155,7 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
   </section>
 
   {/* 8. BACKGROUND */}
-  <section class="band band-soft" aria-labelledby="bg-h">
+  <section class="band" aria-labelledby="bg-h">
     <Container wide>
       <div class="case-row">
         <h2 id="bg-h" class="h-sec">Background</h2>
@@ -176,6 +175,7 @@ const callHref = calendarUrl || `mailto:${contactEmail}?subject=Intro%20call`;
           <h2 class="h-sec">Contact</h2>
           <div class="hero-links">
             <a class="btn btn-ghost-light" href={links.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
+            <a class="btn btn-ghost-light" href={links.github} rel="noopener" target="_blank">GitHub ↗</a>
             <a class="btn btn-ghost-light" href={callHref} rel="noopener" target={calendarUrl ? "_blank" : undefined}>Book a call{calendarUrl ? " ↗" : ""}</a>
           </div>
         </div>

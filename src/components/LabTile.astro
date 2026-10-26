@@ -14,18 +14,24 @@ const { item } = Astro.props;
         {item.video ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${item.video}`}
-            title={`${item.name}: 60-second walkthrough`}
+            title={`${item.name}: video`}
             loading="lazy"
             allow="encrypted-media; picture-in-picture"
             allowfullscreen
           />
         ) : (
-          <span class="meta">60-second walkthrough slot</span>
+          <span class="meta">Video slot</span>
         )}
       </div>
     )
   }
   <h3 class="h-card">{item.name}</h3>
   <p>{item.line}</p>
-  <a href={item.href} class="link" rel="noopener" target="_blank">Open the tool ↗</a>
+  {
+    item.href ? (
+      <a href={item.href} class="link" rel="noopener" target="_blank">{item.cta ?? "Open the tool"} ↗</a>
+    ) : (
+      <span class="chip" style="justify-self:start;">Coming soon</span>
+    )
+  }
 </div>

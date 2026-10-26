@@ -1,0 +1,28 @@
+---
+// Reference AI platform, simplified: callers go through one gateway, hubs run requests (data plane),
+// and the control plane governs them. Original schematic, no client names.
+---
+
+<div class="pd" role="img" aria-label="Reference AI platform: applications, agents and dev tools go through one AI gateway to agent, MCP, model and knowledge hubs, governed by identity, policy, metering and observability, and reaching LLM providers and data sources.">
+  <div class="pd-row pd-in">
+    <span>Applications</span><span>Agents</span><span>Dev tools</span>
+  </div>
+  <div class="pd-arrow" aria-hidden="true">↓</div>
+  <div class="pd-gw">AI Gateway</div>
+  <div class="pd-arrow" aria-hidden="true">↓</div>
+  <div class="pd-row pd-hubs">
+    <span>Agent Hub</span><span>MCP Hub</span><span>Model Hub</span><span>Knowledge Hub</span>
+  </div>
+  <div class="pd-band">
+    <div class="pd-row pd-ctl">
+      <span>Identity and RBAC</span><span>Policy engine</span><span>Metering and cost</span><span>Observability</span>
+    </div>
+  </div>
+  <div class="pd-arrow" aria-hidden="true">↓</div>
+  <div class="pd-row pd-out">
+    <span>LLM providers</span><span>Data sources</span>
+  </div>
+  <p class="pd-legend" aria-hidden="true">
+    <i class="k-data"></i> runs requests <i class="k-ctl"></i> governs them
+  </p>
+</div>
