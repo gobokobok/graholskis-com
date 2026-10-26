@@ -2410,7 +2410,7 @@ h4,
    big headlines are fine, but body and UI text sit at 14-16px,
    buttons at 32-44px and cards are padded 16-24px.
    Type: 16px body on a ~1.25 scale (13 / 15 / 16 / 18 / 20 / 26-36 / 32-52).
-   Space: 8px grid; sections 56 / 72 / 96px, cards 20 / 24px.
+   Space: 8px grid; sections 72 / 96 / 120px, cards 20 / 24px.
    Overrides the sizes set by the passes above; remove this block to go back.
    ------------------------------------------------------------------ */
 :root {
@@ -2566,9 +2566,26 @@ body {
   margin-bottom: 6px;
 }
 
+/* width: 1120px of content plus side padding, a usual container for a text-led site */
+.wide {
+  max-width: calc(1120px + 2 * 56px);
+}
+.hero-sub {
+  max-width: 34rem; /* about 70 characters a line */
+}
+
+/* in-page links stop exactly under the sticky header (60px row + 1px border) */
+.band {
+  scroll-margin-top: 61px;
+}
+/* the last section fills the screen so its link can stop there too */
+#contact {
+  min-height: calc(100svh - 61px);
+}
+
 /* space: sections */
 .band {
-  padding: 56px 0;
+  padding: 72px 0;
 }
 .hero-pos {
   padding: 48px 0 64px;
@@ -2588,7 +2605,7 @@ body {
 }
 @media (min-width: 640px) {
   .band {
-    padding: 72px 0;
+    padding: 96px 0;
   }
 }
 @media (min-width: 880px) {
@@ -2601,10 +2618,10 @@ body {
 }
 @media (min-width: 1100px) {
   .band {
-    padding: 96px 0;
+    padding: 120px 0;
   }
   .hero-pos {
-    padding: 96px 0 112px;
+    padding: 96px 0 120px;
   }
   .sec-head {
     margin-bottom: 40px;

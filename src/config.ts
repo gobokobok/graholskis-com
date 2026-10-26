@@ -24,7 +24,7 @@ export const links = {
 
 /** TODO: your portrait. Put the file in /public (for example /public/aleksandrs.webp) and set src to "/aleksandrs.webp".
  *  Empty src shows a grey placeholder frame. Recommended: 1440 x 1800 px (4:5). */
-export const heroPhoto = { src: "", alt: "Aleksandrs Graholskis" };
+export const heroPhoto = { src: "/images/aleksandrs.webp", alt: "Aleksandrs Graholskis" };
 
 /** TODO: base domain for live tools on subdomains. */
 export const domain = "graholskis.com";
