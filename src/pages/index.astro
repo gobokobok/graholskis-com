@@ -16,6 +16,7 @@ import {
   workshops,
   resources,
   background,
+  links,
 } from "../config";
 
 const anyCheckout = resources.some((r) => r.checkoutUrl);
@@ -99,8 +100,9 @@ const anyCheckout = resources.some((r) => r.checkoutUrl);
   {/* 4. LABS */}
   <section id="labs" class="band band-soft">
     <Container wide>
-      <div class="sec-head">
+      <div class="sec-head sec-head-row">
         <h2 class="h-sec">Labs</h2>
+        {links.youtube && <a href={links.youtube} class="link link-arrow" rel="noopener" target="_blank">YouTube channel ↗</a>}
       </div>
       <div class="lab-grid">
         {labs.map((l) => <LabTile item={l} />)}

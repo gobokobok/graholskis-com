@@ -2381,12 +2381,6 @@ h4,
   background: var(--c4);
 }
 
-/* labs: two tiles */
-@media (min-width: 860px) {
-  .lab-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
 /* workshops */
 .ws-card {
@@ -3048,4 +3042,13 @@ body {
     max-height: calc(100svh - 16px);
     border-radius: 20px;
   }
+}
+
+/* Section head with a link on the right (Labs: YouTube channel). Wraps under the title on phones. */
+.sec-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
 }
