@@ -3,14 +3,15 @@ import type { LabItem } from "../config";
 
 interface Props {
   item: LabItem;
+  i?: number;
 }
-const { item } = Astro.props;
+const { item, i = 0 } = Astro.props;
 ---
 
-<div class="card lab">
+<div class="pg-card pg-reveal pg-lab" style={`--i:${i}`}>
   {
     item.video !== undefined && (
-      <div class="lab-video">
+      <div class="pg-inner pg-lab-video">
         {item.video ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${item.video}`}
@@ -20,18 +21,20 @@ const { item } = Astro.props;
             allowfullscreen
           />
         ) : (
-          <span class="meta">Video slot</span>
+          <span class="pg-label">Video slot</span>
         )}
       </div>
     )
   }
-  <h3 class="h-card">{item.name}</h3>
-  <p>{item.line}</p>
-  {
-    item.href ? (
-      <a href={item.href} class="link" rel="noopener" target="_blank">{item.cta ?? "Open the tool"} ↗</a>
-    ) : (
-      <span class="chip" style="justify-self:start;">Coming soon</span>
-    )
-  }
+  <h3 class="pg-h3">{item.name}</h3>
+  <p class="pg-small">{item.line}</p>
+  <div class="pg-card-foot">
+    {
+      item.href ? (
+        <a href={item.href} class="pg-link" rel="noopener" target="_blank">{item.cta ?? "Open the tool"} →</a>
+      ) : (
+        <span class="pg-pill pg-pill-dashed">Coming soon</span>
+      )
+    }
+  </div>
 </div>

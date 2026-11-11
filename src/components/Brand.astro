@@ -1,5 +1,5 @@
 ---
-// Monogram plus name, links home. Shared by the top bar and the footer.
+// Wordmark: initials in a filled circle plus the name, links home. Shared by the top bar and the footer.
 import { site } from "../config";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 const { class: extra = "" } = Astro.props;
 ---
 
-<a href="/" class:list={["brand-link", extra]} aria-label={`${site.name}, home`}>
-  <span class="mark" aria-hidden="true">AG</span>
-  <span class="brand-name">{site.name}</span>
+<a href="/" class:list={["pg-wordmark", extra]} aria-label={`${site.name}, home`}>
+  <span class="pg-mark" aria-hidden="true">AG</span>
+  <span class="pg-wordmark-name">{site.name}</span>
 </a>

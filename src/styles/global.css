@@ -38,9 +38,18 @@
   --col: 760px;
 }
 
+/* Tailwind theme points at the Pill & Glow tokens in kit.css instead of duplicating values. */
 @theme {
-  --font-sans: "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, sans-serif;
+  --font-sans: var(--font-body);
   --font-mono: "Fragment Mono", ui-monospace, monospace;
+  --color-page: var(--surface-page);
+  --color-card: var(--surface-card);
+  --color-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
 }
 
 @layer base {
@@ -3125,7 +3134,7 @@ body {
 }
 .mx thead th {
   position: sticky;
-  top: 66px; /* directly under the floating bar (12px offset + 54px bar) */
+  top: var(--nav-h); /* directly under the sticky top bar */
   z-index: 5;
   padding: 12px 8px 12px;
   border-bottom: 1px solid var(--border-strong);
@@ -3284,7 +3293,7 @@ body {
 @media (max-width: 859px) {
   .mx-controls {
     position: sticky;
-    top: 70px;
+    top: var(--nav-h);
     z-index: 6;
     justify-content: space-between;
     margin: 0 -16px;
@@ -3333,7 +3342,7 @@ body {
 /* detail panel: floating on the right, bottom sheet on phones */
 .mx-panel {
   position: fixed;
-  top: 76px;
+  top: calc(var(--nav-h) + 16px);
   right: 16px;
   bottom: 16px;
   z-index: 35;

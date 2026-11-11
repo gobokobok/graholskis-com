@@ -8,21 +8,17 @@ import ContactForm from "./ContactForm.astro";
 const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
 ---
 
-<dialog id="contact" class="cdlg glass" aria-labelledby="cdlg-title">
-  <div class="cdlg-head">
+<dialog id="contact" class="pg-dialog" aria-labelledby="cdlg-title">
+  <div class="pg-dialog-head">
     <div>
-      <h2 id="cdlg-title" class="cdlg-title">Send a message</h2>
-      <p class="cdlg-sub">
-        I reply by email. Prefer to talk? <a href={bookHref} class="link" {...bookAttrs}>Book a call</a>.
+      <h2 id="cdlg-title" class="pg-h3">Send a message</h2>
+      <p class="pg-small">
+        I reply by email. Prefer to talk? <a href={bookHref} class="pg-link" {...bookAttrs}>Book a call</a>.
       </p>
     </div>
-    <button type="button" class="pill pill-line pill-icon" data-cdlg-close aria-label="Close">
-      <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
-        <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-      </svg>
-    </button>
+    <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary" data-cdlg-close>Close</button>
   </div>
-  <div class="cdlg-body">
+  <div class="pg-dialog-body">
     <ContactForm />
   </div>
 </dialog>

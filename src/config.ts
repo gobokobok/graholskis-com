@@ -50,13 +50,14 @@ export const bookLabel = "Book a call";
 
 // ---- Navigation -------------------------------------------------------------
 
+/** Landing page copy v3: Workshop · How it works · Work · Do it yourself · FAQ · About, then the call button. */
 export const nav = [
-  { href: "/#services", label: "Services" },
+  { href: "/#workshop", label: "Workshop" },
+  { href: "/#how", label: "How it works" },
   { href: "/#work", label: "Work" },
-  { href: "/#labs", label: "Labs" },
-  { href: "/#workshops", label: "Workshops" },
-  { href: "/#resources", label: "Resources" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#diy", label: "Do it yourself" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/#about", label: "About" },
 ];
 
 /** Footer menu. */

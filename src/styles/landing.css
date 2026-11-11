@@ -1,0 +1,354 @@
+/* Landing page layout (copy v3) on the Pill & Glow kit, at 90%. Components and tokens live in kit.css. */
+
+/* ---- hero: text only; headline two lines on desktop, body kept to a reading width ---- */
+.pg-hero-grid {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+.pg-hero-title {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+}
+.pg-hero-title .pg-display {
+  max-width: 17ch;
+}
+.pg-hero-text {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 68ch;
+}
+.pg-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.pg-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* ---- shared layouts ---- */
+/* titles run the full width (two lines max on desktop, kit §3); content sits below */
+.pg-split {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .pg-split {
+    grid-template-columns: 1fr 1.25fr;
+    column-gap: var(--space-6);
+  }
+}
+.pg-narrow {
+  max-width: 860px;
+}
+.pg-head .pg-h1 {
+  max-width: 22ch;
+}
+.pg-head-stack {
+  display: grid;
+  justify-content: stretch;
+  gap: var(--space-3);
+}
+.pg-grid-2 {
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 641px) {
+  .pg-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.pg-callout {
+  margin-top: var(--space-5);
+  max-width: 68ch;
+}
+
+/* ---- workshop ---- */
+.pg-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  margin: auto 0 0;
+  padding-top: var(--space-1);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.pg-facts {
+  margin-top: var(--space-4);
+}
+
+/* ---- work (dark band): flow in an inner box; cards share row lines so titles line up ---- */
+.pg-grid-2 > .pg-work {
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: var(--space-2);
+}
+.pg-grid-2 > .pg-work > :not(.pg-visual) {
+  align-self: start;
+}
+.pg-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  min-height: 160px;
+  margin-bottom: var(--space-1);
+  padding: var(--space-4) var(--space-3);
+}
+.pg-work .pg-h3 {
+  text-wrap: pretty;
+}
+
+/* ---- do it yourself ---- */
+/* label pill, then the price on its own line, the same on every card */
+.pg-diy-top {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+}
+.pg-diy-price {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.44vw, 20px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.pg-diy .pg-form {
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+
+/* ---- about: portrait card next to the text card ---- */
+.pg-about {
+  display: grid;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+@media (min-width: 900px) {
+  .pg-about {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+  }
+}
+@media (max-width: 899px) {
+  .pg-about .pg-portrait {
+    max-width: 320px;
+    aspect-ratio: 4 / 5;
+  }
+}
+.pg-portrait {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface-card);
+}
+.pg-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+  filter: grayscale(1);
+}
+.pg-about-text {
+  gap: var(--space-3);
+}
+.pg-about-text .pg-trust {
+  margin-top: var(--space-1);
+}
+
+/* ---- contact ---- */
+.pg-contact-intro {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* ---- problem and workshop read as one block: the title, the body, then the four phases ---- */
+.pg-problem-title {
+  scroll-margin-top: calc(var(--nav-h) + var(--space-5));
+}
+.pg-section.pg-problem {
+  padding-bottom: var(--space-5);
+}
+.pg-section.pg-problem + .pg-workshop {
+  padding-top: 0;
+}
+
+/* ---- catalogue: one row that scrolls sideways, cards snap into place ----
+   The row runs to both window edges (first card still on the content line), so the next card peeks in. */
+#diy {
+  overflow-x: clip; /* the full-bleed row never widens the page */
+}
+.pg-scroll-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  margin: calc(var(--space-5) * -1 + var(--space-2)) 0 var(--space-3);
+}
+.pg-scroll-btn {
+  width: 44px;
+  padding: 0;
+  font-size: 18px;
+}
+.pg-scroll-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.pg-scroller {
+  display: flex;
+  gap: var(--space-4);
+  /* distance from the window edge to the content line; a fixed length, so it means the same in every property below */
+  --bleed: calc(max(0px, (100vw - var(--container)) / 2) + var(--gutter));
+  margin-inline: calc(var(--bleed) * -1);
+  padding: 4px var(--bleed) var(--space-1);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--bleed);
+  scrollbar-width: none;
+}
+.pg-scroller::-webkit-scrollbar {
+  display: none;
+}
+.pg-scroller:focus-visible {
+  outline-offset: -2px;
+}
+.pg-scroller > .pg-diy {
+  flex: 0 0 min(330px, 80vw);
+  scroll-snap-align: start;
+}
+@media (max-width: 640px) {
+  .pg-scroll-nav {
+    display: none;
+  }
+}
+
+/* ---- how it works: tracker (kit §6). Numbered circles on one line, name and text below.
+   Vertical on phones and small tablets. ---- */
+.pg-track {
+  display: grid;
+  gap: var(--space-5) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-track li {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+.pg-track .pg-bubble {
+  position: relative;
+  z-index: 1;
+  justify-self: start; /* a circle, not stretched to the column */
+  background: var(--accent-soft);
+}
+.pg-track .pg-bubble-fill {
+  background: var(--accent);
+}
+.pg-track-text {
+  display: grid;
+  gap: var(--space-1);
+}
+@media (min-width: 900px) {
+  .pg-track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .pg-track li:not(:last-child)::after {
+    /* line from this circle to the next one */
+    content: "";
+    position: absolute;
+    top: 20.5px;
+    left: 52px;
+    right: calc(var(--space-4) * -1 + 8px);
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft);
+  }
+}
+@media (max-width: 899px) {
+  .pg-track li {
+    grid-template-columns: 44px 1fr;
+  }
+  .pg-track li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 52px;
+    bottom: calc(var(--space-5) * -1 + 8px);
+    left: 20.5px;
+    width: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft);
+  }
+}
+
+/* ---- FAQ: split layout, open list with hairlines, larger questions, round +/- markers ---- */
+.pg-faq-split {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+@media (min-width: 1025px) {
+  .pg-faq-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-6);
+  }
+  .pg-faq-intro {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--space-5));
+  }
+}
+.pg-faq-intro {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+.pg-faq {
+  padding: 0;
+  border-top: 1px solid var(--border-card);
+  border-bottom: 1px solid var(--border-card);
+}
+.pg-faq summary {
+  padding: 20px 0;
+  font-family: var(--font-display);
+  font-size: clamp(17px, 1.5vw, 19px);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.pg-faq summary::after {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-family: var(--font-body);
+  font-size: 18px;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+.pg-faq details[open] summary::after {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pg-faq details p {
+  margin: 0;
+  padding: 0 48px 20px 0;
+  color: var(--ink-muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}

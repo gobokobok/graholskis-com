@@ -1,12 +1,17 @@
 ---
-// Inline email capture for the free download. Same behaviour as the contact form.
+// Inline email capture for the free self-check (landing copy v3, "Start here"). Same behaviour as the contact form.
+// Sits on the accent card, so the button uses the on-accent style.
+interface Props {
+  button?: string;
+}
+const { button = "Get the checklist" } = Astro.props;
 ---
 
-<form class="capture" data-form data-subject="Checklist request" data-success="Thank you. The checklist is on its way.">
+<form class="pg-form" data-form data-subject="Self-check request" data-success="Thank you. The self-check is on its way.">
   <label for="cap-email" class="sr-only">Email address</label>
-  <input id="cap-email" name="email" type="email" placeholder="Your email" autocomplete="email" required />
-  <input type="hidden" name="request" value="AI Adoption Readiness Checklist" />
+  <input id="cap-email" class="pg-input" name="email" type="email" placeholder="Your email" autocomplete="email" required />
+  <input type="hidden" name="request" value="AI maturity self-check" />
   <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
-  <button type="submit" class="btn btn-primary">Get the checklist</button>
-  <p class="form-status" data-status role="status" aria-live="polite"></p>
+  <button type="submit" class="pg-btn pg-btn-on-inverse">{button}</button>
+  <p class="pg-status" data-status role="status" aria-live="polite"></p>
 </form>

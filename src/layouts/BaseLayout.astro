@@ -1,9 +1,8 @@
 ---
 import "../styles/global.css";
-import "@fontsource/poppins/latin-500.css";
-import "@fontsource/poppins/latin-600.css";
-import "@fontsource/poppins/latin-700.css";
-import "@fontsource-variable/schibsted-grotesk";
+import "../styles/kit.css";
+import "@fontsource-variable/manrope";
+import "@fontsource-variable/inter";
 import "@fontsource/fragment-mono/400.css";
 import TopBar from "../components/TopBar.astro";
 import Footer from "../components/Footer.astro";
@@ -21,6 +20,10 @@ interface Props {
   canonical?: string;
   /** Keep the page out of search results (unlisted pages reached by link only) */
   noindex?: boolean;
+  /** Page is rebuilt on the Pill & Glow kit: enables its body type and the dark theme */
+  kit?: boolean;
+  /** The bottom-right contact panel; off on pages with their own contact section */
+  contactDialog?: boolean;
 }
 
 const {
@@ -29,6 +32,8 @@ const {
   bareTitle = false,
   canonical,
   noindex = false,
+  kit = false,
+  contactDialog = true,
 } = Astro.props;
 
 const siteName = "Aleksandrs Graholskis";
@@ -39,7 +44,7 @@ const canonicalURL = canonical
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={[kit && "kit"]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -85,6 +90,14 @@ const canonicalURL = canonical
         ],
       })}
     />
+    {/* Before first paint: a saved theme choice, and the class that lets reveal-on-scroll hide content */}
+    <script is:inline>
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+      document.documentElement.classList.add("js");
+    </script>
   </head>
 
   <body>
@@ -102,7 +115,7 @@ const canonicalURL = canonical
     </main>
 
     <Footer />
-    <ContactDialog />
+    {contactDialog && <ContactDialog />}
     <Tooltip />
   </body>
 </html>

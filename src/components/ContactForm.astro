@@ -1,24 +1,33 @@
 ---
 // Contact form. Posts through src/scripts/forms.ts (Web3Forms when a key is set, otherwise opens an email).
+// Fields from landing copy v3: Name, Company, Email, What would you like to solve? (optional).
+interface Props {
+  button?: string;
+}
+const { button = "Send" } = Astro.props;
 ---
 
-<form class="form" data-form data-subject="Message from graholskis.com" data-success="Thank you. I will reply soon." novalidate={false}>
-  <div class="field">
+<form class="pg-form" data-form data-subject="Message from graholskis.com" data-success="Thank you. I will reply soon." novalidate={false}>
+  <div class="pg-field">
     <label for="cf-name">Name</label>
-    <input id="cf-name" name="name" type="text" autocomplete="name" required />
+    <input id="cf-name" class="pg-input" name="name" type="text" autocomplete="name" required />
   </div>
-  <div class="field">
+  <div class="pg-field">
+    <label for="cf-company">Company</label>
+    <input id="cf-company" class="pg-input" name="company" type="text" autocomplete="organization" />
+  </div>
+  <div class="pg-field">
     <label for="cf-email">Email</label>
-    <input id="cf-email" name="email" type="email" autocomplete="email" required />
+    <input id="cf-email" class="pg-input" name="email" type="email" autocomplete="email" required />
   </div>
-  <div class="field wide-field">
-    <label for="cf-message">Message</label>
-    <textarea id="cf-message" name="message" rows="5" required></textarea>
+  <div class="pg-field">
+    <label for="cf-message">What would you like to solve? (optional)</label>
+    <textarea id="cf-message" class="pg-input" name="message" rows="4"></textarea>
   </div>
   <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
-  <div class="form-foot wide-field">
-    <button type="submit" class="pill pill-fill">Send message</button>
-    <p class="form-status" data-status role="status" aria-live="polite"></p>
+  <div class="pg-card-foot">
+    <button type="submit" class="pg-btn pg-btn-primary">{button}</button>
+    <p class="pg-status" data-status role="status" aria-live="polite"></p>
   </div>
 </form>
 

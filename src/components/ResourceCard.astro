@@ -1,26 +1,30 @@
 ---
+// Resource card. The free checklist is the section's one accent card (the main call to action);
+// paid items are grey cards with a checkout button, or a dashed "Coming soon" pill until it exists.
 import EmailCapture from "./EmailCapture.astro";
 import type { ResourceItem } from "../config";
 
 interface Props {
   item: ResourceItem;
+  i?: number;
 }
-const { item } = Astro.props;
+const { item, i = 0 } = Astro.props;
 const price = item.price || "Price TBC";
+const free = item.kind === "free";
 ---
 
-<div class="card res">
-  <h3 class="h-card">{item.title}</h3>
-  <p>{item.line}</p>
-  <div class="res-foot">
-    <span class="price">{price}</span>
+<div class:list={["pg-card pg-reveal pg-res", free && "pg-card-accent"]} style={`--i:${i}`}>
+  <h3 class="pg-h3">{item.title}</h3>
+  <p class="pg-small">{item.line}</p>
+  <div class="pg-card-foot pg-res-foot">
+    <span class="pg-res-price">{price}</span>
     {
-      item.kind === "free" ? null : item.checkoutUrl ? (
-        <a href={item.checkoutUrl} class="btn btn-primary lemonsqueezy-button">Buy</a>
+      free ? null : item.checkoutUrl ? (
+        <a href={item.checkoutUrl} class="pg-btn pg-btn-primary lemonsqueezy-button">Buy</a>
       ) : (
-        <span class="btn" aria-disabled="true">Coming soon</span>
+        <span class="pg-pill pg-pill-dashed">Coming soon</span>
       )
     }
   </div>
-  {item.kind === "free" && <EmailCapture />}
+  {free && <EmailCapture />}
 </div>

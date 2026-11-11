@@ -1,0 +1,1059 @@
+/* ------------------------------------------------------------------
+   PILL & GLOW: web design system (source: DESIGN.md, "Pill & Glow" slide kit).
+   This file wins over global.css. Loaded after it in BaseLayout.
+
+   - Tokens below are the kit's, unchanged. Light is the default.
+   - Light is the default for everyone (chosen on review). Dark applies only when
+     the visitor picks it (data-theme="dark" on <html>), and only on pages rebuilt
+     on the kit (<html class="kit">), so pages not yet rebuilt never render half-dark.
+   - .pg-dark turns one block dark inside a light page (mixed light and dark).
+   - Older tokens (--bg, --text, --font ...) are aliased to the kit's, so pages
+     not yet rebuilt pick up the kit palette and fonts.
+   - Components use the pg- prefix and reference tokens only.
+   - Sizes are the kit's values at 90% (type, spacing, radius, layout), the scale
+     chosen on review; borders, the 44px hit target and 16px inputs are kept.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* Fonts: Manrope and Inter, self-hosted through @fontsource-variable */
+  --font-display: "Manrope Variable", "Manrope", "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+
+  /* Colour: light (default) */
+  --surface-page: #ffffff;
+  --surface-card: #f4f4f4;
+  --surface-raised: #ffffff;
+  --border-card: #dcdce0;
+  --ink: #191c1f;
+  --ink-muted: #505a63;
+  --accent: #494fdf;
+  --on-accent: #ffffff;
+  --on-accent-muted: #e4e5fb;
+  --accent-text: #494fdf;
+  --accent-soft: #e4e5fb;
+  --surface-inverse: #191c1f;
+  --ink-on-inverse: #ffffff;
+  --ink-on-inverse-muted: #a9b1b8;
+  --accent-on-inverse: #8c97ff;
+  --inverse-raised: #2a2e33;
+  --callout-fill: #191c1f;
+  --callout-border: #191c1f;
+  --callout-ink: #ffffff;
+  --callout-ink-muted: #a9b1b8;
+  --success-bg: #e0f5ef;
+  --success-ink: #006b50;
+  --phone-frame: #191c1f;
+  --phone-screen: #ffffff;
+  --glow-accent: transparent;
+  --glow-signal: transparent;
+  --error-ink: #c4314b;
+
+  /* Radius */
+  --radius-sm: 14.5px;
+  --radius-md: 18px;
+  --radius-lg: 25px;
+  --radius-device: 50.5px;
+  --radius-pill: 9999px;
+
+  /* Spacing (kit 4px base, at 90%) */
+  --space-1: 7px;
+  --space-2: 11px;
+  --space-3: 14.5px;
+  --space-4: 21.5px;
+  --space-5: 36px;
+  --space-6: 57.5px;
+  --space-7: 86.5px;
+  --space-8: 115px;
+
+  /* Layout */
+  --container: 1152px;
+  --gutter: clamp(14.5px, 4.5vw, 57.5px);
+  --section-y: clamp(57.5px, 9vw, 115px);
+  --nav-h: 65px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Aliases: older tokens follow the kit */
+  --bg: var(--surface-page);
+  --bg-soft: var(--surface-card);
+  --border: var(--border-card);
+  --text: var(--ink);
+  --ink-sub: var(--ink-muted);
+  --muted: var(--ink-muted);
+  --accent-h: color-mix(in srgb, var(--accent) 92%, black);
+  --accent-ring: color-mix(in srgb, var(--accent-text) 30%, transparent);
+  --font: var(--font-body);
+  --font-head: var(--font-display);
+}
+
+/* Dark theme: kit pages only, when chosen with the toggle */
+:root.kit[data-theme="dark"] {
+  color-scheme: dark;
+}
+:root.kit[data-theme="dark"],
+.pg-dark {
+  --surface-page: #0a0b10; --surface-card: #171923; --surface-raised: #262938;
+  --border-card: #262938; --ink: #f4f5f9; --ink-muted: #9da3b4;
+  --accent: #3a45e0; --on-accent: #ffffff; --on-accent-muted: #dce0ff;
+  --accent-text: #8c97ff; --accent-soft: #23264a;
+  --surface-inverse: #171923; --ink-on-inverse: #f4f5f9; --ink-on-inverse-muted: #9da3b4;
+  --accent-on-inverse: #8c97ff; --inverse-raised: #262938;
+  --callout-fill: #0a0b10; --callout-border: #5ee6b5; --callout-ink: #5ee6b5; --callout-ink-muted: #9da3b4;
+  --success-bg: #163d33; --success-ink: #5ee6b5;
+  --phone-frame: #262938; --phone-screen: #12141c;
+  --glow-accent: #3b3fd9; --glow-signal: #1fa88a;
+  --error-ink: #ff7a8f;
+}
+
+html,
+body {
+  background: var(--surface-page);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+html.kit body {
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+html.kit {
+  /* the older schematics take their colours from these; the kit allows one hue */
+  --c1: var(--accent-text);
+  --c2: var(--accent-text);
+  --c3: var(--accent-text);
+  --c4: var(--accent-text);
+  --c5: var(--accent-text);
+  --c6: var(--accent-text);
+  --axis: var(--border-card);
+  --border-strong: color-mix(in srgb, var(--ink-muted) 45%, transparent);
+  --faint: var(--ink-muted);
+}
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* ---- Typography (§3) ---------------------------------------------- */
+.pg-display,
+.pg-h1,
+.pg-h2,
+.pg-h3,
+.pg-stat {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.pg-display {
+  font-size: clamp(39.5px, 5.58vw, 79px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+.pg-h1 {
+  font-size: clamp(32.5px, 3.96vw, 57.5px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.pg-h2 {
+  font-size: clamp(25px, 2.7vw, 36px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.pg-h3 {
+  font-size: clamp(20px, 1.8vw, 25px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.pg-stat {
+  font-size: clamp(43px, 5.4vw, 86.5px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.pg-lead {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--ink-muted);
+  font-size: clamp(16px, 1.44vw, 20px);
+  line-height: 1.45;
+}
+.pg-lead strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.pg-body {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.pg-small {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.pg-label {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.pg-accent-text {
+  color: var(--accent-text);
+}
+
+/* ---- Layout (§4) --------------------------------------------------- */
+.pg-container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.pg-section {
+  padding-block: var(--section-y);
+  scroll-margin-top: var(--nav-h);
+}
+/* between two sections: one section-y below plus 40% above, about 160px on desktop and 80px on phones */
+.pg-section + .pg-section {
+  padding-top: calc(var(--section-y) * 0.4);
+}
+.pg-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.pg-grid-3 {
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 641px) {
+  .pg-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1025px) {
+  .pg-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---- Pill / Tag (§6) ----------------------------------------------- */
+.pg-pill {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 5.5px;
+  padding: 3.5px 12.5px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-card);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.pg-card .pg-pill {
+  background: var(--surface-raised);
+}
+.pg-pill-accent,
+.pg-card .pg-pill-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pg-pill-soft,
+.pg-card .pg-pill-soft {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.pg-pill-outline,
+.pg-card .pg-pill-outline {
+  padding: 2px 11px;
+  border: 2px solid var(--accent-text);
+  background: transparent;
+  color: var(--accent-text);
+}
+.pg-pill-dark,
+.pg-card .pg-pill-dark {
+  background: var(--ink);
+  color: var(--surface-page);
+}
+.pg-pill-dashed,
+.pg-card .pg-pill-dashed {
+  padding: 2px 11px;
+  border: 2px dashed var(--border-card);
+  background: transparent;
+  color: var(--ink);
+}
+.pg-pill-success,
+.pg-card .pg-pill-success {
+  background: var(--success-bg);
+  color: var(--success-ink);
+}
+
+/* ---- Button (§6) --------------------------------------------------- */
+.pg-btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 44px; /* kept at the 44px hit target (kit §9) */
+  padding: 0 21.5px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font: 600 14.5px/1 var(--font-body);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+.pg-btn-sm {
+  height: 39.5px;
+  padding: 0 18px;
+  font-size: 13.5px;
+}
+.pg-btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pg-btn-primary:hover {
+  background: color-mix(in srgb, var(--accent) 92%, black);
+}
+.pg-btn-secondary {
+  background: var(--surface-card);
+  color: var(--ink);
+}
+.pg-btn-secondary:hover {
+  background: var(--border-card);
+}
+.pg-btn-on-inverse {
+  background: var(--surface-page);
+  color: var(--ink);
+}
+.pg-btn[disabled] {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Text link with an arrow */
+.pg-link {
+  color: var(--accent-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.pg-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+}
+
+/* ---- Card (§6) ----------------------------------------------------- */
+.pg-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 25px 29px;
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  color: var(--ink);
+}
+@media (max-width: 640px) {
+  .pg-card {
+    padding: 20px 21.5px;
+  }
+}
+.pg-card-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pg-card-accent .pg-h2,
+.pg-card-accent .pg-h3 {
+  color: var(--on-accent);
+}
+.pg-card-accent .pg-small,
+.pg-card-accent .pg-body {
+  color: var(--on-accent-muted);
+}
+.pg-card-inverse {
+  background: var(--surface-inverse);
+  color: var(--ink-on-inverse);
+}
+.pg-card-outlined {
+  border: 2px solid var(--border-card);
+  background: var(--surface-page);
+}
+.pg-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+/* inner box on a card: visuals, video */
+.pg-inner {
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+:root.kit[data-theme="dark"] .pg-card,
+.pg-dark .pg-card {
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+}
+:root.kit[data-theme="dark"] .pg-card-inverse,
+.pg-dark .pg-card-inverse {
+  border: 2px solid var(--accent-text);
+}
+
+/* ---- Navigation (§6) ----------------------------------------------- */
+.pg-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: var(--nav-h);
+  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--surface-page) 85%, transparent);
+  -webkit-backdrop-filter: blur(11px);
+  backdrop-filter: blur(11px);
+  transition: border-color 150ms var(--ease);
+}
+.pg-nav.is-scrolled {
+  border-bottom-color: var(--border-card);
+}
+.pg-nav-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 100%;
+}
+.pg-wordmark {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.pg-mark {
+  display: grid;
+  place-items: center;
+  width: 32.5px;
+  height: 32.5px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--surface-page);
+  font: 700 11.5px/1 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.pg-wordmark-name {
+  font: 700 15.5px/1 var(--font-display);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.pg-nav-links {
+  display: flex;
+  gap: 3.5px;
+  margin-left: auto;
+}
+.pg-nav-links a {
+  display: inline-flex;
+  align-items: center;
+  height: 39.5px;
+  padding: 0 11px;
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 150ms var(--ease);
+}
+.pg-nav-links a:hover {
+  color: var(--accent-text);
+}
+.pg-nav-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-1);
+}
+.pg-theme {
+  display: none;
+}
+html.kit .pg-theme {
+  display: inline-flex;
+}
+.pg-menu-btn {
+  display: none;
+}
+/* six links and two buttons need about 936px; below 990px they move into the menu */
+@media (max-width: 1099px) {
+  .pg-nav-links {
+    display: none;
+  }
+  .pg-nav-actions {
+    margin-left: auto;
+  }
+  .pg-menu-btn {
+    display: inline-flex;
+  }
+}
+@media (max-width: 560px) {
+  /* phones: the theme toggle and call button move into the menu sheet */
+  html .pg-nav-actions .pg-theme,
+  .pg-nav-actions .pg-nav-book {
+    display: none;
+  }
+}
+
+/* full-screen sheet on phones */
+.pg-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--gutter) var(--space-5);
+  overflow-y: auto;
+  background: var(--surface-page);
+}
+.pg-sheet[hidden] {
+  display: none;
+}
+.pg-sheet-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  flex-shrink: 0;
+}
+.pg-sheet-links {
+  display: grid;
+  gap: 3.5px;
+  margin: var(--space-4) 0 var(--space-5);
+}
+.pg-sheet-links a {
+  padding: 5.5px 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(25px, 2.7vw, 36px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-decoration: none;
+}
+.pg-sheet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+html.pg-locked {
+  overflow: hidden;
+}
+
+/* ---- Footer (§6) --------------------------------------------------- */
+.pg-foot {
+  border-top: 1px solid var(--border-card);
+  padding-block: var(--space-6) var(--space-5);
+}
+.pg-foot-cols {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 641px) {
+  .pg-foot-cols {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+.pg-foot-intro .pg-small {
+  margin-top: var(--space-2);
+  max-width: 36ch;
+}
+.pg-foot-col h2 {
+  margin: 0 0 var(--space-2);
+}
+.pg-foot-col ul {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-foot a:not(.pg-wordmark) {
+  color: var(--ink-muted);
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: color 150ms var(--ease);
+}
+.pg-foot a:not(.pg-wordmark):hover {
+  color: var(--ink);
+}
+.pg-foot-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-6);
+  color: var(--ink-muted);
+  font-size: 13.5px;
+}
+.pg-foot-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* ---- Forms (§6) ---------------------------------------------------- */
+.pg-field {
+  display: grid;
+  gap: var(--space-1);
+}
+.pg-field label {
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.pg-input {
+  width: 100%;
+  height: 47px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
+  color: var(--ink);
+  font: 400 16px var(--font-body); /* 16px stops iOS zooming into the field */
+}
+textarea.pg-input {
+  height: auto;
+  min-height: 119px;
+  padding: 12.5px 16px;
+  resize: vertical;
+}
+.pg-input::placeholder {
+  color: var(--ink-muted);
+}
+.pg-input:focus {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 0;
+}
+.pg-card .pg-input {
+  background: var(--surface-raised);
+}
+.pg-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+}
+.pg-card-accent .pg-status {
+  color: var(--on-accent-muted);
+}
+
+/* ---- Contact panel: a flat card in the bottom-right corner ---------- */
+.pg-dialog {
+  position: fixed;
+  inset: auto var(--space-4) var(--space-4) auto;
+  z-index: 45;
+  width: min(378px, calc(100vw - 29px));
+  max-height: calc(100svh - var(--nav-h) - var(--space-5));
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+  color: var(--ink);
+}
+.pg-dialog[open] {
+  animation: pg-rise 250ms var(--ease);
+}
+.pg-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) 0;
+}
+.pg-dialog-head .pg-small {
+  margin-top: 5.5px;
+}
+.pg-dialog-body {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+.pg-dialog-close {
+  width: 39.5px;
+  height: 39.5px;
+  padding: 0;
+}
+.pg-form {
+  display: grid;
+  gap: var(--space-3);
+}
+@media (max-width: 640px) {
+  .pg-dialog {
+    inset: auto 7px 7px 7px;
+    width: auto;
+    max-height: calc(100svh - 14.5px);
+  }
+}
+
+/* ---- Motion (§8): reveal once, staggered ---------------------------- */
+@keyframes pg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(11px);
+  }
+}
+html.js .pg-reveal {
+  opacity: 0;
+  transform: translateY(11px);
+  transition: opacity 250ms var(--ease), transform 250ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+html.js .pg-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .pg-reveal,
+  html.js .pg-reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pg-dialog[open] {
+    animation: none;
+  }
+}
+
+/* ---- Grounds (§5): two radial glows, visible in dark only (light glow tokens are transparent) ---- */
+.glow {
+  position: relative;
+  isolation: isolate;
+}
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 60% at 90% 0%, color-mix(in srgb, var(--glow-accent) 50%, transparent), transparent 70%),
+    radial-gradient(50% 50% at 0% 100%, color-mix(in srgb, var(--glow-signal) 20%, transparent), transparent 70%);
+}
+
+/* theme switch is instant: no colour fades while the tokens change */
+html.pg-theme-switching *,
+html.pg-theme-switching *::before,
+html.pg-theme-switching *::after {
+  transition: none !important;
+}
+
+
+/* ---- Dark block inside a light page (.pg-dark) ----------------------
+   The dark tokens are re-declared on the block above; the aliases and schematic
+   colours are computed where they are declared, so the block re-declares them too. */
+.pg-dark {
+  color-scheme: dark;
+  background: var(--surface-page);
+  color: var(--ink);
+  --bg: var(--surface-page);
+  --bg-soft: var(--surface-card);
+  --border: var(--border-card);
+  --text: var(--ink);
+  --ink-sub: var(--ink-muted);
+  --muted: var(--ink-muted);
+  --accent-h: color-mix(in srgb, var(--accent) 92%, black);
+  --accent-ring: color-mix(in srgb, var(--accent-text) 30%, transparent);
+  --c1: var(--accent-text);
+  --c2: var(--accent-text);
+  --c3: var(--accent-text);
+  --c4: var(--accent-text);
+  --c5: var(--accent-text);
+  --c6: var(--accent-text);
+  --axis: var(--border-card);
+  --border-strong: color-mix(in srgb, var(--ink-muted) 45%, transparent);
+  --faint: var(--ink-muted);
+}
+/* a full-width band holding one or more sections */
+.pg-dark-band {
+  padding-block: var(--section-y);
+}
+.pg-dark-band > .pg-section:first-child {
+  padding-top: 0;
+}
+.pg-dark-band > .pg-section:last-child {
+  padding-bottom: 0;
+}
+.pg-dark-band + .pg-section {
+  padding-top: var(--section-y);
+}
+
+/* ---- More kit patterns (§6), at 90% ----------------------------------- */
+
+/* Number bubble: circle with the number in the accent; filled for the last or active step */
+.pg-bubble {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  color: var(--accent-text);
+  font: 600 15px/1 var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+.pg-bubble-fill {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Step band: a blue bar above each column of a process, with its own card below */
+.pg-steps {
+  display: grid;
+  gap: 18px;
+}
+@media (min-width: 641px) {
+  .pg-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1025px) {
+  .pg-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.pg-step {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-1);
+}
+.pg-band {
+  /* pill above the step name, arrow on the right: fits four narrow columns */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: start;
+  gap: 6px var(--space-2);
+  padding: 12.5px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pg-band .pg-pill {
+  background: var(--surface-page);
+  color: var(--accent-text);
+}
+.pg-band .pg-h3 {
+  color: var(--on-accent);
+}
+.pg-band .pg-h3 {
+  grid-column: 1;
+  overflow-wrap: anywhere;
+}
+.pg-band-arrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  font-size: 18px;
+}
+
+/* Vertical flow: numbered rows on a rail; the last bubble is filled */
+.pg-flow {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-flow li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: var(--space-3);
+  padding: 14.5px 0;
+}
+.pg-flow li + li {
+  border-top: 1px solid var(--border-card);
+}
+.pg-flow li:not(:last-child)::after {
+  /* rail to the next bubble, ending in a small down-pointing triangle */
+  content: "";
+  position: absolute;
+  top: calc(14.5px + 44px);
+  bottom: -14.5px;
+  left: 21px;
+  z-index: 1; /* above the next row's divider */
+  width: 2px;
+  background: var(--accent-text);
+}
+.pg-flow li:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 16px;
+  z-index: 1; /* above this row's divider */
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid var(--accent-text);
+}
+.pg-flow-title {
+  margin: 0 0 4px;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+/* List rows: label and value, divided by hairlines (replaces small tables) */
+.pg-rows {
+  margin: 0;
+}
+.pg-rows > div {
+  display: grid;
+  gap: 4px var(--space-3);
+  padding: 12.5px 0;
+}
+@media (min-width: 641px) {
+  .pg-rows > div {
+    grid-template-columns: 9rem 1fr;
+  }
+}
+.pg-rows > div + div {
+  border-top: 1px solid var(--border-card);
+}
+.pg-rows dt {
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.pg-rows dd {
+  margin: 0;
+}
+
+/* Callout: the takeaway under a section. One sentence, bold lead-in. Never blue. */
+.pg-callout {
+  margin: 0;
+  padding: 18px 25px;
+  border: 2px solid var(--callout-border);
+  border-radius: var(--radius-md);
+  background: var(--callout-fill);
+  color: var(--callout-ink-muted);
+}
+.pg-callout strong,
+.pg-callout a {
+  color: var(--callout-ink);
+  font-weight: 600;
+}
+
+/* FAQ: list rows that expand with <details> */
+.pg-faq {
+  padding-block: 4px;
+}
+.pg-faq details + details {
+  border-top: 1px solid var(--border-card);
+}
+.pg-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 16px 0;
+  font-weight: 600;
+  font-size: 17px;
+  list-style: none;
+  cursor: pointer;
+}
+.pg-faq summary::-webkit-details-marker {
+  display: none;
+}
+.pg-faq summary::after {
+  content: "+";
+  flex-shrink: 0;
+  color: var(--accent-text);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+.pg-faq details[open] summary::after {
+  content: "\2212";
+}
+.pg-faq details p {
+  margin: 0 0 16px;
+  max-width: 68ch;
+  color: var(--ink-muted);
+}
+
+/* Inverse card details: rows and pills on near-black */
+.pg-card-inverse .pg-rows dt {
+  color: var(--ink-on-inverse-muted);
+}
+.pg-card-inverse .pg-rows > div + div {
+  border-top-color: var(--inverse-raised);
+}
+.pg-card-inverse .pg-h2,
+.pg-card-inverse .pg-h3 {
+  color: var(--ink-on-inverse);
+}
+
+/* single-row footer (landing copy v3) */
+.pg-foot > .pg-foot-bottom {
+  margin-top: 0;
+}
+.pg-foot:has(> .pg-foot-bottom) {
+  padding-block: var(--space-5);
+}
+
+/* secondary buttons on a grey card use the raised fill, so the button keeps its shape */
+.pg-card .pg-btn-secondary {
+  background: var(--surface-raised);
+}
+.pg-card .pg-btn-secondary:hover {
+  background: var(--border-card);
+}
+@media (max-width: 640px) {
+  /* phases stack vertically on phones, so the sideways arrows go */
+  .pg-band-arrow {
+    display: none;
+  }
+}
+/* a light section after a dark one gets its full top padding, as after a dark band */
+.pg-section.pg-dark + .pg-section {
+  padding-top: var(--section-y);
+}
+
+/* bubbles sit above the rail */
+.pg-flow .pg-bubble {
+  position: relative;
+  z-index: 2;
+}
+/* a dark section after a light one keeps its full top padding inside the dark area */
+.pg-section + .pg-section.pg-dark {
+  padding-top: var(--section-y);
+}
+
+/* contrast button: ink fill, page-coloured text. Reads light on dark blocks, dark on light ones. */
+.pg-btn-contrast {
+  background: var(--ink);
+  color: var(--surface-page);
+}
+.pg-btn-contrast:hover {
+  background: color-mix(in srgb, var(--ink) 85%, var(--surface-page));
+}
+/* pills that are links */
+a.pg-pill-link {
+  text-decoration: none;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+a.pg-pill-link:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+}

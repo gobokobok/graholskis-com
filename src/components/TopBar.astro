@@ -1,47 +1,98 @@
 ---
-// Floating top bar: brand left, section links centred, actions right.
-// Below 1020px the links move into the menu panel.
+// Sticky top bar (Pill & Glow navigation): wordmark left, section links, theme toggle and the call button.
+// Below 1025px the links move into a full-screen sheet. The theme toggle shows on kit pages only.
 import { nav, bookHref, calendarUrl } from "../config";
 import Brand from "./Brand.astro";
 
-const contact = nav[nav.length - 1];
-const sections = nav.slice(0, -1);
 const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
 ---
 
-<header class="topbar">
-  <div class="wide">
-    <div class="bar glass">
-      <Brand />
+<header class="pg-nav" id="pg-nav">
+  <div class="pg-container pg-nav-row">
+    <Brand />
 
-      <nav class="bar-nav" aria-label="Primary navigation">
-        {sections.map((l) => <a href={l.href} class="pill-link">{l.label}</a>)}
-      </nav>
+    <nav class="pg-nav-links" aria-label="Primary navigation">
+      {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
 
-      <div class="bar-actions">
-        <a href={contact.href} class="pill pill-line bar-contact">{contact.label}</a>
-        <a href={bookHref} class="pill pill-fill bar-book" {...bookAttrs}>Book a call</a>
-        <details class="bar-menu">
-          <summary class="pill pill-line" aria-label="Menu">Menu</summary>
-          <div class="bar-panel glass">
-            {sections.map((l) => <a href={l.href}>{l.label}</a>)}
-            <a href={contact.href}>{contact.label}</a>
-            <a href={bookHref} class="pill pill-fill" {...bookAttrs}>Book a call</a>
-          </div>
-        </details>
-      </div>
+    <div class="pg-nav-actions">
+      <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-theme" data-theme-toggle>Dark</button>
+      <a href={bookHref} class="pg-btn pg-btn-sm pg-btn-primary pg-nav-book" {...bookAttrs}>Book a call</a>
+      <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-menu-btn" aria-expanded="false" aria-controls="pg-sheet">
+        Menu
+      </button>
     </div>
   </div>
 </header>
 
+<div class="pg-sheet" id="pg-sheet" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="pg-sheet-top">
+    <Brand />
+    <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary" data-sheet-close>Close</button>
+  </div>
+  <nav class="pg-sheet-links" aria-label="Primary navigation">
+    {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+  <div class="pg-sheet-actions">
+    <a href={bookHref} class="pg-btn pg-btn-primary" {...bookAttrs}>Book a call</a>
+    <button type="button" class="pg-btn pg-btn-secondary pg-theme" data-theme-toggle>Dark</button>
+  </div>
+</div>
+
 <script>
-  // Close the menu after choosing a link, or on a click outside it.
-  document.querySelectorAll<HTMLDetailsElement>(".bar-menu").forEach((d) => {
-    d.addEventListener("click", (e) => {
-      if ((e.target as HTMLElement).closest("a")) d.removeAttribute("open");
-    });
-    document.addEventListener("click", (e) => {
-      if (!d.contains(e.target as Node)) d.removeAttribute("open");
-    });
+  const nav = document.getElementById("pg-nav")!;
+  const sheet = document.getElementById("pg-sheet")!;
+  const menuBtn = nav.querySelector<HTMLButtonElement>(".pg-menu-btn")!;
+  const root = document.documentElement;
+
+  // Divider under the bar once the page has scrolled.
+  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 0);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Full-screen menu.
+  const openSheet = () => {
+    sheet.hidden = false;
+    root.classList.add("pg-locked");
+    menuBtn.setAttribute("aria-expanded", "true");
+    sheet.querySelector<HTMLElement>("[data-sheet-close]")?.focus();
+  };
+  const closeSheet = (focusBack = true) => {
+    sheet.hidden = true;
+    root.classList.remove("pg-locked");
+    menuBtn.setAttribute("aria-expanded", "false");
+    if (focusBack) menuBtn.focus();
+  };
+  menuBtn.addEventListener("click", openSheet);
+  sheet.querySelector("[data-sheet-close]")?.addEventListener("click", () => closeSheet());
+  sheet.addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).closest("a")) closeSheet(false);
   });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !sheet.hidden) closeSheet();
+  });
+
+  // Theme toggle: light is the default; the label names the theme you switch to. The choice is remembered.
+  const current = () => root.dataset.theme ?? "light";
+  const label = () => {
+    const next = current() === "dark" ? "Light" : "Dark";
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((b) => {
+      b.textContent = next;
+      b.setAttribute("aria-label", `Switch to ${next.toLowerCase()} theme`);
+    });
+  };
+  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const next = current() === "dark" ? "light" : "dark";
+      // Switch at once: hover colour fades would otherwise animate the whole page.
+      root.classList.add("pg-theme-switching");
+      root.dataset.theme = next;
+      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("pg-theme-switching")));
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+      label();
+    }),
+  );
+  label();
 </script>

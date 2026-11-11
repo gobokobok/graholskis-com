@@ -1,168 +1,291 @@
 ---
+// Landing page, copy v3 (src/data/landing.ts) on the Pill & Glow kit (kit.css; layout in landing.css).
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Container from "../components/Container.astro";
-import WorkVisual from "../components/WorkVisual.astro";
-import LabTile from "../components/LabTile.astro";
-import ResourceCard from "../components/ResourceCard.astro";
-import {
-  site,
-  bookHref,
-  bookLabel,
-  services,
-  work,
-  workHeading,
-  heroPhoto,
-  labs,
-  workshops,
-  resources,
-  background,
-  links,
-} from "../config";
+import Pipeline from "../components/viz/Pipeline.astro";
+import EmailCapture from "../components/EmailCapture.astro";
+import ContactForm from "../components/ContactForm.astro";
+import "../styles/landing.css";
+import { bookHref, calendarUrl, heroPhoto, links } from "../config";
+import { meta, hero, problem, workshop, howItWorks, work, diy, faq, about, contact } from "../data/landing";
 
-const anyCheckout = resources.some((r) => r.checkoutUrl);
+const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
+const workCards = work.cards.filter((c) => c.show);
+const profiles = [
+  { label: "LinkedIn", href: links.linkedin },
+  { label: "YouTube channel", href: links.youtube },
+  { label: "GitHub", href: links.github },
+].filter((p) => p.href);
 ---
 
-<BaseLayout title={site.role} bareTitle description={site.tagline}>
-  {/* 1. HERO */}
-  <section class="hero hero-pos">
-    <Container wide>
-      <div class="hero-grid hero-split">
-        <div>
-          <h1 class="h-hero hero-h1">
-            From AI experiments to <mark>governed adoption</mark>
-          </h1>
-          <p class="lede hero-sub">
-            I build working AI solutions, design the platform that keeps them under control, and train
-            teams to use them. 15 years in enterprise architecture, now applied to AI.
-          </p>
-          <div class="hero-links">
-            <a href={bookHref} class="btn btn-primary">{bookLabel}</a>
-            <a href="#work" class="link link-arrow">See what I have built <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="photo hero-photo">
-          {heroPhoto.src ? <img src={heroPhoto.src} alt={heroPhoto.alt} width="720" height="960" fetchpriority="high" /> : <span class="photo-ph">Photo</span>}
+<BaseLayout title={meta.title} description={meta.description} kit contactDialog={false}>
+  {/* 1. HERO: text only, a dark block with the kit glow */}
+  <section class="pg-section pg-hero pg-dark glow">
+    <div class="pg-container pg-hero-grid">
+      <div class="pg-hero-title">
+        <span class="pg-pill pg-pill-soft">{hero.eyebrow}</span>
+        <h1 class="pg-display">
+          {hero.headlineLead} <span class="pg-accent-text">{hero.headlineAccent}</span>
+        </h1>
+      </div>
+      <div class="pg-hero-text">
+        <p class="pg-lead">{hero.sub}</p>
+        <div class="pg-hero-actions">
+          <a href={bookHref} class="pg-btn pg-btn-primary" {...bookAttrs}>{hero.primary}</a>
+          <a href="#diy" class="pg-btn pg-btn-secondary">{hero.secondary}</a>
         </div>
       </div>
-    </Container>
+    </div>
   </section>
 
-  {/* 2. WHAT I DO */}
-  <section id="services" class="band band-soft">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">What I do</h2>
+  {/* 2. PROBLEM: the title, then the body; together they introduce the phases below */}
+  <section class="pg-section pg-problem" aria-labelledby="workshop">
+    <div class="pg-container">
+      <div class="pg-head-stack">
+        <h2 id="workshop" class="pg-h1 pg-problem-title">{problem.closing}</h2>
+        <p class="pg-lead">{problem.body}</p>
       </div>
-      <div class="grid-3">
+    </div>
+  </section>
+
+  {/* 3. THE WORKSHOP: step bands for the four phases, key facts on the inverse card */}
+  <section class="pg-section pg-workshop" aria-label="The workshop">
+    <div class="pg-container">
+      <ol class="pg-steps">
         {
-          services.map((s, i) => (
-            <div class="card mode" style={`--nc: var(--c${i + 1})`}>
-              <h3 class="h-card mode-title">{s.title}</h3>
-              <p>{s.body}</p>
+          workshop.phases.map((p, i) => (
+            <li class="pg-step pg-reveal" style={`--i:${i}`}>
+              <div class="pg-band">
+                <span class="pg-pill">Phase {i + 1}</span>
+                <h3 class="pg-h3">{p.name}</h3>
+                {i < workshop.phases.length - 1 && <span class="pg-band-arrow" aria-hidden="true">→</span>}
+              </div>
+              <div class="pg-card">
+                <p class="pg-small">{p.text}</p>
+                <p class="pg-result"><span class="pg-pill pg-pill-success">Result</span> {p.result}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="pg-card pg-card-inverse pg-facts pg-reveal">
+        <dl class="pg-rows">
+          {
+            workshop.facts.map((f) => (
+              <div>
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="pg-card-foot">
+          <a href={bookHref} class="pg-btn pg-btn-primary" {...bookAttrs}>{workshop.button}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 4. HOW IT WORKS: tracker, four steps on one line across the width (vertical on phones) */}
+  <section id="how" class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{howItWorks.heading}</h2>
+      </div>
+      <ol class="pg-track">
+        {
+          howItWorks.steps.map((s, i) => (
+            <li class="pg-reveal" style={`--i:${i}`}>
+              <span class:list={["pg-bubble", i === howItWorks.steps.length - 1 && "pg-bubble-fill"]}>{i + 1}</span>
+              <div class="pg-track-text">
+                <h3 class="pg-h3">{s.name}</h3>
+                <p class="pg-small">{s.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* 5. WORK: a dark band inside the light page */}
+  <div class="pg-dark pg-dark-band glow">
+    <section id="work" class="pg-section">
+      <div class="pg-container">
+        <div class="pg-head pg-head-stack">
+          <h2 class="pg-h1">{work.heading}</h2>
+          <p class="pg-lead">{work.intro}</p>
+        </div>
+        <div class="pg-grid-2">
+          {
+            workCards.map((c, i) => (
+              <article class="pg-card pg-reveal pg-work" style={`--i:${i}`}>
+                {c.flow && (
+                  <div class="pg-inner pg-visual">
+                    <Pipeline steps={c.flow} small />
+                  </div>
+                )}
+                <h3 class="pg-h3">{c.title}</h3>
+                <p class="pg-small">{c.text}</p>
+                <div class="pg-card-foot">
+                  {c.href ? (
+                    <a href={c.href} class="pg-link">{c.linkLabel} →</a>
+                  ) : (
+                    <span class="pg-pill pg-pill-dashed">Coming soon</span>
+                  )}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  {/* 6. DO IT YOURSELF: the catalogue scrolls sideways; the free self-check is the one accent card */}
+  <section id="diy" class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head pg-head-stack">
+        <h2 class="pg-h1">{diy.heading}</h2>
+        <p class="pg-lead">{diy.intro}</p>
+      </div>
+      <div class="pg-scroll-nav">
+        <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-scroll-btn" data-scroll="-1" aria-label="Previous items" aria-controls="diy-list">←</button>
+        <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-scroll-btn" data-scroll="1" aria-label="Next items" aria-controls="diy-list">→</button>
+      </div>
+      <div class="pg-scroller" id="diy-list" role="region" aria-label="Do it yourself materials" tabindex="0">
+        {
+          diy.cards.map((c, i) => (
+            <div class:list={["pg-card pg-reveal pg-diy", c.action === "capture" && "pg-card-accent"]} style={`--i:${i}`}>
+              <div class="pg-diy-top">
+                <span class="pg-pill pg-pill-soft">{c.label}</span>
+                <span class="pg-diy-price">{c.price || "Price TBC"}</span>
+              </div>
+              <p class="pg-small">{c.text}</p>
+              {c.action === "capture" ? (
+                <EmailCapture button={c.button} />
+              ) : (
+                <div class="pg-card-foot">
+                  {c.action === "contact" ? (
+                    <a href="#contact" class="pg-btn pg-btn-secondary">{c.button}</a>
+                  ) : c.href ? (
+                    <a href={c.href} class="pg-btn pg-btn-secondary" rel="noopener" target="_blank">{c.button}</a>
+                  ) : (
+                    <span class="pg-pill pg-pill-dashed">Coming soon</span>
+                  )}
+                </div>
+              )}
             </div>
           ))
         }
       </div>
-    </Container>
+    </div>
   </section>
 
-  {/* 3. WORK */}
-  <section id="work" class="band">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">{workHeading}</h2>
+  {/* 7. FAQ: title and call button on the left (stays in view), open list of questions on the right */}
+  <section id="faq" class="pg-section">
+    <div class="pg-container pg-faq-split">
+      <div class="pg-faq-intro">
+        <h2 class="pg-h1">{faq.heading}</h2>
+        <a href={bookHref} class="pg-btn pg-btn-secondary" {...bookAttrs}>{hero.primary}</a>
       </div>
-      <div class="case-grid">
+      <div class="pg-faq pg-reveal">
         {
-          work.map((w) => (
-            <article class="card case-card">
-              <div class="case-visual">
-                <WorkVisual item={w} />
-              </div>
-              <h3>{w.title}</h3>
-              <p>{w.summary}</p>
-              {w.badge && (
-                <div class="chips"><span class="chip">{w.badge}</span></div>
-              )}
-              <div class="work-links">
-                {w.caseHref && <a href={w.caseHref} class="more">Read case →</a>}
-                {w.liveHref && (
-                  <a href={w.liveHref} class="more" rel="noopener" target="_blank">Live tool ↗</a>
-                )}
-              </div>
-            </article>
+          faq.items.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
           ))
         }
       </div>
-    </Container>
+    </div>
   </section>
 
-  {/* 4. LABS */}
-  <section id="labs" class="band band-soft">
-    <Container wide>
-      <div class="sec-head sec-head-row">
-        <h2 class="h-sec">Labs</h2>
-        {links.youtube && <a href={links.youtube} class="link link-arrow" rel="noopener" target="_blank">YouTube channel ↗</a>}
+  {/* 8. ABOUT: portrait card next to the text card */}
+  <section id="about" class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{about.heading}</h2>
       </div>
-      <div class="lab-grid">
-        {labs.map((l) => <LabTile item={l} />)}
-      </div>
-    </Container>
-  </section>
-
-  {/* 5. WORKSHOPS */}
-  <section id="workshops" class="band">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">Workshops</h2>
-      </div>
-      <div class="grid-3">
-        {
-          workshops.topics.map((t) => (
-            <article class="card ws-card">
-              <h3 class="h-card">{t.title}</h3>
-              <p>{t.summary}</p>
-              <a href={`/workshops/${t.slug}`} class="more">Details →</a>
-            </article>
-          ))
-        }
-      </div>
-      <p class="formats"><strong>Formats:</strong> {workshops.formats}</p>
-      {
-        workshops.testimonial && (
-          <figure class="quote" style="margin-top:48px;">
-            <p>“{workshops.testimonial.quote}”</p>
-            <footer>{workshops.testimonial.by}</footer>
-          </figure>
-        )
-      }
-    </Container>
-  </section>
-
-  {/* 7. RESOURCES */}
-  <section id="resources" class="band band-soft">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">Resources</h2>
-      </div>
-      <div class="grid-3">
-        {resources.map((r) => <ResourceCard item={r} />)}
-      </div>
-    </Container>
-  </section>
-
-  {/* 8. BACKGROUND */}
-  <section class="band" aria-labelledby="bg-h">
-    <Container wide>
-      <div class="case-row">
-        <h2 id="bg-h" class="h-sec">Background</h2>
-        <div class="case-text">
-          <p class="case-lead">{background}</p>
-          <p><a href="/earlier-work" class="link">Earlier work</a></p>
+      <div class="pg-about">
+        <div class="pg-portrait">
+          {heroPhoto.src && <img src={heroPhoto.src} alt={heroPhoto.alt} width="720" height="960" loading="lazy" />}
+        </div>
+        <div class="pg-card pg-reveal pg-about-text">
+          {about.paragraphs.map((p) => <p class="pg-body">{p}</p>)}
+          <ul class="pg-trust" aria-label="Facts and profiles">
+            {about.facts.map((f) => <li class="pg-pill">{f}</li>)}
+            {
+              profiles.map((p) => (
+                <li>
+                  <a href={p.href} class="pg-pill pg-pill-soft pg-pill-link" rel="noopener" target="_blank">{p.label} ↗</a>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
-    </Container>
+    </div>
   </section>
 
-  {anyCheckout && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
+  {/* 9. CONTACT: a dark block */}
+  <section id="contact" class="pg-section pg-dark">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{contact.heading}</h2>
+      </div>
+      <div class="pg-split">
+      <div class="pg-contact-intro">
+        <p class="pg-lead">{contact.body}</p>
+        <div class="pg-hero-actions">
+          <a href={bookHref} class="pg-btn pg-btn-contrast" {...bookAttrs}>{hero.primary}</a>
+        </div>
+      </div>
+      <div class="pg-card pg-reveal">
+        <ContactForm button={contact.button} />
+      </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<script>
+  // Catalogue scroller: the arrow buttons move one card at a time and switch off at either end.
+  const scroller = document.getElementById("diy-list");
+  if (scroller) {
+    const buttons = document.querySelectorAll<HTMLButtonElement>("[data-scroll]");
+    const step = () => {
+      const card = scroller.querySelector<HTMLElement>(".pg-diy");
+      const gap = parseFloat(getComputedStyle(scroller).columnGap) || 0;
+      return card ? card.offsetWidth + gap : scroller.clientWidth * 0.8;
+    };
+    const update = () => {
+      const max = scroller.scrollWidth - scroller.clientWidth - 1;
+      buttons.forEach((b) => (b.disabled = b.dataset.scroll === "-1" ? scroller.scrollLeft <= 0 : scroller.scrollLeft >= max));
+    };
+    buttons.forEach((b) =>
+      b.addEventListener("click", () => scroller.scrollBy({ left: Number(b.dataset.scroll) * step(), behavior: "smooth" })),
+    );
+    scroller.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
+  // Reveal cards once as they scroll into view (kit §8). Without JS or with reduced motion, content shows at once.
+  const items = document.querySelectorAll<HTMLElement>(".pg-reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }),
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add("is-in"));
+  }
+</script>
