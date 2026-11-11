@@ -1,0 +1,204 @@
+/* Case page layout on the Pill & Glow kit, at 90%. Components and tokens live in kit.css. */
+
+/* ---- header: dark block with facts and product screenshots ---- */
+.cs-hero .pg-container {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+.cs-back {
+  font-size: 15px;
+}
+.cs-title {
+  max-width: 20ch;
+}
+.cs-hero .pg-lead {
+  max-width: 60ch;
+}
+.cs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.cs-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* two by two on phones */
+  gap: var(--space-2);
+  width: 100%;
+  margin: var(--space-3) 0 0;
+}
+@media (min-width: 900px) {
+  .cs-meta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .cs-meta .pg-card {
+    padding: 14px 16px;
+  }
+}
+.cs-meta .pg-card {
+  gap: 6px;
+  padding: 18px 22px;
+}
+.cs-meta dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* desktop screenshot in a rounded frame, phones in device frames (kit device mock) */
+.cs-showcase {
+  display: grid;
+  gap: var(--space-4);
+  width: 100%;
+  margin-top: var(--space-4);
+  align-items: end;
+}
+@media (min-width: 900px) {
+  .cs-showcase {
+    grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+  }
+}
+.cs-desktop {
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+}
+.cs-desktop img,
+.cs-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cs-phones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+@media (max-width: 899px) {
+  .cs-phones {
+    max-width: 420px;
+  }
+}
+.cs-phone {
+  overflow: hidden;
+  border: 7px solid var(--phone-frame);
+  border-radius: 25px;
+  background: var(--phone-screen);
+}
+
+/* ---- body ---- */
+.cs-text {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 68ch;
+}
+.cs-block {
+  margin-top: var(--space-5);
+}
+.cs-cards {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 641px) {
+  .cs-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.cs-visual {
+  margin-top: var(--space-1);
+  padding: var(--space-4) var(--space-3);
+}
+
+/* list rows: hairline dividers, no bullets */
+.cs-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cs-rows li {
+  padding: 12.5px 0;
+  color: var(--ink);
+}
+.cs-rows li + li {
+  border-top: 1px solid var(--border-card);
+}
+.cs-outcome {
+  max-width: 860px;
+}
+
+.cs-stack {
+  display: grid;
+  gap: var(--space-2);
+}
+.cs-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- outcome figures: stat tiles ---- */
+.cs-figures {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+@media (min-width: 641px) {
+  .cs-figures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---- links ---- */
+a.cs-link {
+  text-decoration: none;
+  transition: background-color 150ms var(--ease);
+}
+a.cs-link:hover {
+  background: var(--border-card);
+}
+
+/* ---- call to action and next case ---- */
+.cs-cta {
+  display: grid;
+  gap: var(--space-4);
+  padding: 36px;
+}
+@media (min-width: 900px) {
+  .cs-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+}
+.cs-cta .pg-h1 {
+  color: var(--ink-on-inverse);
+}
+.cs-cta .pg-lead {
+  margin-top: var(--space-2);
+  color: var(--ink-on-inverse-muted);
+}
+.cs-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.cs-next {
+  margin-top: var(--space-4);
+  gap: 6px;
+  text-decoration: none;
+  transition: background-color 150ms var(--ease);
+}
+.cs-next:hover {
+  background: var(--border-card);
+}
+/* the five-step flow fits one row on wide screens; labels may wrap so the last step stays inside the box */
+.cs-visual .pipe.fit .node b {
+  white-space: normal;
+}

@@ -1,9 +1,11 @@
 ---
+// Case page on the Pill & Glow kit (kit.css; layout in case.css). Content comes from src/data/cases.ts,
+// every case follows the same parts: header, request, challenges, solution, outcome, lessons, links, call to action.
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Container from "../../components/Container.astro";
 import CaseVisual from "../../components/CaseVisual.astro";
 import { cases, type Case } from "../../data/cases";
 import { links as siteLinks } from "../../config";
+import "../../styles/case.css";
 
 export function getStaticPaths() {
   return cases.map((c, i) => ({
@@ -26,28 +28,30 @@ const links = c.links
       .map((k) => ({ ...linkMeta[k], ...c.links![k]! }))
   : [];
 const primary = links.find((l) => l.href);
+// "Python, FastAPI, ..., Railway." shown as pills
+const stack = c.solution.stack.replace(/\.$/, "").split(/,\s*/);
 ---
 
-<BaseLayout title={c.title} description={c.summary}>
-  {/* 1. HEADER */}
-  <section class="hero case-hero">
-    <Container wide>
-      <a href="/#work" class="link" style="font-size:16px;">← All cases</a>
-      <h1 class="h-sec case-title">{c.title}</h1>
-      <p class="lede" style="margin-top:28px;">{c.summary}</p>
+<BaseLayout title={c.title} description={c.summary} kit>
+  {/* 1. HEADER: a dark block with the product screenshots */}
+  <section class="pg-section pg-dark glow cs-hero">
+    <div class="pg-container">
+      <a href="/#work" class="pg-link cs-back">← All cases</a>
+      <h1 class="pg-h1 cs-title">{c.title}</h1>
+      <p class="pg-lead">{c.summary}</p>
       {
         primary && (
-          <div class="hero-links">
-            <a href={primary.href} class="btn btn-primary" rel="noopener" target="_blank">{primary.title} ↗</a>
+          <div class="cs-actions">
+            <a href={primary.href} class="pg-btn pg-btn-primary" rel="noopener" target="_blank">{primary.title} ↗</a>
           </div>
         )
       }
-      {c.placeholder && <p style="margin-top:24px;"><span class="chip">Draft content</span></p>}
-      <dl class="meta-strip">
+      {c.placeholder && <span class="pg-pill pg-pill-dashed">Draft content</span>}
+      <dl class="cs-meta">
         {
           c.meta.map((m) => (
-            <div>
-              <dt>{m.k}</dt>
+            <div class="pg-card">
+              <dt class="pg-label">{m.k}</dt>
               <dd>{m.v}</dd>
             </div>
           ))
@@ -55,13 +59,13 @@ const primary = links.find((l) => l.href);
       </dl>
       {
         c.showcase && (
-          <div class="showcase" role="img" aria-label={c.showcase.alt}>
-            <div class="shot-desktop">
+          <div class="cs-showcase" role="img" aria-label={c.showcase.alt}>
+            <div class="cs-desktop">
               <img src={c.showcase.desktop} alt="" width="1600" height="859" />
             </div>
-            <div class="shot-phones">
+            <div class="cs-phones">
               {c.showcase.mobile.map((m) => (
-                <div class="shot-phone">
+                <div class="cs-phone">
                   <img src={m} alt="" width="570" height="1090" />
                 </div>
               ))}
@@ -69,190 +73,222 @@ const primary = links.find((l) => l.href);
           </div>
         )
       }
-    </Container>
+    </div>
   </section>
 
   {/* 2. BUSINESS REQUEST */}
-  <section class="band band-soft">
-    <Container wide>
-      <div class="case-row">
-        <h2 class="h-sec">Business request</h2>
-        <div class="case-text">
-          {c.request.map((p) => <p class="case-lead">{p}</p>)}
-        </div>
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">Business request</h2>
       </div>
-    </Container>
+      <div class="cs-text">
+        {c.request.map((p) => <p class="pg-lead">{p}</p>)}
+      </div>
+    </div>
   </section>
 
   {/* 3. CHALLENGES */}
-  <section class="band">
-    <Container wide>
-      <div class="case-row">
-        <h2 class="h-sec">Challenges</h2>
-        <ul class="case-list">
-          {
-            c.challenges.map((ch) =>
-              typeof ch === "string" ? (
-                <li class="card"><p>{ch}</p></li>
-              ) : (
-                <li class="card">
-                  <h3 class="h-card">{ch.title}</h3>
-                  <p class="ch-body">{ch.body}</p>
-                </li>
-              ),
-            )
-          }
-        </ul>
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">Challenges</h2>
       </div>
-    </Container>
+      <ul class="cs-cards">
+        {
+          c.challenges.map((ch, i) => (
+            <li class="pg-card pg-reveal" style={`--i:${i}`}>
+              {typeof ch === "string" ? (
+                <p class="pg-body">{ch}</p>
+              ) : (
+                <>
+                  <h3 class="pg-h3">{ch.title}</h3>
+                  <p class="pg-small">{ch.body}</p>
+                </>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
 
   {/* 4. DELIVERED SOLUTION */}
-  <section class="band band-soft">
-    <Container wide>
-      <div class="case-row">
-        <h2 class="h-sec">Delivered solution</h2>
-        <div class="case-text">
-          {c.solution.intro.map((p) => <p>{p}</p>)}
-        </div>
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">Delivered solution</h2>
+      </div>
+      <div class="cs-text">
+        {c.solution.intro.map((p) => <p class="pg-lead">{p}</p>)}
       </div>
 
       {
         c.solution.showVisual && (
-          <div class="exhibit case-media">
-            <div class="exhibit-head">
-              <h3>Pipeline flow</h3>
+          <div class="pg-card cs-block pg-reveal">
+            <h3 class="pg-label">Pipeline flow</h3>
+            <div class="pg-inner cs-visual">
+              <CaseVisual visual={c.visual} fit />
             </div>
-            <CaseVisual visual={c.visual} fit />
           </div>
         )
       }
 
       {
         c.solution.parts && (
-          <div class="grid-2 case-parts">
-            {c.solution.parts.map((p) => (
-              <div class="card">
-                <h3 class="h-card">{p.title}</h3>
-                <p>{p.body}</p>
-              </div>
+          <ul class="cs-cards cs-block">
+            {c.solution.parts.map((p, i) => (
+              <li class="pg-card pg-reveal" style={`--i:${i}`}>
+                <h3 class="pg-h3">{p.title}</h3>
+                <p class="pg-small">{p.body}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         )
       }
 
-      {
-        c.solution.outro && (
-          <div class="case-row" style="margin-top:72px;">
-            <div />
-            <div class="case-text">{c.solution.outro.map((p) => <p>{p}</p>)}</div>
-          </div>
-        )
-      }
+      {c.solution.outro && <div class="cs-text cs-block">{c.solution.outro.map((p) => <p class="pg-body">{p}</p>)}</div>}
 
       {
         c.solution.points && (
-          <div class="case-row" style="margin-top:72px;">
-            <h3 class="h-card" style="font-size:24px;">{c.solution.points.title}</h3>
-            <ul class="case-list">
-              {c.solution.points.items.map((it) => <li class="card"><p>{it}</p></li>)}
+          <div class="pg-card cs-block pg-reveal">
+            <h3 class="pg-h3">{c.solution.points.title}</h3>
+            <ul class="cs-rows">
+              {c.solution.points.items.map((it) => <li>{it}</li>)}
             </ul>
           </div>
         )
       }
 
-      <p class="tech-stack"><strong>Tech stack</strong> {c.solution.stack}</p>
-    </Container>
+      <div class="cs-stack cs-block">
+        <h3 class="pg-label">Tech stack</h3>
+        <ul class="cs-pills">
+          {stack.map((s) => <li class="pg-pill">{s}</li>)}
+        </ul>
+      </div>
+    </div>
   </section>
 
-  {/* 5. OUTCOME */}
-  <section class="band">
-    <Container wide>
-      <div class="case-row">
-        <h2 class="h-sec">Outcome</h2>
-        <div class="case-text">
-          {c.outcomeAsList ? (
-            <ul class="case-list">{c.outcome.map((p) => <li class="card"><p>{p}</p></li>)}</ul>
-          ) : (
-            c.outcome.map((p) => <p class="case-lead">{p}</p>)
-          )}
+  {/* 5. OUTCOME: a dark band */}
+  <div class="pg-dark pg-dark-band">
+    <section class="pg-section">
+      <div class="pg-container">
+        <div class="pg-head">
+          <h2 class="pg-h1">Outcome</h2>
         </div>
-      </div>
-      {
-        c.figures && (
-          <div class="grid-3" style="margin-top:72px;">
-            {c.figures.map((f) => (
-              <div class="card">
-                <p class="proof-num" style="font-size:3rem; font-weight:700; letter-spacing:-0.035em; margin:0; color:var(--text);">{f.metric}</p>
-                <p style="margin-top:10px;">{f.label}</p>
-              </div>
-            ))}
+        {
+          c.figures && (
+            <div class="cs-figures">
+              {c.figures.map((f, i) => (
+                <div class="pg-card pg-reveal" style={`--i:${i}`}>
+                  <p class="pg-stat pg-accent-text">{f.metric}</p>
+                  <p class="pg-small">{f.label}</p>
+                </div>
+              ))}
+            </div>
+          )
+        }
+        {c.outcomeAsList ? (
+          <div class="pg-card cs-outcome pg-reveal">
+            <ul class="cs-rows">
+              {c.outcome.map((p) => <li>{p}</li>)}
+            </ul>
           </div>
-        )
-      }
-    </Container>
-  </section>
+        ) : (
+          <div class="cs-text">{c.outcome.map((p) => <p class="pg-lead">{p}</p>)}</div>
+        )}
+      </div>
+    </section>
+  </div>
 
   {/* 6. LESSONS LEARNED */}
-  <section class="band band-soft">
-    <Container wide>
-      <div class="sec-head">
-        <h2 class="h-sec">Lessons learned</h2>
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">Lessons learned</h2>
       </div>
-      <div class="grid-2">
-        {c.lessons.map((l) => <div class="card"><p class="lesson">{l}</p></div>)}
-      </div>
-    </Container>
+      <ul class="cs-cards">
+        {
+          c.lessons.map((l, i) => (
+            <li class="pg-card pg-reveal" style={`--i:${i}`}>
+              <p class="pg-body">{l}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
 
   {/* LINKS (only when a case has them) */}
   {
     links.length > 0 && (
-      <section class="band">
-        <Container wide>
-          <div class="sec-head">
-            <h2 class="h-sec">See it for yourself</h2>
+      <section class="pg-section">
+        <div class="pg-container">
+          <div class="pg-head">
+            <h2 class="pg-h1">See it for yourself</h2>
           </div>
-          <div class="grid-3">
-            {links.map((l) =>
+          <div class="pg-grid-3">
+            {links.map((l, i) =>
               l.href ? (
-                <a href={l.href} class="card res-card" rel="noopener" target="_blank">
-                  <span class="meta">{l.kind}</span>
-                  <h3 class="h-card">{l.title} ↗</h3>
-                  <p>{l.note}</p>
+                <a href={l.href} class="pg-card cs-link pg-reveal" style={`--i:${i}`} rel="noopener" target="_blank">
+                  <span class="pg-label">{l.kind}</span>
+                  <h3 class="pg-h3">{l.title} ↗</h3>
+                  <p class="pg-small">{l.note}</p>
                 </a>
               ) : (
-                <div class="card res-card is-soon">
-                  <span class="meta">{l.kind}</span>
-                  <h3 class="h-card">{l.title}</h3>
-                  <p>{l.note}</p>
-                  <span class="chip" style="align-self:start; margin-top:auto;">Coming soon</span>
+                <div class="pg-card pg-reveal" style={`--i:${i}`}>
+                  <span class="pg-label">{l.kind}</span>
+                  <h3 class="pg-h3">{l.title}</h3>
+                  <p class="pg-small">{l.note}</p>
+                  <div class="pg-card-foot">
+                    <span class="pg-pill pg-pill-dashed">Coming soon</span>
+                  </div>
                 </div>
               ),
             )}
           </div>
-        </Container>
+        </div>
       </section>
     )
   }
 
-  {/* NEXT + CTA */}
-  <section class="band band-ink">
-    <Container wide>
-      <div class="two-col" style="align-items:end;">
+  {/* CALL TO ACTION (kit CTA band: inverse card) + NEXT CASE */}
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-card pg-card-inverse cs-cta">
         <div>
-          <h2 class="h-sec">Have a project like this?</h2>
-          <p class="lede" style="margin-top:24px;">A 30-minute call to see whether I can help.</p>
-          <div class="hero-links">
-            <a href="/#contact" class="btn btn-light">Get in touch</a>
-            <a class="btn btn-ghost-light" href={siteLinks.linkedin} rel="noopener" target="_blank">LinkedIn ↗</a>
-          </div>
+          <h2 class="pg-h1">Have a project like this?</h2>
+          <p class="pg-lead">A 30-minute call to see whether I can help.</p>
         </div>
-        <a href={`/cases/${next.slug}`} class="next-case">
-          <span class="meta" style="color:#8b8b92;">Next case</span>
-          <span class="next-title">{next.title} →</span>
-        </a>
+        <div class="cs-cta-actions">
+          <a href="/#contact" class="pg-btn pg-btn-primary">Get in touch</a>
+          <a href={siteLinks.linkedin} class="pg-btn pg-btn-on-inverse" rel="noopener" target="_blank">LinkedIn ↗</a>
+        </div>
       </div>
-    </Container>
+      <a href={`/cases/${next.slug}`} class="pg-card cs-next">
+        <span class="pg-label">Next case</span>
+        <span class="pg-h3">{next.title} →</span>
+      </a>
+    </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Reveal cards once as they scroll into view (kit §8).
+  const items = document.querySelectorAll<HTMLElement>(".pg-reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }),
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add("is-in"));
+  }
+</script>

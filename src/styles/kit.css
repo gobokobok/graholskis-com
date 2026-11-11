@@ -1057,3 +1057,27 @@ a.pg-pill-link:hover {
   background: var(--accent);
   color: var(--on-accent);
 }
+
+/* ---- Dark theme: one continuous background ---------------------------
+   The whole page is dark, so dark blocks drop their own fill and glow (they would show as patches).
+   One soft glow sits behind the page, fixed to the window, so it carries on across every block.
+   Kept below full strength, as the kit asks for glows behind text. */
+:root.kit[data-theme="dark"] body {
+  background: transparent; /* the html background paints the page; the glow sits above it */
+}
+:root.kit[data-theme="dark"] .pg-dark {
+  background: transparent;
+}
+:root.kit[data-theme="dark"] .glow::before {
+  display: none;
+}
+:root.kit[data-theme="dark"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 92% 0%, color-mix(in srgb, var(--glow-accent) 38%, transparent), transparent 70%),
+    radial-gradient(55% 50% at 0% 100%, color-mix(in srgb, var(--glow-signal) 16%, transparent), transparent 70%);
+}
