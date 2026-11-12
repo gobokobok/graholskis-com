@@ -1,5 +1,5 @@
 ---
-// AI capability matrix. Unlisted: reached from the readiness checklist email, not linked in the site, kept out of search.
+// AI capability matrix. Linked from the Do it yourself section on the landing page and open to search engines.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { levels, domains, items, typeLabel, typeHelp, glossary, termsInText } from "../data/capability-matrix";
 import { details } from "../data/capability-details";
@@ -29,7 +29,6 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
 <BaseLayout
   title="AI capability matrix"
   description="What an organisation needs to use AI safely and at scale: capabilities across four maturity levels."
-  noindex
   kit
 >
   {/* HEADER: a dark block with the three counts */}
