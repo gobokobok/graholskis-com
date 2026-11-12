@@ -432,4 +432,384 @@ export const details: Record<string, CellDetail> = {
       "Staff know which decisions stay with them",
     ],
   },
+
+  /* ---------------- 02 People, skills and operating model ---------------- */
+
+  // Operating model and decision rights
+  "opmodel-1": {
+    items: [
+      {
+        text: "The person who uses AI is responsible for what they send, publish or decide with it.",
+        example:
+          "A sales manager uses Copilot to draft a proposal. If the proposal contains a wrong price, the sales manager is accountable, not the tool or IT.",
+      },
+      {
+        text: "One central team decides which AI tools are allowed, so teams do not each buy their own.",
+        example:
+          "Marketing asks for an image generator. The CoE checks the data terms and licence cost, approves it for public content only and adds it to the approved-tool list.",
+      },
+    ],
+    artefacts: [
+      { name: "Output accountability statement", text: "A section of the AI policy: who owns AI-assisted work and what checking is expected." },
+      { name: "Tool request form", text: "Tool, purpose, data used, number of users, cost." },
+      { name: "Tool decision log", text: "Request, decision, conditions, date, who decided." },
+    ],
+    checklist: [
+      "Output ownership written in the AI policy and covered in training",
+      "All tool requests go through one route",
+      "Every approved tool has a recorded CoE decision",
+      "Rejected requests get a reason and, where possible, an alternative",
+    ],
+  },
+  "opmodel-2": {
+    items: [
+      {
+        text: "Each pilot has a business owner who wants the result and decides whether it continues.",
+        example:
+          "Customer reply drafting is owned by the head of customer service, who signs the pilot charter and makes the final go or stop decision.",
+      },
+      {
+        text: "It is clear who approves a pilot start, access to data and a wider rollout.",
+        example:
+          "Pilot start: business owner and CoE lead. Access to customer data: data owner and DPO. Rollout to more users: portfolio sponsor.",
+      },
+    ],
+    artefacts: [
+      { name: "Pilot roles sheet", text: "Business owner, technical lead, data owner, risk contact, with names." },
+      { name: "Approval matrix", text: "Decision, approver, evidence needed before approval." },
+    ],
+    checklist: [
+      "Every pilot has a named business owner",
+      "The owner has signed the pilot charter",
+      "Approval matrix published",
+      "Approvals recorded for each pilot",
+    ],
+  },
+  "opmodel-3": {
+    items: [
+      {
+        text: "A central team sets standards and runs the platform, hubs in business units build use cases, and teams use them.",
+        example:
+          "Central CoE: platform, standards and approvals. Finance and operations hubs: three to five people each, building use cases. Teams: request, test and use.",
+      },
+      {
+        text: "Every AI asset in production has an owner who is accountable for how it runs.",
+        example:
+          "The contract review assistant is owned by the legal operations manager, who is responsible for its quality, cost, user feedback and changes.",
+      },
+      {
+        text: "Users know where to go when an AI service fails or gives wrong answers.",
+        example:
+          "First line: the IT service desk, with an AI category. Second line: the hub that built the service. Third line: the platform team, for model or gateway issues.",
+      },
+    ],
+    artefacts: [
+      { name: "Operating model description", text: "Roles of the central team, hubs and teams, and how work moves between them." },
+      { name: "Service owner role description", text: "Responsibilities, decisions, time needed, reporting." },
+      { name: "Support model", text: "Support lines, escalation route, response times." },
+      { name: "RACI for AI delivery", text: "Who does what from idea to retirement." },
+    ],
+    checklist: [
+      "Operating model approved by the sponsor",
+      "Every production asset has a service owner in the catalogue",
+      "Support route tested with a real incident",
+      "Hubs follow the central standards",
+    ],
+  },
+  "opmodel-4": {
+    items: [
+      {
+        text: "Every \"agent\" has a named person who is accountable for what it does.",
+        example:
+          "The supplier onboarding agent is owned by the procurement operations lead, who approves changes to its instructions and reviews its error log every week.",
+      },
+      {
+        text: "The organisation states which decisions agents may take and which stay with people.",
+        example:
+          "Agents may send standard replies and update ticket status. Payments, contract changes and anything about an employee always need a person.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent ownership record", text: "Agent, owner, purpose, autonomy level, review date." },
+      { name: "Decision rights policy", text: "Decisions agents may take, decisions reserved for people, how exceptions are approved." },
+      { name: "Agent change approval", text: "Change, reason, test results, owner approval." },
+    ],
+    checklist: [
+      "Every agent in production has an owner",
+      "Decision rights policy approved by risk and legal",
+      "Agent changes approved by the owner before release",
+      "Owners review agent performance on a fixed schedule",
+    ],
+  },
+
+  // AI CoE and champions
+  "coe-1": {
+    items: [
+      {
+        text: "A small central team takes responsibility for safe AI use.",
+        example:
+          "Four people part-time: an IT architect, a data protection specialist, a business lead from operations and a programme manager, reporting to the CIO.",
+      },
+      {
+        text: "One person in each team helps colleagues and passes feedback to the CoE.",
+        example: "18 champions across departments, each with two hours a week agreed with their manager.",
+      },
+      {
+        text: "One place where people ask questions about AI tools and rules.",
+        example: "A Teams channel monitored by the CoE, with answers within one working day and a pinned FAQ.",
+      },
+    ],
+    artefacts: [
+      { name: "CoE charter", text: "Purpose, members, decisions it owns, reporting line." },
+      { name: "Champion role description", text: "Time, tasks and the support champions get from the CoE." },
+      { name: "Support channel FAQ", text: "The questions people ask most, with agreed answers." },
+    ],
+    checklist: [
+      "CoE members named and their time agreed",
+      "Charter approved by the sponsor",
+      "A champion in every participating team",
+      "Support channel live and announced",
+    ],
+  },
+  "coe-2": {
+    items: [
+      {
+        text: "Champions run small sessions and collect use-case ideas, not only answer questions.",
+        example: "Each champion runs a 30-minute monthly show-and-tell in their team and submits at least two ideas a quarter.",
+      },
+      {
+        text: "Champions and practitioners meet regularly to share what works.",
+        example:
+          "A monthly one-hour call: one team demos a use case, one lesson learned, one update from the CoE. Recordings kept on the intranet.",
+      },
+    ],
+    artefacts: [
+      { name: "Champion activity tracker", text: "Sessions held, ideas submitted, questions answered, per champion." },
+      { name: "Community of practice agenda", text: "Standing agenda and calendar for the monthly call." },
+      { name: "Show-and-tell template", text: "Task, what was tried, result, what to watch out for." },
+    ],
+    checklist: [
+      "Champions active in every pilot team",
+      "Community meets at least monthly",
+      "Ideas from champions reach the portfolio backlog",
+      "Champion time protected by their managers",
+    ],
+  },
+  "coe-3": {
+    items: [
+      {
+        text: "Each shared AI asset, such as a prompt library, eval set or pattern, has a steward who keeps it current.",
+        example:
+          "The steward of the contract clause library reviews changes, removes outdated prompts and checks results against the eval set every quarter.",
+      },
+      {
+        text: "The CoE maintains the delivery method and the list of all AI assets.",
+        example:
+          "Every new AI asset follows the ADLM stages and gets a catalogue entry before release: owner, risk tier, data used, version, status.",
+      },
+    ],
+    artefacts: [
+      { name: "Steward role description", text: "Assets covered, review schedule, what the steward may change." },
+      { name: "ADLM process guide", text: "Stages, gates and the evidence required at each gate." },
+      { name: "AI asset catalogue entry", text: "Owner, purpose, risk tier, data used, version, status." },
+    ],
+    checklist: [
+      "Every shared asset has a steward",
+      "ADLM published and used by all delivery teams",
+      "Catalogue complete for all production assets",
+      "Catalogue reviewed every quarter",
+    ],
+  },
+  "coe-4": {
+    items: [
+      {
+        text: "The CoE provides shared AI services that teams use, such as the gateway, retrieval and evaluation.",
+        example:
+          "Teams request a new retrieval index through a self-service form. The platform team delivers it within two days, with logging and access control in place.",
+      },
+      {
+        text: "Shared AI services are managed as products, with a roadmap and feedback from the teams that use them.",
+        example: "The gateway has a product owner, a quarterly roadmap, usage figures and a satisfaction score from user teams.",
+      },
+    ],
+    artefacts: [
+      { name: "Platform service catalogue", text: "Service, what it provides, how to request it, service levels." },
+      { name: "Product roadmap", text: "Quarter, change, reason, teams affected." },
+      { name: "Internal user survey", text: "Short quarterly survey of the teams that use the platform." },
+    ],
+    checklist: [
+      "Platform services listed with service levels",
+      "Each platform service has a product owner",
+      "Roadmap reviewed with user teams every quarter",
+      "Service levels measured and reported",
+    ],
+  },
+
+  // Training tracks
+  "training-1": {
+    items: [
+      {
+        text: "Basic training for every employee on using the approved AI tools well.",
+        example:
+          "A 90-minute session: what the approved tools are good and bad at, how to write a clear request, and three exercises on everyday tasks.",
+      },
+      {
+        text: "What data may go into which tool, taught with concrete cases.",
+        example:
+          "Allowed in Copilot: internal reports and emails. Not allowed in any AI tool: customer ID numbers, health data and passwords.",
+      },
+      {
+        text: "People learn to check AI output before they use it.",
+        example: "Check every figure against the source, ask the tool where it got the answer, and never send a draft you have not read in full.",
+      },
+    ],
+    artefacts: [
+      { name: "AI at Work training pack", text: "Slides, exercises and trainer notes." },
+      { name: "Data rules one-pager", text: "What data is allowed in which tool, with examples." },
+      { name: "Verification card", text: "Five checks to run before using AI output." },
+      { name: "Training record", text: "Who completed which version and when. Supports the AI literacy duty in the EU AI Act." },
+    ],
+    checklist: [
+      "Training available to all staff",
+      "Completion tracked by department",
+      "Data rules and verification covered in every session",
+      "Training record kept for the AI literacy duty",
+    ],
+  },
+  "training-2": {
+    items: [
+      {
+        text: "Deeper training for people who build or run use cases, taught in small groups.",
+        example:
+          "Cohorts of 12 over six weeks: request design, evaluation, working with documents, and risks. Each person brings a real task.",
+      },
+      {
+        text: "A team builds and tests one use case in a short, supported sprint.",
+        example:
+          "A two-week sprint with the finance hub: build a first version of invoice query matching, test it on 200 past queries and present the results.",
+      },
+    ],
+    artefacts: [
+      { name: "Practitioner curriculum", text: "Modules, exercises, time needed, assessment." },
+      { name: "Sprint brief", text: "Problem, data, success measure, team, demo date." },
+      { name: "Sprint results", text: "What was built, test results, recommendation." },
+    ],
+    checklist: [
+      "At least one cohort trained for each pilot team",
+      "Every practitioner works on a real use case",
+      "Sprint results feed portfolio decisions",
+      "Cohort feedback used to update the curriculum",
+    ],
+  },
+  "training-3": {
+    items: [
+      {
+        text: "Training for the engineers who put AI into production: evaluation, monitoring, security and cost.",
+        example:
+          "Five modules: eval harness, gateway and logging, retrieval quality, prompt injection and access control, cost management. Each ends with a hands-on lab.",
+      },
+      {
+        text: "Everyone who delivers AI learns the delivery method before their first release.",
+        example: "A half-day onboarding on the ADLM stages and gates, followed by a first release done with a CoE reviewer.",
+      },
+    ],
+    artefacts: [
+      { name: "Engineering track curriculum", text: "Modules, labs and the skills each one covers." },
+      { name: "ADLM onboarding guide", text: "Stages, gates, templates and where to get help." },
+      { name: "Skills matrix", text: "Delivery roles and the skills each one needs." },
+    ],
+    checklist: [
+      "Engineers on AI teams have completed the track",
+      "New delivery staff onboarded on ADLM before their first release",
+      "Skills matrix kept up to date",
+      "Training updated when the platform changes",
+    ],
+  },
+  "training-4": {
+    items: [
+      {
+        text: "Training is part of each role and is updated as the tools change.",
+        example:
+          "Each role has a learning path. When a new model or tool is approved, a short update module goes to the roles that use it.",
+      },
+      {
+        text: "People who oversee \"agents\" learn how to review their work, spot failures and step in.",
+        example:
+          "Supervisors practise on recorded agent runs: find the wrong action, decide whether to stop the agent, and log the incident.",
+      },
+    ],
+    artefacts: [
+      { name: "Role-based learning paths", text: "Role, required modules, refresh frequency." },
+      { name: "Agent supervision training", text: "Practice cases based on real agent runs, with model answers." },
+      { name: "Annual skills review", text: "Gaps found, training planned, owner." },
+    ],
+    checklist: [
+      "Every AI-related role has a learning path",
+      "Update modules issued within a month of a tool change",
+      "Agent supervisors trained before they take on the role",
+      "Skills reviewed every year",
+    ],
+  },
+
+  // Adoption measurement
+  "adoption-1": {
+    items: [
+      {
+        text: "How many licensed people use the approved tools each week.",
+        example: "Weekly active users: 520 of 1,200 licences (43%), up from 35% in month one.",
+      },
+      {
+        text: "Usage broken down by department, taken from the vendor admin console.",
+        example: "Marketing 71% active, finance 48%, operations 19%. Operations gets extra champion support next quarter.",
+      },
+    ],
+    artefacts: [
+      { name: "Adoption dashboard", text: "Active users, usage by department, trend." },
+      { name: "Licence review", text: "Inactive licences, decision to reassign or cancel, savings." },
+    ],
+    checklist: [
+      "Usage data pulled from vendor logs every month",
+      "Results shared with department heads",
+      "Departments with low usage get a support plan",
+      "Inactive licences reviewed every quarter",
+    ],
+  },
+  "adoption-2": {
+    items: [
+      {
+        text: "Usage is measured for each use case, not only for the tool in general.",
+        example:
+          "Customer reply drafting: the AI draft is used on 85% of eligible tickets. Policy Q&A: 140 questions a week, down from 300 at launch.",
+      },
+    ],
+    artefacts: [
+      { name: "Use-case usage report", text: "Eligible volume, actual use, trend, comments from users." },
+      { name: "Usage tracking requirements", text: "What every new pilot must log so usage can be measured." },
+    ],
+    checklist: [
+      "Every pilot defines how usage is measured",
+      "Usage reported against the eligible volume",
+      "Falling usage triggers a review with users",
+      "Usage reviewed at each stage gate",
+    ],
+  },
+  "adoption-3": {
+    items: [
+      {
+        text: "Usage figures are combined with benefits, to show where the value comes from.",
+        example:
+          "Reply drafting is used on 85% of tickets and saves 5.5 minutes on each. The other 15% are complex cases, so the team stops pushing for full adoption.",
+      },
+    ],
+    artefacts: [
+      { name: "Adoption and benefits report", text: "Usage and benefit per use case, side by side, with trend." },
+      { name: "Adoption targets", text: "Target usage per use case, where higher usage drives value." },
+    ],
+    checklist: [
+      "Adoption and benefits reported together",
+      "Adoption targets set where usage drives value",
+      "Low adoption investigated before more spend",
+      "Report reviewed by the portfolio board",
+    ],
+  },
 };

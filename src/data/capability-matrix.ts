@@ -146,6 +146,7 @@ export const glossary: { term: string; text: string }[] = [
   { term: "DLP", text: "Data loss prevention: controls that stop sensitive data leaving the organisation." },
   { term: "DPA", text: "Data processing agreement with a provider that handles personal data." },
   { term: "DPIA", text: "Data protection impact assessment, required under GDPR for high-risk processing." },
+  { term: "DPO", text: "Data protection officer." },
   { term: "EA", text: "Enterprise architecture." },
   { term: "ERP", text: "Enterprise resource planning: the core system for finance, purchasing and operations." },
   { term: "FTE", text: "Full-time equivalent: the work of one full-time person." },
