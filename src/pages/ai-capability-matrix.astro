@@ -122,7 +122,7 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
           </colgroup>
           <thead>
             <tr>
-              <th scope="col" class="mx-h0"><span class="pg-label">Capability</span></th>
+              <th scope="col" class="mx-h0"><span class="sr-only">Capability</span></th>
               {
                 levels.map((l) => (
                   <th scope="col" data-lv={l.n}>
@@ -136,10 +136,10 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
           </thead>
           {
             domains.map((d) => (
-              <tbody data-dom={d.n}>
+              <tbody data-dom={d.n} class="is-closed">
                 <tr class="mx-dom">
                   <th colspan={levels.length + 1} scope="rowgroup">
-                    <button type="button" class="mx-dtog" aria-expanded="true">
+                    <button type="button" class="mx-dtog" aria-expanded="false">
                       <span class="mx-chev" aria-hidden="true" />
                       <span class="mx-dnum">{String(d.n).padStart(2, "0")}</span>
                       <span class="mx-dname">{d.name}</span>
@@ -424,7 +424,11 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
     if (!m) return;
     showLevel(Number(m[2]));
     open(m[1], Number(m[2]));
-    cellBtn(m[1], Number(m[2]))?.scrollIntoView({ block: "center", behavior: "instant" });
+    // domains start collapsed: open the one that holds the linked cell
+    const target = cellBtn(m[1], Number(m[2]));
+    const tb = target?.closest<HTMLElement>("tbody[data-dom]");
+    if (tb) setOpen(tb, true);
+    target?.scrollIntoView({ block: "center", behavior: "instant" });
   };
   // On load the browser may restore an old scroll position after this runs, so scroll once the page has loaded.
   if (location.hash) history.scrollRestoration = "manual";

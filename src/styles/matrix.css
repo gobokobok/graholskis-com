@@ -504,7 +504,7 @@
 .mx-p-items {
   display: grid;
   gap: var(--space-5);
-  margin: var(--space-4) 0 0;
+  margin: var(--space-5) 0 0; /* same space above the first point as between points */
   padding: 0;
   list-style: none;
 }
