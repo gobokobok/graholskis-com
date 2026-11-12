@@ -164,6 +164,7 @@ export const glossary: { term: string; text: string }[] = [
   { term: "LLM", text: "Large language model." },
   { term: "MCP", text: "Model Context Protocol: an open standard for connecting AI models to tools and data." },
   { term: "MRM", text: "Model risk management: the function that validates models before and during use." },
+  { term: "OWASP", text: "Open Worldwide Application Security Project: publishes security guidance, including the top 10 risks for LLM applications." },
   { term: "PII", text: "Personally identifiable information." },
   { term: "RACI", text: "Who is responsible, accountable, consulted and informed for each step." },
   { term: "RAG", text: "Retrieval-augmented generation: the model answers from documents retrieved for the question." },
