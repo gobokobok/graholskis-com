@@ -1,12 +1,28 @@
 ---
 // AI capability matrix. Unlisted: reached from the readiness checklist email, not linked in the site, kept out of search.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { levels, domains, items, typeLabel, typeHelp, glossary, termsIn } from "../data/capability-matrix";
+import { levels, domains, items, typeLabel, typeHelp, glossary, termsInText } from "../data/capability-matrix";
+import { details } from "../data/capability-details";
 import "../styles/matrix.css";
 
 const capCount = domains.reduce((a, d) => a + d.caps.length, 0);
-const terms = Object.fromEntries(domains.flatMap((d) => d.caps.map((c) => [c.id, termsIn(c)])));
-const data = { levels, domains, typeLabel, typeHelp, terms };
+// Terms per cell ("strat-1"): the abbreviations used in that cell and its details.
+const terms: Record<string, { term: string; text: string }[]> = {};
+for (const d of domains)
+  for (const c of d.caps)
+    c.cells.forEach((cell, i) => {
+      if (!cell) return;
+      const key = `${c.id}-${i + 1}`;
+      const det = details[key];
+      const text = [
+        cell,
+        ...(det ? det.items.flatMap((it) => [it.text, it.example]) : []),
+        ...(det ? det.artefacts.flatMap((a) => [a.name, a.text]) : []),
+        ...(det ? det.checklist : []),
+      ].join(" ");
+      terms[key] = termsInText(text);
+    });
+const data = { levels, domains, typeLabel, typeHelp, terms, details };
 ---
 
 <BaseLayout
@@ -192,6 +208,15 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
       </button>
     </div>
     <h2 class="pg-h3 mx-p-title" id="mx-p-title"></h2>
+    <div class="mx-p-tabs" role="group" aria-label="Level">
+      {
+        levels.map((l) => (
+          <button type="button" class="pg-pill mx-p-tab" data-lv={l.n}>
+            Level {l.n}
+          </button>
+        ))
+      }
+    </div>
     <div id="mx-p-body"></div>
   </aside>
 
@@ -200,6 +225,7 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
 
 <script>
   import type { Domain, Level, CapabilityType } from "../data/capability-matrix";
+  import type { CellDetail } from "../data/capability-details";
 
   const data = JSON.parse(document.getElementById("mx-data")!.textContent!) as {
     levels: Level[];
@@ -207,6 +233,7 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
     typeLabel: Record<CapabilityType, string>;
     typeHelp: Record<CapabilityType, string>;
     terms: Record<string, { term: string; text: string }[]>;
+    details: Record<string, CellDetail>;
   };
   const table = document.getElementById("mx") as HTMLTableElement;
   const panel = document.getElementById("mx-panel") as HTMLElement;
@@ -248,22 +275,45 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
   };
   document.querySelectorAll<HTMLButtonElement>(".mx-lv").forEach((b) => b.addEventListener("click", () => showLevel(Number(b.dataset.lv))));
 
-  // Detail panel for one cell.
+  // Detail panel for one cell: capability, level tags, then what the level adds, artefacts and checklist.
+  const tabs = [...panel.querySelectorAll<HTMLButtonElement>(".mx-p-tab")];
+  let panelCap = "";
+  tabs.forEach((t) =>
+    t.addEventListener("click", () => {
+      const lv = Number(t.dataset.lv);
+      showLevel(lv);
+      open(panelCap, lv);
+    }),
+  );
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const upper = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
   const open = (capId: string, lv: number, from?: HTMLElement | null) => {
     const hit = byId.get(capId);
     if (!hit || !hit.c.cells[lv - 1]) return;
     const { d, c } = hit;
     const l = data.levels[lv - 1];
+    const key = `${capId}-${lv}`;
+    const det = data.details[key];
     if (from) opener = from;
+    panelCap = capId;
 
     active?.removeAttribute("aria-current");
     active = cellBtn(capId, lv);
     active?.setAttribute("aria-current", "true");
 
-    document.getElementById("mx-p-eye")!.textContent = `${d.n} · ${d.name}`;
+    document.getElementById("mx-p-eye")!.textContent = `${pad(d.n)} ${d.name}`;
     document.getElementById("mx-p-title")!.textContent = c.name;
-    body.textContent = "";
 
+    // level tags: the current one is selected, levels with nothing new are disabled
+    tabs.forEach((t, i) => {
+      const has = !!c.cells[i];
+      t.disabled = !has;
+      t.title = has ? "" : "Nothing new at this level";
+      t.setAttribute("aria-pressed", String(i + 1 === lv));
+    });
+
+    body.textContent = "";
     if (c.type !== "F") {
       const t = el("p", "mx-p-type");
       t.append(
@@ -273,44 +323,58 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
       body.append(t);
     }
 
-    const lvBox = el("div", "mx-p-level");
-    lvBox.append(el("span", "pg-pill pg-pill-soft mx-ln", `Level ${l.n}`), el("span", "mx-p-lname", l.name));
-    body.append(lvBox, el("p", "mx-p-lline", l.line));
+    body.append(el("h3", "mx-p-stage", l.name), el("p", "mx-p-lline", l.line));
 
-    body.append(el("h3", "pg-label mx-p-h", "What this level adds"));
+    // what this level adds: each item with its explanation and an example
+    body.append(el("h4", "pg-label mx-p-h", "What this level adds"));
     const ul = el("ul", "mx-p-items");
-    split(c.cells[lv - 1]).forEach((s) => ul.append(el("li", "", s)));
+    split(c.cells[lv - 1]).forEach((name, i) => {
+      const li = el("li");
+      li.append(el("b", "mx-p-iname", upper(name)));
+      const it = det?.items[i];
+      if (it) {
+        li.append(el("p", "mx-p-itext", it.text));
+        const ex = el("p", "mx-p-ex");
+        ex.append(el("span", "mx-p-exl", "Example"), el("span", "", it.example));
+        li.append(ex);
+      }
+      ul.append(li);
+    });
     body.append(ul);
 
-    body.append(el("h3", "pg-label mx-p-h", "Across levels"));
-    const ol = el("ol", "mx-p-across");
-    c.cells.forEach((cell, i) => {
-      const li = el("li");
-      const lab = el("b", "", `L${i + 1}`);
-      if (!cell) {
-        li.className = "is-none";
-        li.append(lab, el("span", "", "Nothing new at this level"));
-      } else {
-        const b = el("button");
-        b.type = "button";
-        if (i + 1 === lv) {
-          li.className = "is-current";
-          b.setAttribute("aria-current", "true");
+    // artefacts: templates (coming soon until the files exist), then the level checklist
+    if (det && (det.artefacts.length || det.checklist.length)) {
+      body.append(el("h4", "pg-label mx-p-h", "Artefacts"));
+      const al = el("ul", "mx-p-arts");
+      det.artefacts.forEach((a) => {
+        const li = el("li");
+        const head = el("div", "mx-p-ahead");
+        head.append(el("b", "", a.name));
+        if (a.template) {
+          const link = el("a", "pg-link mx-p-dl", "Download template");
+          (link as HTMLAnchorElement).href = a.template;
+          head.append(link);
+        } else {
+          head.append(el("span", "pg-pill pg-pill-dashed mx-p-soon", "Template coming soon"));
         }
-        b.append(lab, el("span", "", split(cell).join("; ")));
-        b.addEventListener("click", () => {
-          showLevel(i + 1);
-          open(capId, i + 1);
-        });
-        li.append(b);
+        li.append(head, el("p", "", a.text));
+        al.append(li);
+      });
+      if (det.checklist.length) {
+        const li = el("li", "mx-p-check");
+        const head = el("div", "mx-p-ahead");
+        head.append(el("b", "", `Level ${l.n} checklist`), el("span", "pg-pill pg-pill-dashed mx-p-soon", "Template coming soon"));
+        const cl = el("ul", "mx-p-checks");
+        det.checklist.forEach((x) => cl.append(el("li", "", x)));
+        li.append(head, cl);
+        al.append(li);
       }
-      ol.append(li);
-    });
-    body.append(ol);
+      body.append(al);
+    }
 
-    const used = data.terms[capId] ?? [];
+    const used = data.terms[key] ?? [];
     if (used.length) {
-      body.append(el("h3", "pg-label mx-p-h", "Terms"));
+      body.append(el("h4", "pg-label mx-p-h", "Terms"));
       const dl = el("dl", "mx-p-terms");
       used.forEach((g) => dl.append(el("dt", "", g.term), el("dd", "", g.text)));
       body.append(dl);
@@ -320,7 +384,7 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
     panel.scrollTop = 0;
     document.body.classList.add("mx-open");
     history.replaceState(null, "", `#${capId}-${lv}`);
-    (document.getElementById("mx-p-close") as HTMLButtonElement).focus({ preventScroll: true });
+    if (from) (document.getElementById("mx-p-close") as HTMLButtonElement).focus({ preventScroll: true });
   };
 
   const close = () => {

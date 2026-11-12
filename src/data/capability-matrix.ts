@@ -147,6 +147,8 @@ export const glossary: { term: string; text: string }[] = [
   { term: "DPA", text: "Data processing agreement with a provider that handles personal data." },
   { term: "DPIA", text: "Data protection impact assessment, required under GDPR for high-risk processing." },
   { term: "EA", text: "Enterprise architecture." },
+  { term: "ERP", text: "Enterprise resource planning: the core system for finance, purchasing and operations." },
+  { term: "FTE", text: "Full-time equivalent: the work of one full-time person." },
   { term: "ICT", text: "Information and communication technology." },
   { term: "ITSM", text: "IT service management: the tools and process for incidents, changes and requests." },
   { term: "LLM", text: "Large language model." },
@@ -154,15 +156,13 @@ export const glossary: { term: string; text: string }[] = [
   { term: "MRM", text: "Model risk management: the function that validates models before and during use." },
   { term: "PII", text: "Personally identifiable information." },
   { term: "RAG", text: "Retrieval-augmented generation: the model answers from documents retrieved for the question." },
+  { term: "RACI", text: "Who is responsible, accountable, consulted and informed for each step." },
   { term: "RBAC", text: "Role-based access control." },
   { term: "SSO", text: "Single sign-on." },
 ];
 
-/** Glossary entries whose term appears in a capability's name or cells. */
-export const termsIn = (c: Capability) => {
-  const text = [c.name, ...c.cells].filter(Boolean).join(" ");
-  return glossary.filter((g) => new RegExp(`\\b${g.term}\\b`).test(text));
-};
+/** Glossary entries whose term appears in a piece of text. */
+export const termsInText = (text: string) => glossary.filter((g) => new RegExp(`\\b${g.term}\\b`).test(text));
 
 /** Splits a cell into its items. The first item is the cell's headline in the matrix. */
 export const items = (cell: string | null): string[] => (cell ? cell.split(";").map((s) => s.trim()).filter(Boolean) : []);

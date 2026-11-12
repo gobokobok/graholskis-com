@@ -385,7 +385,7 @@
   right: var(--space-3);
   bottom: var(--space-3);
   z-index: 35;
-  width: min(410px, calc(100vw - 29px));
+  width: min(460px, calc(100vw - 29px));
   overflow: auto;
   padding: var(--space-4) var(--space-4) var(--space-5);
   border: 1px solid var(--border-card);
@@ -441,84 +441,151 @@
   color: var(--ink-muted);
   font-size: 13px;
 }
-.mx-p-level {
+/* level tags: one per level; the selected one is dark, empty levels are dashed and disabled */
+.mx-p-tabs {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--space-4);
 }
-.mx-p-level .mx-ln {
+.mx-p-tab {
+  height: 32px;
+  padding: 0 14px;
+  background: var(--surface-card);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+.mx-p-tab:hover:not([disabled]):not([aria-pressed="true"]) {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.mx-p-tab[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--surface-page);
+}
+.mx-p-tab[disabled] {
+  border: 1.5px dashed var(--border-card);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: default;
+}
+
+/* stage title and its one line */
+.mx-p-stage {
   margin: 0;
-}
-.mx-p-lname {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 .mx-p-lline {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   color: var(--ink-muted);
   font-size: 13.5px;
 }
 .mx-p-h {
-  margin: var(--space-4) 0 var(--space-1);
+  margin: var(--space-5) 0 var(--space-2);
 }
+
+/* what this level adds: name, explanation, example */
 .mx-p-items {
+  display: grid;
+  gap: var(--space-4);
   margin: 0;
-  padding-left: 18px;
-  list-style: disc;
+  padding: 0;
+  list-style: none;
+}
+.mx-p-iname {
+  display: block;
   font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
 }
-.mx-p-items li {
-  margin-bottom: 4px;
+.mx-p-itext {
+  margin: 4px 0 0;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
 }
-.mx-p-items li::first-letter {
-  text-transform: uppercase; /* items after the first are written lower case in the source */
+.mx-p-ex {
+  margin: var(--space-1) 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-card);
+  font-size: 13px;
+  line-height: 1.5;
 }
-.mx-p-across {
+.mx-p-exl {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--accent-text);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* artefacts: one tile each, the checklist last */
+.mx-p-arts {
   display: grid;
   gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.mx-p-across button,
-.mx-p-across li.is-none {
-  display: grid;
-  grid-template-columns: 26px 1fr;
-  gap: 8px;
-  width: 100%;
-  padding: 9px 12px;
-  border: 0;
+.mx-p-arts > li {
+  padding: 11px 12px;
   border-radius: 12px;
   background: var(--surface-card);
-  color: var(--ink-muted);
-  font: inherit;
   font-size: 13px;
-  line-height: 1.45;
-  text-align: left;
+  line-height: 1.5;
 }
-.mx-p-across button {
-  cursor: pointer;
-  transition: box-shadow 150ms var(--ease);
-}
-.mx-p-across button:hover {
-  box-shadow: inset 0 0 0 1.5px var(--accent-text);
-}
-.mx-p-across li.is-current button {
-  background: var(--accent-soft);
-  color: var(--ink);
-}
-.mx-p-across li.is-none {
-  border: 1.5px dashed var(--border-card);
-  background: transparent;
-}
-.mx-p-across b {
+.mx-p-arts > li > p {
+  margin: 3px 0 0;
   color: var(--ink-muted);
-  font-size: 12px;
+}
+.mx-p-ahead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 10px;
+}
+.mx-p-ahead b {
+  font-size: 13.5px;
   font-weight: 600;
 }
-.mx-p-across li.is-current b {
-  color: var(--accent-text);
+.mx-p-soon {
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+.mx-p-dl {
+  font-size: 12.5px;
+}
+.mx-p-checks {
+  display: grid;
+  gap: 5px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.mx-p-checks li {
+  position: relative;
+  padding-left: 24px;
+  color: var(--ink);
+}
+.mx-p-checks li::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid var(--ink-muted);
+  border-radius: 4px;
+  background: var(--surface-raised);
 }
 .mx-p-terms {
   display: grid;
