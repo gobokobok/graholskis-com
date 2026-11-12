@@ -126,9 +126,13 @@
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.pg-diy .pg-form {
-  margin-top: auto;
-  padding-top: var(--space-1);
+/* card text one step larger than the kit's small text; full white on the blue card so it reads easily */
+.pg-diy > .pg-small {
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.pg-diy.pg-card-accent > .pg-small {
+  color: var(--on-accent);
 }
 
 /* ---- about: portrait card next to the text card ---- */
