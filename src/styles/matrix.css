@@ -434,6 +434,8 @@
 }
 .mx-p-eye {
   margin-top: 8px;
+  color: color-mix(in srgb, var(--ink-muted) 80%, transparent);
+  font-weight: 400; /* lighter than the capability name below it */
 }
 .mx-p-close {
   width: 39.5px;
@@ -502,7 +504,7 @@
 .mx-p-items {
   display: grid;
   gap: var(--space-5);
-  margin: 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
 }

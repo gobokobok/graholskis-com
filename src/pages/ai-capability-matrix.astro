@@ -336,10 +336,10 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
       body.append(t);
     }
 
-    body.append(el("h3", "mx-p-stage", l.name), el("p", "mx-p-lline", l.line));
+    // level name, then its line leading straight into the list of what it adds
+    body.append(el("h3", "mx-p-stage", l.name), el("p", "mx-p-lline", `${l.line} This level adds:`));
 
-    // what this level adds: each item with its explanation and an example
-    body.append(el("h4", "pg-label mx-p-h", "What this level adds"));
+    // each item with its explanation and an example
     const ul = el("ul", "mx-p-items");
     split(c.cells[lv - 1]).forEach((name, i) => {
       const li = el("li");
