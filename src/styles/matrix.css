@@ -1,0 +1,539 @@
+/* AI capability matrix (/ai-capability-matrix) on the Pill & Glow kit, at 90%.
+   Rows are capabilities grouped by domain, columns are maturity levels.
+   A cell shows its first item plus a count; the side panel shows all of it.
+   Phones show one level at a time, chosen with the level pills.
+   Components and tokens live in kit.css; this file only lays them out. */
+
+/* ---- header: dark block with the counts ---- */
+.mx-hero .pg-container {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+.mx-title {
+  max-width: 20ch;
+}
+.mx-hero .pg-lead {
+  max-width: 60ch;
+}
+.mx-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 640px;
+  margin: var(--space-3) 0 0;
+}
+.mx-facts .pg-card {
+  gap: 4px;
+  padding: 18px 22px;
+}
+.mx-facts dd {
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .mx-facts .pg-card {
+    padding: 14px 16px;
+  }
+}
+
+/* ---- how to read it: four small cards ---- */
+.mx-how {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 641px) {
+  .mx-how {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1025px) {
+  .mx-how {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* tags and the +N count, used in rows, the how-to cards and the panel */
+.mx-tag {
+  padding: 2px 9px;
+  font-size: 11.5px;
+  vertical-align: 1px;
+}
+.mx-tag.pg-pill-dashed {
+  padding: 0 7px;
+}
+.mx-more {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 7px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-card);
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.mx-how .mx-more {
+  margin-left: 0;
+  background: var(--surface-raised);
+}
+
+/* ---- the matrix: a little wider than the page so four columns breathe ---- */
+.mx-wide {
+  --container: 1296px;
+}
+
+/* controls: expand and collapse on desktop; level pills on phones */
+.mx-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.mx-levels,
+.mx-lv-name {
+  display: none;
+}
+.mx-fold {
+  display: flex;
+  gap: var(--space-1);
+}
+.mx-lv {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+.mx-lv[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--surface-page);
+}
+
+.mx-card {
+  display: block;
+  padding: 4px 18px 22px;
+}
+
+.mx {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.mx-c0 {
+  width: 22%;
+}
+
+/* level headings: stay under the top bar while scrolling */
+.mx thead th {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 5;
+  padding: 16px 7px 12px;
+  background: var(--surface-card);
+  text-align: left;
+  vertical-align: bottom;
+  font-weight: 400;
+}
+.mx-h0 {
+  padding-left: 0 !important;
+}
+.mx-ln {
+  margin-bottom: 8px;
+}
+.mx thead .mx-ln {
+  background: var(--accent-soft);
+}
+.mx-lname {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.mx-lline {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+/* domain rows: a heading with a hairline above, folds open and closed */
+.mx-dom th {
+  padding: 22px 0 6px;
+}
+.mx tbody:first-of-type .mx-dom th {
+  padding-top: 8px;
+}
+.mx-dtog {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 14px 4px 8px;
+  border: 0;
+  border-top: 1px solid var(--border-card);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.mx tbody:first-of-type .mx-dtog {
+  border-top: 0;
+}
+.mx-dtog:hover .mx-dname {
+  color: var(--accent-text);
+}
+.mx-chev {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin: 0 3px 3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 150ms var(--ease);
+}
+.is-closed .mx-chev {
+  margin-bottom: 0;
+  transform: rotate(-45deg);
+}
+.mx-dnum {
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.mx-dname {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: color 150ms var(--ease);
+}
+.mx-dcount {
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+}
+.is-closed .mx-row {
+  display: none;
+}
+.mx tbody.is-closed .mx-dom th {
+  padding-bottom: 0;
+}
+.mx tbody.is-closed + tbody.is-closed .mx-dom th {
+  padding-top: 0;
+}
+
+/* capability rows and cells: raised tiles on the grey card */
+.mx-row th {
+  padding: 10px 12px 10px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  vertical-align: top;
+}
+.mx-cname {
+  display: block;
+}
+.mx-row th .mx-tag {
+  margin-top: 7px;
+}
+.mx-row td {
+  height: 1px; /* lets the cell tiles fill the row height */
+  padding: 3.5px;
+  vertical-align: top;
+}
+.mx-cell {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 52px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 150ms var(--ease);
+}
+.mx-cell:hover {
+  box-shadow: inset 0 0 0 1.5px var(--accent-text);
+}
+.mx-cell[aria-current="true"] {
+  box-shadow: inset 0 0 0 2px var(--accent-text);
+}
+.mx-none {
+  display: block;
+  height: 100%;
+  min-height: 52px;
+  border: 1.5px dashed var(--border-card);
+  border-radius: 12px;
+}
+
+/* phones: one level at a time */
+@media (max-width: 859px) {
+  .mx-controls {
+    position: sticky;
+    top: var(--nav-h);
+    z-index: 6;
+    justify-content: space-between;
+    margin: 0 calc(var(--gutter) * -1) var(--space-2);
+    padding: 10px var(--gutter);
+    background: color-mix(in srgb, var(--surface-page) 88%, transparent);
+    -webkit-backdrop-filter: blur(11px);
+    backdrop-filter: blur(11px);
+  }
+  .mx-levels {
+    display: flex;
+    gap: 6px;
+  }
+  .mx-lv-name {
+    display: block;
+    order: 3;
+    width: 100%;
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 13px;
+  }
+  .mx-fold,
+  .mx-dcount {
+    display: none;
+  }
+  .mx-card {
+    padding: 0 10px 14px;
+  }
+  .mx {
+    table-layout: auto;
+  }
+  .mx thead {
+    display: none;
+  }
+  .mx-row th {
+    width: 42%;
+  }
+  .mx-dname {
+    font-size: 16px;
+  }
+  .mx tbody:first-of-type .mx-dom th {
+    padding-top: 4px;
+  }
+  .mx[data-lv="1"] td:not([data-lv="1"]),
+  .mx[data-lv="2"] td:not([data-lv="2"]),
+  .mx[data-lv="3"] td:not([data-lv="3"]),
+  .mx[data-lv="4"] td:not([data-lv="4"]) {
+    display: none;
+  }
+}
+
+/* ---- glossary under the matrix ---- */
+.mx-gloss {
+  margin-top: var(--space-6);
+}
+.mx-gloss .pg-h3 {
+  margin-bottom: var(--space-3);
+}
+.mx-gloss dl {
+  display: grid;
+  gap: 8px 36px;
+  margin: 0;
+}
+@media (min-width: 760px) {
+  .mx-gloss dl {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.mx-gloss dl > div {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.mx-gloss dt,
+.mx-p-terms dt {
+  color: var(--ink);
+  font-weight: 600;
+}
+.mx-gloss dd,
+.mx-p-terms dd {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+/* ---- detail panel: a flat card on the right, a bottom sheet on phones ---- */
+.mx-panel {
+  position: fixed;
+  top: calc(var(--nav-h) + var(--space-3));
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 35;
+  width: min(410px, calc(100vw - 29px));
+  overflow: auto;
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  background: var(--surface-page);
+  color: var(--ink);
+  box-shadow: 0 24px 64px color-mix(in srgb, #000 14%, transparent);
+}
+.mx-panel:not([hidden]) {
+  animation: mx-in 200ms var(--ease);
+}
+@keyframes mx-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mx-panel:not([hidden]) {
+    animation: none;
+  }
+}
+@media (max-width: 859px) {
+  .mx-panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    max-height: 78svh;
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+}
+.mx-p-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.mx-p-eye {
+  margin-top: 8px;
+}
+.mx-p-close {
+  width: 39.5px;
+  height: 39.5px;
+  padding: 0;
+}
+.mx-p-title {
+  margin: 6px 0 var(--space-3);
+}
+.mx-p-type {
+  margin: 0 0 var(--space-3);
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+.mx-p-level {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mx-p-level .mx-ln {
+  margin: 0;
+}
+.mx-p-lname {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+}
+.mx-p-lline {
+  margin: 6px 0 0;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+}
+.mx-p-h {
+  margin: var(--space-4) 0 var(--space-1);
+}
+.mx-p-items {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  font-size: 15px;
+}
+.mx-p-items li {
+  margin-bottom: 4px;
+}
+.mx-p-items li::first-letter {
+  text-transform: uppercase; /* items after the first are written lower case in the source */
+}
+.mx-p-across {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mx-p-across button,
+.mx-p-across li.is-none {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--surface-card);
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+}
+.mx-p-across button {
+  cursor: pointer;
+  transition: box-shadow 150ms var(--ease);
+}
+.mx-p-across button:hover {
+  box-shadow: inset 0 0 0 1.5px var(--accent-text);
+}
+.mx-p-across li.is-current button {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.mx-p-across li.is-none {
+  border: 1.5px dashed var(--border-card);
+  background: transparent;
+}
+.mx-p-across b {
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.mx-p-across li.is-current b {
+  color: var(--accent-text);
+}
+.mx-p-terms {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* the how-to cards and the matrix read as one part: less space between them */
+.pg-section.mx-read {
+  padding-bottom: var(--space-5);
+}
+@media (max-width: 640px) {
+  .mx-how {
+    gap: var(--space-2); /* four stacked cards: keep them close so the matrix is not far down */
+  }
+}

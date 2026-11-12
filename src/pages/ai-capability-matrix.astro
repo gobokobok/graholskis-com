@@ -1,8 +1,8 @@
 ---
 // AI capability matrix. Unlisted: reached from the readiness checklist email, not linked in the site, kept out of search.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Container from "../components/Container.astro";
 import { levels, domains, items, typeLabel, typeHelp, glossary, termsIn } from "../data/capability-matrix";
+import "../styles/matrix.css";
 
 const capCount = domains.reduce((a, d) => a + d.caps.length, 0);
 const terms = Object.fromEntries(domains.flatMap((d) => d.caps.map((c) => [c.id, termsIn(c)])));
@@ -13,141 +13,185 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
   title="AI capability matrix"
   description="What an organisation needs to use AI safely and at scale: capabilities across four maturity levels."
   noindex
+  kit
 >
-  <section class="legal-hero mx-hero">
-    <Container wide>
-      <h1 class="h-sec">AI capability matrix</h1>
-      <p class="lede mx-lede">
+  {/* HEADER: a dark block with the three counts */}
+  <section class="pg-section pg-dark glow mx-hero">
+    <div class="pg-container">
+      <span class="pg-pill pg-pill-soft">AI maturity</span>
+      <h1 class="pg-h1 mx-title">AI capability matrix</h1>
+      <p class="pg-lead">
         What an organisation needs to use AI safely and at scale: {capCount} capabilities in {domains.length} domains, across four
         levels of maturity. Each level builds on the one before.
       </p>
-      <p class="mx-how">
-        Read across a row to see how one capability develops. Read down a column to see what a level asks of the whole organisation.
-        Each cell shows its main item, and <span class="mx-more">+2</span> means two more. Select a cell to see them all.
-        Capabilities without a tag apply to every organisation. <span class="mx-tag mx-tag-C">Conditional</span> ones are only
-        needed if you use that technology, such as retrieval, connectors or agents. <span class="mx-tag mx-tag-I">Industry</span> ones
-        depend on your industry and regulator.
-      </p>
-    </Container>
-  </section>
-
-  <Container wide as="section" class="mx-section">
-    <div class="mx-controls">
-      <div class="mx-levels" role="group" aria-label="Show level">
-        {
-          levels.map((l) => (
-            <button type="button" class="pill pill-line mx-lv" data-lv={l.n} aria-pressed={l.n === 1 ? "true" : "false"}>
-              L{l.n}
-            </button>
-          ))
-        }
-      </div>
-      <p class="mx-lv-name" id="mx-lv-name">{levels[0].name}: {levels[0].line}</p>
-      <div class="mx-fold">
-        <button type="button" class="pill-link" data-fold="open">Expand all</button>
-        <button type="button" class="pill-link" data-fold="close">Collapse all</button>
-      </div>
-    </div>
-
-    <div class="mx-card">
-    <table class="mx" id="mx" data-lv="1" aria-label="AI capability matrix">
-      <colgroup>
-        <col class="mx-c0" />
-        {levels.map(() => <col />)}
-      </colgroup>
-      <thead>
-        <tr>
-          <th scope="col" class="mx-h0">Capability</th>
-          {
-            levels.map((l) => (
-              <th scope="col" data-lv={l.n}>
-                <span class="mx-ln">Level {l.n}</span>
-                <span class="mx-lname">{l.name}</span>
-                <span class="mx-lline">{l.line}</span>
-              </th>
-            ))
-          }
-        </tr>
-      </thead>
-      {
-        domains.map((d) => (
-          <tbody data-dom={d.n}>
-            <tr class="mx-dom">
-              <th colspan={levels.length + 1} scope="rowgroup">
-                <button type="button" class="mx-dtog" aria-expanded="true">
-                  <span class="mx-chev" aria-hidden="true" />
-                  <span class="mx-dnum">{d.n}</span>
-                  <span class="mx-dname">{d.name}</span>
-                  <span class="mx-dcount">{d.caps.length} capabilities</span>
-                </button>
-              </th>
-            </tr>
-            {d.caps.map((c) => (
-              <tr class="mx-row">
-                <th scope="row">
-                  <span class="mx-cname">{c.name}</span>
-                  {c.type !== "F" && <span class={`mx-tag mx-tag-${c.type}`} title={typeHelp[c.type]}>{c.type === "C" ? "Conditional" : "Industry"}</span>}
-                </th>
-                {c.cells.map((cell, i) => {
-                  const list = items(cell);
-                  return (
-                    <td data-lv={i + 1}>
-                      {cell ? (
-                        <button
-                          type="button"
-                          class="mx-cell"
-                          data-cap={c.id}
-                          data-lv={i + 1}
-                          aria-label={`${c.name}, L${i + 1} ${levels[i].name}: ${cell}`}
-                        >
-                          <span class="mx-head">{list[0]}</span>
-                          {list.length > 1 && (
-                            <span class="mx-more" title={`${list.length - 1} more ${list.length - 1 === 1 ? "item" : "items"}`}>
-                              +{list.length - 1}
-                            </span>
-                          )}
-                        </button>
-                      ) : (
-                        <span class="mx-none" title="Nothing new at this level">
-                          <span class="sr-only">Nothing new at this level</span>
-                        </span>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        ))
-      }
-    </table>
-    </div>
-
-    <div class="mx-gloss">
-      <h2 class="mx-gloss-h">Terms used</h2>
-      <dl>
-        {
-          glossary.map((g) => (
-            <div>
-              <dt>{g.term}</dt>
-              <dd>{g.text}</dd>
-            </div>
-          ))
-        }
+      <dl class="mx-facts">
+        <div class="pg-card"><dt class="pg-label">Levels</dt><dd class="pg-h2">{levels.length}</dd></div>
+        <div class="pg-card"><dt class="pg-label">Domains</dt><dd class="pg-h2">{domains.length}</dd></div>
+        <div class="pg-card"><dt class="pg-label">Capabilities</dt><dd class="pg-h2">{capCount}</dd></div>
       </dl>
     </div>
-  </Container>
+  </section>
 
-  <aside id="mx-panel" class="mx-panel glass" role="dialog" aria-modal="false" aria-labelledby="mx-p-title" hidden>
+  {/* HOW TO READ IT: sits close to the matrix it explains */}
+  <section class="pg-section mx-read">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h2">How to read it</h2>
+      </div>
+      <ul class="mx-how">
+        <li class="pg-card">
+          <h3 class="pg-h3">Rows</h3>
+          <p class="pg-small">Read across a row to see how one capability develops.</p>
+        </li>
+        <li class="pg-card">
+          <h3 class="pg-h3">Columns</h3>
+          <p class="pg-small">Read down a column to see what a level asks of the whole organisation.</p>
+        </li>
+        <li class="pg-card">
+          <h3 class="pg-h3">Cells</h3>
+          <p class="pg-small">
+            Each cell shows its main item, and <span class="mx-more">+2</span> means two more. Select a cell to see them all.
+          </p>
+        </li>
+        <li class="pg-card">
+          <h3 class="pg-h3">Tags</h3>
+          <p class="pg-small">
+            Capabilities without a tag apply to every organisation. <span class="pg-pill pg-pill-soft mx-tag">Conditional</span> ones
+            are only needed if you use that technology, such as retrieval, connectors or agents.
+            <span class="pg-pill pg-pill-dashed mx-tag">Industry</span> ones depend on your industry and regulator.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {/* THE MATRIX */}
+  <section class="pg-section mx-section">
+    <div class="pg-container mx-wide">
+      <div class="mx-controls">
+        <div class="mx-levels" role="group" aria-label="Show level">
+          {
+            levels.map((l) => (
+              <button type="button" class="pg-pill mx-lv" data-lv={l.n} aria-pressed={l.n === 1 ? "true" : "false"}>
+                L{l.n}
+              </button>
+            ))
+          }
+        </div>
+        <p class="mx-lv-name" id="mx-lv-name">{levels[0].name}: {levels[0].line}</p>
+        <div class="mx-fold">
+          <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary" data-fold="open">Expand all</button>
+          <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary" data-fold="close">Collapse all</button>
+        </div>
+      </div>
+
+      <div class="pg-card mx-card">
+        <table class="mx" id="mx" data-lv="1" aria-label="AI capability matrix">
+          <colgroup>
+            <col class="mx-c0" />
+            {levels.map(() => <col />)}
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col" class="mx-h0"><span class="pg-label">Capability</span></th>
+              {
+                levels.map((l) => (
+                  <th scope="col" data-lv={l.n}>
+                    <span class="pg-pill pg-pill-soft mx-ln">Level {l.n}</span>
+                    <span class="mx-lname">{l.name}</span>
+                    <span class="mx-lline">{l.line}</span>
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          {
+            domains.map((d) => (
+              <tbody data-dom={d.n}>
+                <tr class="mx-dom">
+                  <th colspan={levels.length + 1} scope="rowgroup">
+                    <button type="button" class="mx-dtog" aria-expanded="true">
+                      <span class="mx-chev" aria-hidden="true" />
+                      <span class="mx-dnum">{String(d.n).padStart(2, "0")}</span>
+                      <span class="mx-dname">{d.name}</span>
+                      <span class="mx-dcount">{d.caps.length} capabilities</span>
+                    </button>
+                  </th>
+                </tr>
+                {d.caps.map((c) => (
+                  <tr class="mx-row">
+                    <th scope="row">
+                      <span class="mx-cname">{c.name}</span>
+                      {c.type !== "F" && (
+                        <span
+                          class:list={["pg-pill mx-tag", c.type === "C" ? "pg-pill-soft" : "pg-pill-dashed"]}
+                          title={typeHelp[c.type]}
+                        >
+                          {c.type === "C" ? "Conditional" : "Industry"}
+                        </span>
+                      )}
+                    </th>
+                    {c.cells.map((cell, i) => {
+                      const list = items(cell);
+                      return (
+                        <td data-lv={i + 1}>
+                          {cell ? (
+                            <button
+                              type="button"
+                              class="mx-cell"
+                              data-cap={c.id}
+                              data-lv={i + 1}
+                              aria-label={`${c.name}, L${i + 1} ${levels[i].name}: ${cell}`}
+                            >
+                              <span class="mx-head">{list[0]}</span>
+                              {list.length > 1 && (
+                                <span class="mx-more" title={`${list.length - 1} more ${list.length - 1 === 1 ? "item" : "items"}`}>
+                                  +{list.length - 1}
+                                </span>
+                              )}
+                            </button>
+                          ) : (
+                            <span class="mx-none" title="Nothing new at this level">
+                              <span class="sr-only">Nothing new at this level</span>
+                            </span>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            ))
+          }
+        </table>
+      </div>
+
+      <div class="mx-gloss">
+        <h2 class="pg-h3">Terms used</h2>
+        <dl>
+          {
+            glossary.map((g) => (
+              <div>
+                <dt>{g.term}</dt>
+                <dd>{g.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <aside id="mx-panel" class="mx-panel" role="dialog" aria-modal="false" aria-labelledby="mx-p-title" hidden>
     <div class="mx-p-top">
-      <p class="mx-p-eye" id="mx-p-eye"></p>
-      <button type="button" class="pill pill-line pill-icon" id="mx-p-close" aria-label="Close">
+      <p class="pg-label mx-p-eye" id="mx-p-eye"></p>
+      <button type="button" class="pg-btn pg-btn-secondary mx-p-close" id="mx-p-close" aria-label="Close">
         <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
         </svg>
       </button>
     </div>
-    <h2 class="mx-p-title" id="mx-p-title"></h2>
+    <h2 class="pg-h3 mx-p-title" id="mx-p-title"></h2>
     <div id="mx-p-body"></div>
   </aside>
 
@@ -222,20 +266,23 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
 
     if (c.type !== "F") {
       const t = el("p", "mx-p-type");
-      t.append(el("span", `mx-tag mx-tag-${c.type}`, c.type === "C" ? "Conditional" : "Industry"), ` ${data.typeHelp[c.type]}`);
+      t.append(
+        el("span", `pg-pill mx-tag ${c.type === "C" ? "pg-pill-soft" : "pg-pill-dashed"}`, c.type === "C" ? "Conditional" : "Industry"),
+        ` ${data.typeHelp[c.type]}`,
+      );
       body.append(t);
     }
 
     const lvBox = el("div", "mx-p-level");
-    lvBox.append(el("span", "mx-p-ln", `Level ${l.n}`), el("span", "mx-p-lname", l.name));
+    lvBox.append(el("span", "pg-pill pg-pill-soft mx-ln", `Level ${l.n}`), el("span", "mx-p-lname", l.name));
     body.append(lvBox, el("p", "mx-p-lline", l.line));
 
-    body.append(el("h3", "mx-p-h", "What this level adds"));
+    body.append(el("h3", "pg-label mx-p-h", "What this level adds"));
     const ul = el("ul", "mx-p-items");
     split(c.cells[lv - 1]).forEach((s) => ul.append(el("li", "", s)));
     body.append(ul);
 
-    body.append(el("h3", "mx-p-h", "Across levels"));
+    body.append(el("h3", "pg-label mx-p-h", "Across levels"));
     const ol = el("ol", "mx-p-across");
     c.cells.forEach((cell, i) => {
       const li = el("li");
@@ -263,7 +310,7 @@ const data = { levels, domains, typeLabel, typeHelp, terms };
 
     const used = data.terms[capId] ?? [];
     if (used.length) {
-      body.append(el("h3", "mx-p-h", "Terms"));
+      body.append(el("h3", "pg-label mx-p-h", "Terms"));
       const dl = el("dl", "mx-p-terms");
       used.forEach((g) => dl.append(el("dt", "", g.term), el("dd", "", g.text)));
       body.append(dl);
