@@ -107,7 +107,7 @@ export const work = {
   ] as WorkCard[],
 };
 
-export type DiyAction = "capture" | "link" | "contact";
+export type DiyAction = "featured" | "link" | "contact";
 
 export interface DiyCard {
   label: string;
@@ -115,7 +115,7 @@ export interface DiyCard {
   price: string;
   text: string;
   button: string;
-  /** capture: email field on the card; link: href below (empty shows "Coming soon"); contact: opens the contact form. */
+  /** featured: highlighted card with a button to href (the capability matrix); link: href below (empty shows "Coming soon"); contact: opens the contact form. */
   action: DiyAction;
   href?: string;
 }
@@ -127,9 +127,10 @@ export const diy = {
     {
       label: "Start here",
       price: "Free",
-      text: "AI maturity self-check. See where your organisation stands today and what the next step should be.",
-      button: "Take the self-check",
-      action: "capture",
+      text: "AI capability matrix. See where your organisation stands today and what the next step should be.",
+      button: "Open the matrix",
+      action: "featured",
+      href: "/ai-capability-matrix",
     },
     {
       label: "AI Basics",

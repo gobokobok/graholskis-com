@@ -2,7 +2,6 @@
 // Landing page, copy v3 (src/data/landing.ts) on the Pill & Glow kit (kit.css; layout in landing.css).
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Pipeline from "../components/viz/Pipeline.astro";
-import EmailCapture from "../components/EmailCapture.astro";
 import ContactForm from "../components/ContactForm.astro";
 import "../styles/landing.css";
 import { bookHref, calendarUrl, heroPhoto, links } from "../config";
@@ -152,14 +151,16 @@ const profiles = [
       <div class="pg-scroller" id="diy-list" role="region" aria-label="Do it yourself materials" tabindex="0">
         {
           diy.cards.map((c, i) => (
-            <div class:list={["pg-card pg-reveal pg-diy", c.action === "capture" && "pg-card-accent"]} style={`--i:${i}`}>
+            <div class:list={["pg-card pg-reveal pg-diy", c.action === "featured" && "pg-card-accent"]} style={`--i:${i}`}>
               <div class="pg-diy-top">
                 <span class="pg-pill pg-pill-soft">{c.label}</span>
                 <span class="pg-diy-price">{c.price || "Price TBC"}</span>
               </div>
               <p class="pg-small">{c.text}</p>
-              {c.action === "capture" ? (
-                <EmailCapture button={c.button} />
+              {c.action === "featured" ? (
+                <div class="pg-card-foot">
+                  <a href={c.href} class="pg-btn pg-btn-on-inverse">{c.button} →</a>
+                </div>
               ) : (
                 <div class="pg-card-foot">
                   {c.action === "contact" ? (
