@@ -352,3 +352,12 @@
   font-size: 15.5px;
   line-height: 1.55;
 }
+
+/* workshop facts: white card with a solid black line; in the dark theme the line is the green callout colour */
+.pg-facts.pg-card-outlined {
+  border-color: var(--ink);
+  background: var(--surface-page);
+}
+:root.kit[data-theme="dark"] .pg-facts.pg-card-outlined {
+  border: 2px solid var(--callout-border);
+}
