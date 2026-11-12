@@ -160,6 +160,7 @@ export const glossary: { term: string; text: string }[] = [
   { term: "IBAN", text: "International bank account number." },
   { term: "ICT", text: "Information and communication technology." },
   { term: "ITSM", text: "IT service management: the tools and process for incidents, changes and requests." },
+  { term: "JSON", text: "A standard text format for structured data." },
   { term: "LLM", text: "Large language model." },
   { term: "MCP", text: "Model Context Protocol: an open standard for connecting AI models to tools and data." },
   { term: "MRM", text: "Model risk management: the function that validates models before and during use." },

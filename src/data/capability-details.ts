@@ -2063,4 +2063,188 @@ export const details: Record<string, CellDetail> = {
       "Retraining and retirement planned",
     ],
   },
+
+  /* ---------------- 06 AI solutions and integration ---------------- */
+
+  // Solution patterns
+  "patterns-1": {
+    items: [
+      {
+        text: "People ask the approved assistant questions and use it to think through problems.",
+        example: "A project manager asks the assistant for the risks of moving a go-live date, then checks the list against the project plan.",
+      },
+      {
+        text: "AI writes first drafts that people edit and own.",
+        example: "A customer service lead drafts an announcement of a policy change in two minutes, then edits it for tone and facts.",
+      },
+      {
+        text: "People ask questions about a document they upload.",
+        example: "An analyst asks a 120-page annual report for every mention of supply chain risk, with page numbers, then reads those pages.",
+      },
+    ],
+    artefacts: [
+      { name: "Prompt guide", text: "How to get good results from chat, drafting and document Q&A, with examples." },
+      { name: "Examples library", text: "Good and bad examples by department, with what made the difference." },
+    ],
+    checklist: [
+      "The three patterns covered in the AI at Work training",
+      "Examples available for each department",
+      "Users verify outputs before use",
+      "Common uses collected for the portfolio",
+    ],
+  },
+  "patterns-2": {
+    items: [
+      {
+        text: "A fixed process where one step uses an LLM and the rest is ordinary automation. If you can draw the flowchart in advance, it is a workflow, not an agent.",
+        example:
+          "An invoice email triggers a flow. The LLM step reads the invoice and returns supplier, amount and due date. The flow checks the values against the ERP and creates the entry.",
+      },
+      {
+        text: "The LLM pulls structured fields out of unstructured text.",
+        example:
+          "From supplier contracts: start date, end date, notice period, auto-renewal yes or no, liability cap. Output as JSON and checked against a schema.",
+      },
+      {
+        text: "The LLM sorts items into a fixed set of categories.",
+        example: "Support emails sorted into 12 categories, with 93% accuracy on a 500-email test set. Uncertain cases go to a person.",
+      },
+    ],
+    artefacts: [
+      { name: "Workflow pattern", text: "Trigger, steps, the LLM step, checks, fallback." },
+      { name: "Extraction schema", text: "Fields, types, allowed values, what to return when a field is missing." },
+      { name: "Classification eval set", text: "Labelled examples per category, with the accuracy target." },
+    ],
+    checklist: [
+      "Each LLM step has defined inputs and outputs",
+      "Outputs validated against a schema",
+      "Eval set for every extraction or classification step",
+      "Fallback for failed or uncertain cases",
+    ],
+  },
+  "patterns-3": {
+    items: [
+      {
+        text: "AI features are built into the systems people already use, not kept in a separate chat window.",
+        example:
+          "In the CRM, a button drafts a follow-up email from the last meeting notes and the open opportunity, ready for the salesperson to edit.",
+      },
+      {
+        text: "Retrieval-based assistants run as supported services, with evaluation, monitoring and owners.",
+        example:
+          "The policy assistant has a service owner, a 250-question eval set run on every change, weekly quality sampling and a support route.",
+      },
+    ],
+    artefacts: [
+      { name: "Integration design template", text: "Host system, trigger, data used, AI step, user action, logging." },
+      { name: "RAG production readiness checklist", text: "Owner, eval set, permissions, monitoring, support, fallback." },
+    ],
+    checklist: [
+      "Integrated features follow the reference architecture",
+      "RAG services pass the production readiness checklist",
+      "Each service has an owner and a support route",
+      "Quality monitored after release",
+    ],
+  },
+  "patterns-4": {
+    items: [
+      {
+        text: "\"Agents\" take actions in business systems, within approved autonomy levels and limits. They are used only when the next step cannot be known in advance.",
+        example:
+          "The supplier onboarding agent reads incoming documents, works out which are missing, requests them and prepares the ERP record for approval. The steps differ for each supplier, so a fixed workflow would not cover it.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent design template", text: "Goal, tools, autonomy level, approval points, limits, owner." },
+      { name: "Agent or workflow decision guide", text: "Questions that show whether a fixed workflow is enough." },
+      { name: "Agent release checklist", text: "Evaluation, guardrails, approval points, logging, kill switch." },
+    ],
+    checklist: [
+      "Agent use justified over a fixed workflow",
+      "Autonomy level approved",
+      "Approval points and guardrails tested",
+      "Owner and kill switch in place",
+    ],
+  },
+
+  // Connectors (MCP)
+  "mcp-2": {
+    items: [
+      {
+        text: "A small number of connectors let AI tools read from company systems, without the ability to change anything.",
+        example:
+          "Approved: read-only connectors to SharePoint and the ticketing system. The assistant can find a ticket and summarise it, but cannot update it.",
+      },
+    ],
+    artefacts: [
+      { name: "Connector approval record", text: "Connector, system, data it can read, owner, approval." },
+      { name: "Read-only verification test", text: "Attempts to write through the connector, all of which must fail." },
+    ],
+    checklist: [
+      "Each connector approved before use",
+      "Connectors verified as read-only",
+      "Access follows the user's own permissions",
+      "Connector use logged",
+    ],
+  },
+  "mcp-3": {
+    items: [
+      {
+        text: "Every connector is in a registry, with an owner, its permissions and its version.",
+        example:
+          "Registry entry: CRM MCP server, owned by the CRM platform team, read access to accounts and opportunities, version 1.4, last security review in September.",
+      },
+    ],
+    artefacts: [
+      { name: "Connector registry", text: "Connector, owner, permissions, version, review date, status." },
+      { name: "Connector review schedule", text: "When each connector is reviewed, and what triggers an early review." },
+    ],
+    checklist: [
+      "All connectors registered",
+      "Each connector has an owner",
+      "Security review at least yearly and after major versions",
+      "Unregistered connectors blocked",
+    ],
+  },
+  "mcp-4": {
+    items: [
+      {
+        text: "Connectors that can change data are allowed, but write actions follow the agent's autonomy level.",
+        example:
+          "The ticketing connector can update ticket status. At A1, a person approves each update. After three months at 99% correct, the use case moves to A2. Closing a complaint always needs a person.",
+      },
+    ],
+    artefacts: [
+      { name: "Write tool approval", text: "Tool, actions allowed, autonomy level, rollback method, approver." },
+      { name: "Write action log", text: "Agent, action, record changed, approver, time." },
+    ],
+    checklist: [
+      "Each write tool approved on its own",
+      "Write actions match the agent's autonomy level",
+      "Every write action logged",
+      "Rollback tested",
+    ],
+  },
+
+  // Orchestration
+  "orch-4": {
+    items: [
+      {
+        text: "Several agents working together are used only when one agent or a fixed workflow cannot do the job. Errors multiply across steps: ten agents at 90% accuracy each give about 35% end-to-end success.",
+        example:
+          "Contract review runs as one agent with tools. A second agent is added for translation only after tests show the combined accuracy still meets the target.",
+      },
+    ],
+    artefacts: [
+      { name: "Orchestration justification", text: "Why a single agent or workflow is not enough, with test results." },
+      { name: "End-to-end eval set", text: "Cases that test the whole chain, not each agent alone." },
+      { name: "Orchestration design", text: "Agents, hand-offs, shared state, failure handling, owner." },
+    ],
+    checklist: [
+      "Simpler options tested first",
+      "End-to-end accuracy measured, not only each agent",
+      "Each agent has an owner and limits",
+      "A failure in one agent stops the chain safely",
+    ],
+  },
 };
