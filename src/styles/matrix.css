@@ -431,10 +431,12 @@
 .mx-p-close {
   width: 39.5px;
   height: 39.5px;
+  margin-bottom: -16px; /* the button overhangs, so the title sits close under the domain line */
   padding: 0;
 }
 .mx-p-title {
-  margin: 6px 0 var(--space-3);
+  margin: 2px 0 var(--space-4);
+  padding-right: 44px; /* clear of the close button */
 }
 .mx-p-type {
   margin: 0 0 var(--space-3);
@@ -492,7 +494,7 @@
 /* what this level adds: name, explanation, example */
 .mx-p-items {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-5);
   margin: 0;
   padding: 0;
   list-style: none;
