@@ -140,24 +140,29 @@ export const domains: Domain[] = [
 
 /** Abbreviations used in the matrix. The panel lists the ones a capability uses; the page lists all. */
 export const glossary: { term: string; text: string }[] = [
+  { term: "A0-A3", text: "Autonomy levels. A0: the AI suggests, a person acts. A1: a person approves each action. A2: the AI acts on low-risk actions, a person reviews samples. A3: the AI acts within set limits, monitored." },
   { term: "ADLM", text: "One delivery and lifecycle method for all AI assets, from plan and build to release, change and retirement." }, // TODO: confirm the expansion
+  { term: "C2PA", text: "Coalition for Content Provenance and Authenticity: an open standard for marking how content was made." },
   { term: "CI", text: "Continuous integration: automated checks that run on every change." },
   { term: "CoE", text: "Centre of Excellence: the central team that sets standards and supports AI use." },
+  { term: "CRM", text: "Customer relationship management system." },
   { term: "DLP", text: "Data loss prevention: controls that stop sensitive data leaving the organisation." },
+  { term: "DORA", text: "Digital Operational Resilience Act: EU rules on ICT risk for financial services." },
   { term: "DPA", text: "Data processing agreement with a provider that handles personal data." },
   { term: "DPIA", text: "Data protection impact assessment, required under GDPR for high-risk processing." },
   { term: "DPO", text: "Data protection officer." },
   { term: "EA", text: "Enterprise architecture." },
   { term: "ERP", text: "Enterprise resource planning: the core system for finance, purchasing and operations." },
   { term: "FTE", text: "Full-time equivalent: the work of one full-time person." },
+  { term: "GDPR", text: "General Data Protection Regulation: the EU data protection law." },
   { term: "ICT", text: "Information and communication technology." },
   { term: "ITSM", text: "IT service management: the tools and process for incidents, changes and requests." },
   { term: "LLM", text: "Large language model." },
   { term: "MCP", text: "Model Context Protocol: an open standard for connecting AI models to tools and data." },
   { term: "MRM", text: "Model risk management: the function that validates models before and during use." },
   { term: "PII", text: "Personally identifiable information." },
-  { term: "RAG", text: "Retrieval-augmented generation: the model answers from documents retrieved for the question." },
   { term: "RACI", text: "Who is responsible, accountable, consulted and informed for each step." },
+  { term: "RAG", text: "Retrieval-augmented generation: the model answers from documents retrieved for the question." },
   { term: "RBAC", text: "Role-based access control." },
   { term: "SSO", text: "Single sign-on." },
 ];

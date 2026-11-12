@@ -812,4 +812,613 @@ export const details: Record<string, CellDetail> = {
       "Report reviewed by the portfolio board",
     ],
   },
+
+  /* ---------------- 03 Governance, risk and compliance ---------------- */
+
+  // AI policy and acceptable use
+  "policy-1": {
+    items: [
+      {
+        text: "The policy names the tools people may use and links to the current list.",
+        example: "Only tools on the approved-tool list may be used with work data. The list is on the intranet and kept up to date by the CoE.",
+      },
+      {
+        text: "What data may go into which tool, by data classification.",
+        example:
+          "Public and internal data: any approved tool. Confidential: Copilot only. Restricted, such as health data or card numbers: no AI tool without a separate approval.",
+      },
+      {
+        text: "Who is responsible for AI-assisted work.",
+        example: "You are responsible for anything you send, publish or decide with AI help, in the same way as for your own work.",
+      },
+      {
+        text: "What AI must not be used for, in plain words.",
+        example:
+          "No AI for decisions about hiring, performance or dismissal. No emotion recognition at work. No uploading other people's personal data to check or profile them.",
+      },
+      {
+        text: "How to ask for something the policy does not allow, instead of working around it.",
+        example:
+          "Send a request to the CoE with the tool, data and reason. Answer within five working days. Approved exceptions are time-limited and logged.",
+      },
+    ],
+    artefacts: [
+      { name: "AI policy", text: "Scope, approved tools, data rules, accountability, prohibited uses, exceptions, review." },
+      { name: "Acceptable use summary", text: "One page for all staff: what you can do, what you cannot, who to ask." },
+      { name: "Exception request and log", text: "Request form, decision, conditions, expiry date." },
+    ],
+    checklist: [
+      "Policy approved by management and published",
+      "All staff have acknowledged the policy",
+      "Prohibited uses checked against the EU AI Act prohibitions",
+      "Exception route live and exceptions logged",
+      "Review date set",
+    ],
+  },
+  "policy-2": {
+    items: [
+      {
+        text: "The policy points to the risk tiers and says who approves use cases in each tier.",
+        example:
+          "Low-risk use cases are approved by the business owner. Medium by the CoE. High by the AI risk committee, with legal and the DPO.",
+      },
+    ],
+    artefacts: [
+      { name: "Policy update", text: "A section on risk tiers and the approval route for each." },
+      { name: "Approval routes by tier", text: "One page: tier, approver, evidence needed, expected time." },
+    ],
+    checklist: [
+      "Policy updated with references to the risk tiers",
+      "Approval route published for each tier",
+      "Staff know how to submit a use case",
+      "Approvals recorded against the tier",
+    ],
+  },
+  "policy-3": {
+    items: [
+      {
+        text: "Policy requirements are checked at the delivery gates, not only written down.",
+        example:
+          "The pilot-to-production gate checks that the data used matches the data rules and that the risk tier is approved. A release without these checks does not pass.",
+      },
+      {
+        text: "The policy is reviewed every year against new tools, incidents and regulation.",
+        example: "The 2027 review adds rules for meeting transcription tools and tightens the prohibited uses after two incidents.",
+      },
+    ],
+    artefacts: [
+      { name: "Policy-to-gate mapping", text: "Each policy requirement, the gate that checks it and the evidence needed." },
+      { name: "Annual review checklist", text: "Inputs to review: incidents, new tools, regulation, audit findings." },
+      { name: "Policy change log", text: "Change, reason, date, approver." },
+    ],
+    checklist: [
+      "Every policy requirement mapped to a gate",
+      "Gate reviewers check the policy evidence",
+      "Review held in the last 12 months",
+      "Changes communicated to staff",
+    ],
+  },
+  "policy-4": {
+    items: [
+      {
+        text: "The policy states which autonomy levels are allowed and under what conditions.",
+        example:
+          "A3 is allowed only in the low-risk tier, with a named owner, a tested kill switch and weekly sampling. No agent may make payments or change access rights on its own.",
+      },
+    ],
+    artefacts: [
+      { name: "Autonomy rules", text: "A section of the AI policy: allowed levels, conditions, actions no agent may take." },
+      { name: "Autonomy approval form", text: "Agent, requested level, risk tier, controls, approver." },
+    ],
+    checklist: [
+      "Autonomy rules approved by the risk committee",
+      "Every agent's autonomy level matches the rules",
+      "Exceptions approved and time-limited",
+      "Rules reviewed after every agent incident",
+    ],
+  },
+
+  // Use-case inventory
+  "inventory-1": {
+    items: [
+      {
+        text: "A simple list of every AI use, with its owner, purpose, data and the decision it feeds.",
+        example:
+          "Contract summaries. Owner: legal operations manager. Purpose: faster first review. Data: supplier contracts, Confidential. Decision fed: whether a contract goes to a lawyer.",
+      },
+    ],
+    artefacts: [
+      { name: "AI use register", text: "Spreadsheet with one row per use: owner, purpose, data, decision fed, tool, status." },
+      { name: "What counts as an AI use", text: "Short guidance with examples, so teams know what to record." },
+    ],
+    checklist: [
+      "Register created and owned by the CoE",
+      "Known uses recorded, including team-level ones",
+      "Every entry has an owner",
+      "Register reviewed every quarter",
+    ],
+  },
+  "inventory-2": {
+    items: [
+      {
+        text: "New use cases enter through one form, so nothing starts without being recorded.",
+        example: "Seven questions: task, users, data, decision affected, people affected, tool, owner. It takes about ten minutes.",
+      },
+      {
+        text: "The depth of review depends on the risk, so low-risk ideas move fast.",
+        example:
+          "Drafting internal emails: approved by the CoE in two days. Screening job applications: goes to the risk committee and needs a DPIA.",
+      },
+    ],
+    artefacts: [
+      { name: "Intake form", text: "The seven questions, with guidance for each." },
+      { name: "Triage guide", text: "How answers on the form map to a review route." },
+      { name: "Approval record", text: "Use case, tier, approver, conditions, date." },
+    ],
+    checklist: [
+      "All new use cases enter through the intake form",
+      "Triage done within the agreed time",
+      "Approvals recorded in the register",
+      "High-risk cases escalated as defined",
+    ],
+  },
+  "inventory-3": {
+    items: [
+      {
+        text: "Each register entry links to the asset in the catalogue, so the use and the asset stay in step.",
+        example: "The register entry for contract summaries links to catalogue asset version 2.3, with its eval results and owner.",
+      },
+      {
+        text: "Each use case has a status, including retired, and retirement is a real process.",
+        example: "Meeting summaries retired in March: access removed, stored transcripts deleted after 30 days, licences cancelled.",
+      },
+    ],
+    artefacts: [
+      { name: "Lifecycle status definitions", text: "Idea, approved, pilot, production, suspended, retired, with entry criteria." },
+      { name: "Retirement checklist", text: "Access, data, licences, documentation, communication to users." },
+      { name: "Reconciliation report", text: "Differences between the register and the catalogue, with actions." },
+    ],
+    checklist: [
+      "Every production use case linked to a catalogue entry",
+      "Status kept current",
+      "Retired use cases follow the retirement checklist",
+      "Register and catalogue reconciled every quarter",
+    ],
+  },
+  "inventory-4": {
+    items: [
+      {
+        text: "Every agent is in the register with its autonomy level, tools and permissions.",
+        example:
+          "Supplier onboarding agent. Autonomy A1. Tools: email, document store, draft supplier records in the ERP. Cannot approve suppliers. Owner: procurement operations lead.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent register entry", text: "Agent, owner, autonomy level, tools, permissions, limits, review date." },
+      { name: "Quarterly agent review", text: "Permissions in the register compared with permissions in the systems." },
+    ],
+    checklist: [
+      "Every agent registered before release",
+      "Permissions in the register match the systems",
+      "Autonomy level approved",
+      "Entries reviewed every quarter",
+    ],
+  },
+
+  // Vendor and third-party risk
+  "vendor-1": {
+    items: [
+      {
+        text: "Each AI vendor is checked for security, data use and contract terms before use.",
+        example:
+          "Questions include: is our data used for training, where is it stored, how long are prompts kept, and which subprocessors are used.",
+      },
+      {
+        text: "A data processing agreement is signed where the vendor handles personal data.",
+        example: "The DPA states EU data residency, no training on customer data and deletion of prompts within 30 days.",
+      },
+      {
+        text: "The vendor is recorded in the same register as other suppliers.",
+        example: "Entry: vendor, service, data categories, contract owner, renewal date, risk rating.",
+      },
+    ],
+    artefacts: [
+      { name: "AI vendor questionnaire", text: "Security, data use, retention, subprocessors, model changes." },
+      { name: "DPA checklist", text: "Clauses to check in a data processing agreement with an AI vendor." },
+      { name: "Third-party register entry", text: "The fields every AI vendor entry must have." },
+    ],
+    checklist: [
+      "Every AI vendor assessed before use",
+      "DPA signed where personal data is processed",
+      "AI vendors recorded in the third-party register",
+      "Contract owner named for each vendor",
+    ],
+  },
+  "vendor-2": {
+    items: [
+      {
+        text: "Each new model provider or connector is assessed, even when the main platform is already approved.",
+        example:
+          "A team wants to connect the assistant to the CRM through an MCP server. Security reviews the server, what data it can read and who maintains it.",
+      },
+    ],
+    artefacts: [
+      { name: "Connector assessment form", text: "Connector, data it can read and write, maintainer, permissions, risks." },
+      { name: "Approved connector list", text: "Connector, allowed use, permissions, owner, review date." },
+    ],
+    checklist: [
+      "New providers and connectors assessed before use",
+      "Approved connectors listed",
+      "Connector permissions limited to what the use case needs",
+      "Reassessment after major version changes",
+    ],
+  },
+  "vendor-3": {
+    items: [
+      {
+        text: "For each important AI vendor, a plan for how to leave without stopping the business.",
+        example:
+          "If the model provider changes its terms, our prompts and eval sets let us move to a second provider within six weeks. Tested once a year on one use case.",
+      },
+      {
+        text: "The organisation knows how much depends on one vendor, and limits it.",
+        example: "70% of AI use cases run on one provider. Target: critical use cases able to run on a second provider by year end.",
+      },
+    ],
+    artefacts: [
+      { name: "Exit plan", text: "Trigger, alternative provider, steps, time needed, test date." },
+      { name: "Concentration view", text: "Use cases per vendor, with criticality." },
+    ],
+    checklist: [
+      "Exit plan for each critical AI vendor",
+      "Each exit plan tested at least once",
+      "Concentration reported to risk",
+      "In financial services, plans aligned with DORA",
+    ],
+  },
+
+  // Risk tiering
+  "tiering-2": {
+    items: [
+      {
+        text: "Every use case gets a risk tier at intake.",
+        example: "Internal email drafting: low. Customer reply drafting: medium. Credit decision support: high.",
+      },
+      {
+        text: "A short set of questions decides the tier, so different reviewers reach the same answer.",
+        example:
+          "Does it affect customers or employees? Does it use personal or restricted data? Does it feed a decision with legal effect? Does a person check every output?",
+      },
+    ],
+    artefacts: [
+      { name: "Tiering rubric", text: "Questions, scoring and how the score maps to a tier." },
+      { name: "Tier record", text: "Use case, answers, tier, reviewer, date." },
+    ],
+    checklist: [
+      "Rubric approved by risk",
+      "Every use case has a tier",
+      "Tier recorded with the reasons",
+      "Tier reviewed when the use case changes",
+    ],
+  },
+  "tiering-3": {
+    items: [
+      {
+        text: "Each tier has a fixed list of evidence needed before release.",
+        example:
+          "Low: owner and data check. Medium: eval results and a fallback. High: eval results, DPIA, bias testing, human oversight design and legal sign-off.",
+      },
+      {
+        text: "Higher tiers get deeper and more independent review.",
+        example: "Low: CoE review in two days. High: risk committee review, with testing by someone outside the delivery team.",
+      },
+    ],
+    artefacts: [
+      { name: "Evidence requirements by tier", text: "Tier, required evidence, who checks it." },
+      { name: "Review route by tier", text: "Reviewer, independence required, expected time." },
+    ],
+    checklist: [
+      "Evidence list published for each tier",
+      "Releases checked against the list",
+      "High-tier reviews include independent testing",
+      "Evidence stored with the asset",
+    ],
+  },
+  "tiering-4": {
+    items: [
+      {
+        text: "The risk tier sets the highest autonomy level an agent may have.",
+        example: "Low tier: up to A3. Medium: up to A2. High: A1 at most, with a person approving every action.",
+      },
+    ],
+    artefacts: [{ name: "Tier and autonomy table", text: "Tier, highest allowed autonomy level, extra controls." }],
+    checklist: [
+      "Table approved by the risk committee",
+      "Every agent within its allowed level",
+      "Raising a level requires a new review",
+      "Table reviewed every year",
+    ],
+  },
+
+  // Autonomy and human oversight
+  "oversight-1": {
+    items: [
+      {
+        text: "At this level a person reviews every AI output before it is used.",
+        example: "No AI draft is sent to a customer, published or used in a decision without a person reading and approving it.",
+      },
+    ],
+    artefacts: [{ name: "Review guidance", text: "What to check in an AI output before using it, with examples." }],
+    checklist: [
+      "Rule written in the AI policy",
+      "Covered in the AI at Work training",
+      "Managers spot-check that drafts are reviewed",
+      "No exceptions at this level",
+    ],
+  },
+  "oversight-2": {
+    items: [
+      {
+        text: "Clear rules send uncertain or sensitive cases to a person.",
+        example: "Replies about complaints, refunds over EUR 200 or legal threats always go to a person, whatever the AI suggests.",
+      },
+      {
+        text: "The system is designed to say it does not know, instead of guessing.",
+        example:
+          "If policy Q&A finds no matching document, it answers \"I could not find this in our policies\" and gives the contact for the policy owner.",
+      },
+    ],
+    artefacts: [
+      { name: "Review threshold list", text: "Case type, threshold, who reviews." },
+      { name: "Abstention test set", text: "Questions with no answer in the source, used to test that the system abstains." },
+    ],
+    checklist: [
+      "Thresholds defined for each pilot",
+      "Thresholds tested before go-live",
+      "Abstention tested with questions that have no answer",
+      "Overrides by reviewers logged",
+    ],
+  },
+  "oversight-3": {
+    items: [
+      {
+        text: "Each tier has its own oversight design: who reviews, how much and how fast.",
+        example:
+          "Low: a weekly 5% sample. Medium: a 20% sample plus all flagged cases. High: every output reviewed by a trained reviewer before use.",
+      },
+    ],
+    artefacts: [
+      { name: "Oversight standard", text: "Tier, review method, sample size, reviewer qualification." },
+      { name: "Reviewer training record", text: "Who is trained to review which use cases." },
+      { name: "Oversight log", text: "Reviews done, issues found, actions taken." },
+    ],
+    checklist: [
+      "Oversight standard approved",
+      "Every production use case follows the oversight for its tier",
+      "Reviewers trained",
+      "Review results feed quality monitoring",
+    ],
+  },
+  "oversight-4": {
+    items: [
+      {
+        text: "Four defined levels describe how much an agent may do on its own.",
+        example:
+          "A0: the AI suggests, a person acts. A1: the AI prepares actions, a person approves each one. A2: the AI acts on defined low-risk actions, a person reviews samples and exceptions. A3: the AI acts within set limits, monitored, with a kill switch.",
+      },
+      {
+        text: "Specific steps where an agent must stop and wait for a person.",
+        example:
+          "The onboarding agent stops before creating a supplier in the ERP and before any message that commits the company to terms.",
+      },
+    ],
+    artefacts: [
+      { name: "Autonomy level definitions", text: "A0 to A3, what each allows, required controls." },
+      { name: "Approval point design", text: "Step, what the person sees, how they approve or reject, time limit." },
+    ],
+    checklist: [
+      "Every agent assigned an autonomy level",
+      "Approval points designed and tested",
+      "People at approval points trained",
+      "Level changes approved before release",
+    ],
+  },
+
+  // Regulatory scope
+  "regscope-1": {
+    items: [
+      {
+        text: "Article 4 of the EU AI Act requires organisations to ensure their staff have sufficient AI literacy. It has applied since February 2025.",
+        example: "AI at Work training for all staff, extra modules for heavy users, and a training record for each person.",
+      },
+      {
+        text: "A data protection impact assessment is done when AI processing of personal data is likely to be high risk under GDPR.",
+        example: "Transcribing customer calls with AI: DPIA completed with the DPO before the pilot starts.",
+      },
+    ],
+    artefacts: [
+      { name: "AI literacy plan and record", text: "Measures per role, completion records, review date." },
+      { name: "DPIA screening questions", text: "Short check to decide whether a use case needs a full DPIA." },
+    ],
+    checklist: [
+      "AI literacy measures in place and recorded",
+      "DPIA screening done for every use case with personal data",
+      "DPIAs completed before processing starts",
+      "DPO consulted",
+    ],
+  },
+  "regscope-2": {
+    items: [
+      {
+        text: "Each pilot is checked against the EU AI Act categories: prohibited, high-risk, transparency duties or minimal risk.",
+        example:
+          "CV screening pilot: high-risk, because employment is listed in Annex III. Paused until the requirements are understood. Internal email drafting: minimal risk.",
+      },
+    ],
+    artefacts: [
+      { name: "Classification questionnaire", text: "Questions that place a use case in an EU AI Act category." },
+      { name: "Classification record", text: "Use case, category, reasoning, reviewer, date." },
+    ],
+    checklist: [
+      "Every pilot classified before it starts",
+      "Classification reviewed by legal",
+      "Prohibited and high-risk cases escalated",
+      "Record kept",
+    ],
+  },
+  "regscope-3": {
+    items: [
+      {
+        text: "Every use case in the register has its classification and the role the organisation plays: provider or deployer.",
+        example:
+          "Customer chatbot: transparency duty, we are the deployer. Claims model built in-house: we are the provider.",
+      },
+      {
+        text: "One list of the regulations that apply to AI use, with an owner for each.",
+        example: "EU AI Act: legal. GDPR: DPO. DORA: ICT risk. Sector rules from the financial supervisor: compliance.",
+      },
+    ],
+    artefacts: [
+      { name: "Classification record per use case", text: "Category, provider or deployer role, obligations that follow." },
+      { name: "Regulatory register", text: "Regulation, scope, owner, key obligations, review date." },
+      { name: "Obligation tracker", text: "Obligation, use cases affected, status, owner." },
+    ],
+    checklist: [
+      "All use cases classified",
+      "Provider or deployer role recorded",
+      "Regulatory register owned and current",
+      "Obligations tracked to completion",
+    ],
+  },
+  "regscope-4": {
+    items: [
+      {
+        text: "If the organisation provides a high-risk AI system, it completes the conformity assessment before putting the system into service.",
+        example:
+          "Credit scoring model built in-house: technical documentation, risk management system, data governance, human oversight design and a conformity assessment before go-live.",
+      },
+      {
+        text: "High-risk systems are monitored after release, and serious incidents are reported.",
+        example:
+          "Monthly review of accuracy and bias metrics, complaints and incidents. Serious incidents reported to the market surveillance authority within the legal deadline.",
+      },
+    ],
+    artefacts: [
+      { name: "Technical documentation", text: "The documentation set the EU AI Act requires for a high-risk system." },
+      { name: "Post-market monitoring plan", text: "Metrics, data sources, review schedule, owner." },
+      { name: "Serious incident procedure", text: "What counts as serious, who decides, how and when to report." },
+    ],
+    checklist: [
+      "High-risk systems identified",
+      "Conformity assessment done before the system goes into service",
+      "Post-market monitoring running",
+      "Incident reporting procedure tested",
+    ],
+  },
+
+  // Model risk management for AI
+  "mrm-2": {
+    items: [
+      {
+        text: "The model risk function sees pilots early, so production does not stall later.",
+        example:
+          "The MRM team reviews the credit memo drafting pilot at design stage and agrees what validation it will need before production.",
+      },
+    ],
+    artefacts: [{ name: "MRM consultation note", text: "Pilot, MRM view, validation expected later, open points." }],
+    checklist: [
+      "MRM consulted on every pilot in scope",
+      "Expected validation agreed before the pilot ends",
+      "Advice recorded",
+      "Open points tracked",
+    ],
+  },
+  "mrm-3": {
+    items: [
+      {
+        text: "The model risk framework covers LLM-based solutions, including prompts and retrieval.",
+        example:
+          "The framework treats the prompt, the retrieval set and the vendor model version as parts of the model. In the UK, the PRA's SS1/23 uses a similarly broad definition of a model.",
+      },
+      {
+        text: "Each model asset has a short document describing its purpose, data, limits and test results.",
+        example:
+          "Card for credit memo drafting: intended use, not for final credit decisions, eval results by segment, known failure modes, owner.",
+      },
+      {
+        text: "Defined events that require the model to be validated again.",
+        example: "A new vendor model version, a change to the retrieval set, an eval score drop of more than 5 points, or a new use.",
+      },
+    ],
+    artefacts: [
+      { name: "Model card", text: "Purpose, intended and excluded uses, data, test results, limits, owner." },
+      { name: "Revalidation trigger list", text: "Trigger, how it is detected, who is notified." },
+      { name: "Validation report", text: "Scope, tests, findings, decision, conditions." },
+    ],
+    checklist: [
+      "Framework updated and approved",
+      "Every LLM asset in scope has a model card",
+      "Revalidation triggers monitored",
+      "Revalidation completed before changes go live",
+    ],
+  },
+  "mrm-4": {
+    items: [
+      {
+        text: "Validation evidence comes continuously from monitoring, not only from periodic reviews.",
+        example:
+          "Eval results, drift metrics and sampled reviews feed a validation dashboard. The MRM team reviews it monthly instead of running a full revalidation once a year.",
+      },
+    ],
+    artefacts: [
+      { name: "Validation dashboard specification", text: "Metrics, thresholds, data sources, review schedule." },
+      { name: "Monitoring-to-validation mapping", text: "Which monitoring output answers which validation question." },
+    ],
+    checklist: [
+      "Evidence produced automatically",
+      "MRM has accepted the evidence format",
+      "Threshold breaches trigger a review",
+      "Annual summary signed off",
+    ],
+  },
+
+  // Transparency and disclosure
+  "transparency-3": {
+    items: [
+      {
+        text: "People are told when they talk to AI or see AI-generated content. Under Article 50 of the EU AI Act, these duties apply from August 2026.",
+        example:
+          "The website chatbot opens with \"You are chatting with an AI assistant. You can ask for a person at any time.\" Synthetic images and video in marketing are labelled.",
+      },
+    ],
+    artefacts: [
+      { name: "Disclosure standard", text: "Where disclosure is needed, what it must say, where it appears." },
+      { name: "Disclosure wording library", text: "Approved wording for chatbots, emails, images, audio and video." },
+    ],
+    checklist: [
+      "Every customer-facing chatbot discloses that it is AI",
+      "Generated images and video labelled",
+      "Wording approved by legal",
+      "Disclosure checked at release",
+    ],
+  },
+  "transparency-4": {
+    items: [
+      {
+        text: "AI-generated content carries a machine-readable mark, so it can be detected later.",
+        example:
+          "Generated images carry C2PA content credentials. Generated audio and video use the provider's watermark, and the marks are checked before publishing.",
+      },
+    ],
+    artefacts: [
+      { name: "Content marking standard", text: "Content types, marking method, how marks are checked." },
+      { name: "Generation tool list", text: "Tools in use and whether each one adds a machine-readable mark." },
+    ],
+    checklist: [
+      "Generation tools support machine-readable marking",
+      "Marks verified before publishing",
+      "Editing steps do not strip the marks",
+      "Standard reviewed as technical standards change",
+    ],
+  },
 };
