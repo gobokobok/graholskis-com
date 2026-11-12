@@ -139,7 +139,7 @@
   padding: 16px 7px 12px;
   background: var(--surface-card);
   text-align: left;
-  vertical-align: bottom;
+  vertical-align: top; /* level tags line up even when the descriptions wrap differently */
   font-weight: 400;
 }
 .mx-h0 {
@@ -209,14 +209,21 @@
   transform: rotate(-45deg);
 }
 .mx-dnum {
-  color: var(--ink-muted);
-  font-size: 12.5px;
-  font-weight: 600;
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--surface-page);
+  font-size: 12px;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 .mx-dname {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 600;
   letter-spacing: -0.01em;
   transition: color 150ms var(--ease);
@@ -240,7 +247,7 @@
 .mx-row th {
   padding: 10px 12px 10px 4px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500; /* lighter than the domain heading above it */
   line-height: 1.35;
   text-align: left;
   vertical-align: middle; /* centred on the row of cells */
@@ -329,7 +336,7 @@
     width: 42%;
   }
   .mx-dname {
-    font-size: 16px;
+    font-size: 18px;
   }
   .mx tbody:first-of-type .mx-dom th {
     padding-top: 4px;
@@ -512,12 +519,12 @@
   line-height: 1.5;
 }
 .mx-p-ex {
-  margin: var(--space-1) 0 0;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: var(--surface-card);
-  font-size: 13px;
-  line-height: 1.5;
+  margin: var(--space-2) 0 0 2px;
+  padding: 1px 0 1px 14px;
+  border-left: 2px solid color-mix(in srgb, var(--accent-text) 45%, transparent);
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.55;
 }
 .mx-p-exl {
   display: block;
