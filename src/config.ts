@@ -53,10 +53,8 @@ export const bookLabel = "Book a call";
 /** Landing page copy v3: Workshop · How it works · Work · Do it yourself · FAQ · About, then the call button. */
 export const nav = [
   { href: "/#workshop", label: "Workshop" },
-  { href: "/#how", label: "How it works" },
-  { href: "/#work", label: "Work" },
+  { href: "/#work", label: "Portfolio" },
   { href: "/#diy", label: "Do it yourself" },
-  { href: "/#faq", label: "FAQ" },
   { href: "/#about", label: "About" },
 ];
 

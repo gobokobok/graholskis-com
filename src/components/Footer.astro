@@ -1,5 +1,5 @@
 ---
-// Footer (landing copy v3): © name, then Privacy, LinkedIn and YouTube. Terms of use is kept as well,
+// Footer (landing copy v3): © name, then Privacy, LinkedIn, YouTube and the theme toggle (kit pages only). Terms of use is kept as well,
 // because the page exists and the forms point to it. Pill & Glow footer: a dark block on every page, hairline on top, small muted links.
 import { site, links } from "../config";
 
@@ -15,6 +15,7 @@ const ext = { target: "_blank", rel: "noopener" };
       <a href="/terms">Terms</a>
       {links.linkedin && <a href={links.linkedin} {...ext}>LinkedIn</a>}
       {links.youtube && <a href={links.youtube} {...ext}>YouTube</a>}
+      <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-theme pg-foot-theme" data-theme-toggle>Dark</button>
     </nav>
   </div>
 </footer>

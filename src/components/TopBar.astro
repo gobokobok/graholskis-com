@@ -1,6 +1,7 @@
 ---
-// Sticky top bar (Pill & Glow navigation): wordmark left, section links, theme toggle and the call button.
-// Below 1025px the links move into a full-screen sheet. The theme toggle shows on kit pages only.
+// Sticky top bar (Pill & Glow navigation): wordmark left, four section links and the call button.
+// Below 860px the links move into a full-screen sheet. The theme toggle lives in the footer (kit pages only);
+// its script stays here because the top bar is on every page.
 import { nav, bookHref, calendarUrl } from "../config";
 import Brand from "./Brand.astro";
 
@@ -16,7 +17,6 @@ const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
     </nav>
 
     <div class="pg-nav-actions">
-      <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-theme" data-theme-toggle>Dark</button>
       <a href={bookHref} class="pg-btn pg-btn-sm pg-btn-primary pg-nav-book" {...bookAttrs}>Book a call</a>
       <button type="button" class="pg-btn pg-btn-sm pg-btn-secondary pg-menu-btn" aria-expanded="false" aria-controls="pg-sheet">
         Menu
@@ -35,7 +35,6 @@ const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
   </nav>
   <div class="pg-sheet-actions">
     <a href={bookHref} class="pg-btn pg-btn-primary" {...bookAttrs}>Book a call</a>
-    <button type="button" class="pg-btn pg-btn-secondary pg-theme" data-theme-toggle>Dark</button>
   </div>
 </div>
 

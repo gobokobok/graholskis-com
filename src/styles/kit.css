@@ -495,8 +495,8 @@ html.kit .pg-theme {
 .pg-menu-btn {
   display: none;
 }
-/* six links and two buttons need about 936px; below 990px they move into the menu */
-@media (max-width: 1099px) {
+/* four links and the call button need about 760px; below 860px they move into the menu */
+@media (max-width: 859px) {
   .pg-nav-links {
     display: none;
   }
@@ -508,8 +508,7 @@ html.kit .pg-theme {
   }
 }
 @media (max-width: 560px) {
-  /* phones: the theme toggle and call button move into the menu sheet */
-  html .pg-nav-actions .pg-theme,
+  /* phones: the call button moves into the menu sheet */
   .pg-nav-actions .pg-nav-book {
     display: none;
   }
@@ -609,7 +608,13 @@ html.pg-locked {
 .pg-foot-legal {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-4);
+}
+.pg-foot-theme {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 13px;
 }
 
 /* ---- Forms (§6) ---------------------------------------------------- */
