@@ -47,21 +47,18 @@ const profiles = [
     </div>
   </section>
 
-  {/* 3. THE WORKSHOP: step bands for the four phases, key facts on the inverse card */}
+  {/* 3. THE WORKSHOP: one dark card per phase, then the key facts on a grey card with a black line */}
   <section class="pg-section pg-workshop" aria-label="The workshop">
     <div class="pg-container">
       <ol class="pg-steps">
         {
           workshop.phases.map((p, i) => (
-            <li class="pg-step pg-reveal" style={`--i:${i}`}>
-              <div class="pg-band">
-                <span class="pg-pill">Phase {i + 1}</span>
-                <h3 class="pg-h3">{p.name}</h3>
-                {i < workshop.phases.length - 1 && <span class="pg-band-arrow" aria-hidden="true">→</span>}
-              </div>
-              <div class="pg-card">
-                <p class="pg-small">{p.text}</p>
-                <p class="pg-result"><span class="pg-pill pg-pill-success">Result</span> {p.result}</p>
+            <li class="pg-card pg-card-inverse pg-phase pg-reveal" style={`--i:${i}`}>
+              <h3 class="pg-h3">Phase {i + 1}: {p.name}</h3>
+              <p class="pg-small">{p.text}</p>
+              <div class="pg-phase-result">
+                <h4 class="pg-label">Result</h4>
+                <p class="pg-small">{p.result}</p>
               </div>
             </li>
           ))

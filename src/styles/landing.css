@@ -353,11 +353,34 @@
   line-height: 1.55;
 }
 
-/* workshop facts: white card with a solid black line; in the dark theme the line is the green callout colour */
+/* workshop facts: light grey card with a solid black line; in the dark theme the line is the green callout colour */
 .pg-facts.pg-card-outlined {
   border-color: var(--ink);
-  background: var(--surface-page);
+  background: var(--surface-card);
 }
 :root.kit[data-theme="dark"] .pg-facts.pg-card-outlined {
   border: 2px solid var(--callout-border);
+}
+
+/* workshop phases: one dark card each, title, description, then the result under a plain heading */
+.pg-phase .pg-h3 {
+  color: var(--ink-on-inverse);
+}
+.pg-phase .pg-small {
+  color: var(--ink-on-inverse-muted);
+}
+.pg-phase-result {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--inverse-raised);
+}
+.pg-phase-result .pg-label {
+  color: var(--ink-on-inverse);
+}
+.pg-phase-result .pg-small {
+  margin-top: 4px;
+  color: var(--ink-on-inverse);
+}
+.pg-phase-result .pg-small::first-letter {
+  text-transform: uppercase; /* results are written lower case in the copy */
 }
