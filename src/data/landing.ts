@@ -150,10 +150,10 @@ export const diy = {
     {
       label: "AIDLC starter kit",
       price: "Free, open source",
-      text: "A structured way to build software with AI agents.",
-      button: "View on GitHub",
+      text: "Take a feature from discovery to an engineering-ready handoff, in plain language and without touching Git. Review, approval, an audit trail and evaluation are handled for you. Works with Claude, Copilot, Cursor or no assistant at all.",
+      button: "View on GitHub ↗",
       action: "link",
-      href: "", // TODO: repository URL
+      href: "https://github.com/gobokobok/aidlc-kit",
     },
     {
       label: "AI Implementation online",
