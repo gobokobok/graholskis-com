@@ -1421,4 +1421,274 @@ export const details: Record<string, CellDetail> = {
       "Standard reviewed as technical standards change",
     ],
   },
+
+  /* ---------------- 04 Data and knowledge ---------------- */
+
+  // Data classification
+  "classification-1": {
+    items: [
+      {
+        text: "For each data class, a plain rule on what may go into AI prompts and uploads.",
+        example:
+          "Public: any approved tool. Internal: approved enterprise tools. Confidential: Copilot inside our tenant only. Restricted, such as card numbers, health data and passwords: never in prompts.",
+      },
+    ],
+    artefacts: [
+      { name: "Prompt rules per data class", text: "One page: data class, allowed tools, what is never allowed." },
+      { name: "Examples per class", text: "What each class looks like in practice, for example a sales forecast is Confidential." },
+    ],
+    checklist: [
+      "Rules aligned with the existing data classification policy",
+      "Rules included in the AI policy and training",
+      "Examples given for each class",
+      "Data owners confirm the rules for their data",
+    ],
+  },
+  "classification-2": {
+    items: [
+      {
+        text: "The rules are enforced by tools, not only by training. Masking removes sensitive data before it reaches the model, and DLP blocks what should not leave.",
+        example:
+          "The gateway replaces customer names and IBAN account numbers with placeholders before the prompt is sent. DLP blocks uploads of files labelled Restricted to any AI tool.",
+      },
+    ],
+    artefacts: [
+      { name: "Masking rules", text: "Data types masked, masking method, exceptions and who approves them." },
+      { name: "DLP policy for AI tools", text: "What is blocked, what is warned, which tools are covered." },
+      { name: "Test cases", text: "Sample sensitive data used to prove masking and DLP work." },
+    ],
+    checklist: [
+      "Masking active for every pilot that uses personal data",
+      "DLP rules cover all approved AI tools",
+      "Masking and DLP tested with sample sensitive data",
+      "Blocked attempts reviewed every month",
+    ],
+  },
+  "classification-3": {
+    items: [
+      {
+        text: "Data is classified automatically when it is created or stored, so the rules apply without relying on people to label everything.",
+        example:
+          "Microsoft Purview labels documents that contain ID numbers or salary data as Confidential. AI tools read the label and apply the matching rules.",
+      },
+    ],
+    artefacts: [
+      { name: "Auto-labelling rules", text: "Patterns, label applied, document stores covered." },
+      { name: "Labelling accuracy report", text: "Sample checked, correct and wrong labels, fixes made." },
+    ],
+    checklist: [
+      "Auto-labelling covers the main document stores",
+      "Accuracy checked on a sample",
+      "AI tools respect the labels",
+      "Wrong labels reported and corrected",
+    ],
+  },
+
+  // Retrieval and knowledge
+  "retrieval-1": {
+    items: [
+      {
+        text: "People upload documents to an approved tool and ask questions about them.",
+        example:
+          "A buyer uploads a 60-page supplier contract to the approved assistant, asks for the termination clauses, then checks them in the original.",
+      },
+      {
+        text: "A team shares a set of documents and instructions in one workspace.",
+        example:
+          "The HR team keeps a project with the current policies and an instruction to answer only from them. New hires use it for policy questions.",
+      },
+    ],
+    artefacts: [
+      { name: "Upload rules", text: "Which documents may be uploaded to which tool, and how long they are kept." },
+      { name: "Shared project setup", text: "Owner, document list, instructions, review date." },
+    ],
+    checklist: [
+      "Uploads follow the data class rules",
+      "Every shared project has an owner",
+      "Documents in projects reviewed to keep them current",
+      "Projects with outdated content removed",
+    ],
+  },
+  "retrieval-2": {
+    items: [
+      {
+        text: "An assistant answers questions from a defined set of team documents.",
+        example: "A customer service assistant over 400 product and policy documents, used by 60 agents during calls.",
+      },
+      {
+        text: "Every answer shows which documents it came from, so people can check it.",
+        example:
+          "The answer ends with links to the two policy sections it used. If there is no source, it says so instead of answering.",
+      },
+    ],
+    artefacts: [
+      { name: "Source list", text: "Documents in scope, owner, update schedule." },
+      { name: "Retrieval eval set", text: "Questions with their correct answers and sources." },
+      { name: "Citation standard", text: "How sources are shown and what happens when none is found." },
+    ],
+    checklist: [
+      "Source documents owned and current",
+      "Every answer cites its sources",
+      "Eval set run before release and after source changes",
+      "Users can report a wrong answer",
+    ],
+  },
+  "retrieval-3": {
+    items: [
+      {
+        text: "One platform for indexing and search, reused by all use cases instead of each team building its own.",
+        example:
+          "Legal, HR and customer service each have an index on the same platform, with the same chunking, logging and eval setup.",
+      },
+      {
+        text: "Retrieval respects the access rights of the source system, so people only get answers from documents they may open.",
+        example:
+          "A sales employee asks about salaries. The HR documents are in the index but are filtered out, because the employee has no access to them in SharePoint.",
+      },
+    ],
+    artefacts: [
+      { name: "Retrieval platform reference design", text: "Components, chunking defaults, logging, evaluation." },
+      { name: "Permission test cases", text: "Users with different access, the questions they ask, the expected result." },
+      { name: "Index register", text: "Index, sources, owner, refresh schedule." },
+    ],
+    checklist: [
+      "New retrieval use cases use the shared platform",
+      "Permissions synced from the source systems",
+      "Permission tests run before each release",
+      "Index register kept current",
+    ],
+  },
+  "retrieval-4": {
+    items: [
+      {
+        text: "Each agent has its own identity and access rights, so what it can read is limited and logged.",
+        example:
+          "The supplier onboarding agent has its own service identity, with read access to procurement policies and supplier files only. Every document it reads is logged.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent identity standard", text: "How agent identities are created, what they may access, how credentials are handled." },
+      { name: "Agent access review", text: "Agent, permissions granted, permissions used, changes needed." },
+    ],
+    checklist: [
+      "Every agent has its own identity",
+      "Agent permissions limited to what the task needs",
+      "Documents read by agents are logged",
+      "Agent access reviewed every quarter",
+    ],
+  },
+
+  // Governed data products
+  "dataprod-2": {
+    items: [
+      {
+        text: "Pilots get a prepared and approved extract of the data they need, not direct access to production systems.",
+        example:
+          "For the claims triage pilot: 5,000 closed claims from 2025, personal identifiers removed, approved by the data owner, deleted after the pilot.",
+      },
+    ],
+    artefacts: [
+      { name: "Data request form", text: "Purpose, fields needed, period, users, retention." },
+      { name: "Extract record", text: "Source, fields, transformations, approval, expiry date." },
+    ],
+    checklist: [
+      "Each pilot uses an approved extract",
+      "Data owner has approved the extract",
+      "Only the fields needed are included",
+      "Extract deleted or renewed at expiry",
+    ],
+  },
+  "dataprod-3": {
+    items: [
+      {
+        text: "Key data sets are maintained as products, with an owner, documentation and quality checks.",
+        example:
+          "The customer interactions data product is owned by the CX data lead, refreshed daily, with a quality score and documented fields.",
+      },
+      {
+        text: "Access is granted through the data catalog, so it is consistent and auditable.",
+        example:
+          "The claims assistant team requests read access to the claims data product in Unity Catalog. The owner approves it, and the access is logged.",
+      },
+      {
+        text: "Sensitive columns are masked depending on who or what is asking.",
+        example: "Analysts and AI pipelines see the customer ID as a hash. Only the fraud team sees the real value.",
+      },
+    ],
+    artefacts: [
+      { name: "Data product specification", text: "Owner, fields, refresh, quality checks, consumers." },
+      { name: "Access request workflow", text: "Request, approval by the owner, logging, periodic review." },
+      { name: "Column masking policy", text: "Sensitive columns, masking method, who may see the real value." },
+    ],
+    checklist: [
+      "Production AI uses data from owned data products",
+      "Access granted through the catalog",
+      "Sensitive columns masked",
+      "Data product quality monitored",
+    ],
+  },
+  "dataprod-4": {
+    items: [
+      {
+        text: "Access is decided by attributes of the agent, the data and the task, so each agent sees only what its current task needs.",
+        example:
+          "The claims agent may read claims for the region and product line of the case it is working on, and only the fields tagged as needed for triage.",
+      },
+    ],
+    artefacts: [
+      { name: "Attribute model", text: "Attributes of agents, data and context used in access decisions." },
+      { name: "Access policies", text: "Rules written against the attributes, with an owner for each." },
+      { name: "Access test suite", text: "Scenarios that prove each agent sees only what it should." },
+    ],
+    checklist: [
+      "Every agent has defined attributes",
+      "Policies tested for each agent",
+      "Access decisions logged",
+      "Policies reviewed when an agent's task changes",
+    ],
+  },
+
+  // Synthetic data
+  "synthetic-2": {
+    items: [
+      {
+        text: "Developers and testers use synthetic data instead of real personal data wherever they can.",
+        example:
+          "A synthetic set of 10,000 customer emails, generated from templates and anonymised patterns, used to test the reply drafting pilot.",
+      },
+    ],
+    artefacts: [
+      { name: "Synthetic data request", text: "Purpose, size, properties the data must have, owner." },
+      { name: "Privacy check", text: "How the set was tested for re-identification and leaked real records." },
+    ],
+    checklist: [
+      "Development and test use synthetic or masked data by default",
+      "Synthetic sets checked for leaked real records",
+      "Purpose and owner recorded",
+      "Real data in test environments needs approval",
+    ],
+  },
+  "synthetic-3": {
+    items: [
+      {
+        text: "Common tools and settings for generating synthetic data, reused across teams.",
+        example: "One approved generator for tables and one for text, with standard configurations kept by the data platform team.",
+      },
+      {
+        text: "Synthetic data is checked to be close enough to real data for its purpose, and not so close that it exposes real records.",
+        example:
+          "Claims set: amount, type and region distributions within 5% of the real data. No synthetic record matches a real record on more than three fields.",
+      },
+    ],
+    artefacts: [
+      { name: "Generator catalogue", text: "Approved generators, data types, standard settings, owner." },
+      { name: "Fidelity and privacy report", text: "Comparison with real data, privacy tests, decision." },
+    ],
+    checklist: [
+      "Teams use the shared generators",
+      "Fidelity checked before use",
+      "Privacy check passed",
+      "Reports stored with the data set",
+    ],
+  },
 };
