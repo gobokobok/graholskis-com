@@ -1,0 +1,89 @@
+/* Privacy and terms on the Pill & Glow kit: dark header, then a contents list beside the text. */
+.lg-hero .pg-container {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+.lg-updated {
+  margin: 0;
+  color: var(--ink-muted);
+}
+.lg-layout {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 1025px) {
+  .lg-layout {
+    grid-template-columns: 240px minmax(0, 68ch);
+    gap: var(--space-6);
+  }
+  .lg-toc {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--space-4));
+    align-self: start;
+  }
+}
+.lg-toc {
+  padding: 20px 22px;
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+}
+.lg-toc ul {
+  display: grid;
+  gap: 2px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lg-toc a {
+  display: block;
+  padding: 4px 0;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+  text-decoration: none;
+}
+.lg-toc a:hover {
+  color: var(--accent-text);
+}
+.lg-prose {
+  color: var(--ink);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.lg-prose > p:first-child {
+  margin-top: 0;
+  font-size: clamp(16px, 1.44vw, 20px);
+  line-height: 1.45;
+}
+.lg-prose h2 {
+  margin: var(--space-6) 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  scroll-margin-top: calc(var(--nav-h) + var(--space-4));
+}
+.lg-prose h3 {
+  margin: var(--space-4) 0 4px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+}
+.lg-prose p {
+  margin: 0 0 var(--space-3);
+  color: var(--ink-muted);
+}
+.lg-prose ul {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 var(--space-3);
+  padding: 18px 22px 18px 40px;
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  color: var(--ink);
+}
+.lg-prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}

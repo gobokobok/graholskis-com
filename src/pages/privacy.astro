@@ -1,32 +1,41 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Container from "../components/Container.astro";
 import { contactEmail, legal } from "../config";
+import "../styles/legal.css";
+
+const toc = [["The short version", "the-short-version"], ["What I collect and why", "what-i-collect-and-why"], ["Services that handle data for me", "services-that-handle-data-for-me"], ["Cookies", "cookies"], ["How long I keep it", "how-long-i-keep-it"], ["Your rights", "your-rights"], ["Changes", "changes"]];
 ---
 
-<BaseLayout title="Privacy policy" description="What personal data graholskis.com collects, why, and what rights you have.">
-  <section class="legal-hero">
-    <Container>
-      <h1 class="h-sec">Privacy policy</h1>
-      <p class="meta legal-updated">Last updated {legal.updated}</p>
-    </Container>
+<BaseLayout title="Privacy policy" description="What personal data graholskis.com collects, why, and what rights you have." kit>
+  <section class="pg-section pg-dark glow lg-hero">
+    <div class="pg-container">
+      <span class="pg-pill pg-pill-soft">Legal</span>
+      <h1 class="pg-h1">Privacy policy</h1>
+      <p class="pg-small lg-updated">Last updated {legal.updated}</p>
+    </div>
   </section>
 
-  <Container as="article" class="legal">
+  <section class="pg-section">
+    <div class="pg-container lg-layout">
+      <nav class="lg-toc" aria-label="On this page">
+        <p class="pg-label">On this page</p>
+        <ul>{toc.map(([t, id]) => <li><a href={`#${id}`}>{t}</a></li>)}</ul>
+      </nav>
+      <article class="lg-prose">
     <p>
       This policy explains what personal data graholskis.com collects, why, and what you can ask me to do with it.
       The site is run by {legal.owner}, based in {legal.country}, who is responsible for your data as the data controller.
-      For any question about your data, email <a class="link" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+      For any question about your data, email <a class="pg-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
     </p>
 
-    <h2>The short version</h2>
+    <h2 id="the-short-version">The short version</h2>
     <ul>
       <li>The site has no analytics, no advertising and no tracking cookies.</li>
       <li>I only receive personal data when you send it to me: through the contact form, a self-check request, a booked call or a purchase.</li>
       <li>I use it to reply to you and to deliver what you asked for. I do not sell it or share it for marketing.</li>
     </ul>
 
-    <h2>What I collect and why</h2>
+    <h2 id="what-i-collect-and-why">What I collect and why</h2>
     <h3>Contact form</h3>
     <p>
       Your name, company, email address and, if you add one, your message. I use them to reply. The legal basis is my legitimate interest in answering
@@ -54,7 +63,7 @@ import { contactEmail, legal } from "../config";
       and the time. This is used to run and secure the site (Article 6(1)(f)) and is kept for a short period by the host.
     </p>
 
-    <h2>Services that handle data for me</h2>
+    <h2 id="services-that-handle-data-for-me">Services that handle data for me</h2>
     <ul>
       <li><strong>Railway</strong> hosts the site and its server logs.</li>
       <li><strong>Web3Forms</strong> delivers contact form and self-check requests to my email inbox.</li>
@@ -67,34 +76,36 @@ import { contactEmail, legal } from "../config";
       the EU-U.S. Data Privacy Framework or the European Commission's Standard Contractual Clauses.
     </p>
 
-    <h2>Cookies</h2>
+    <h2 id="cookies">Cookies</h2>
     <p>
       The site itself sets no cookies. Videos are embedded in YouTube's privacy-enhanced mode (youtube-nocookie.com), so YouTube does
       not set cookies until you press play. Once you play a video, Google may set cookies and collect data under its own privacy policy.
       Calendly and Lemon Squeezy set their own cookies when you use their pages.
     </p>
 
-    <h2>How long I keep it</h2>
+    <h2 id="how-long-i-keep-it">How long I keep it</h2>
     <p>
       Messages and booking details are kept for as long as needed to handle your request and any follow-up, and deleted at the latest
       24 months after our last contact. Purchase records are kept for as long as accounting law requires.
     </p>
 
-    <h2>Your rights</h2>
+    <h2 id="your-rights">Your rights</h2>
     <p>
       You can ask me to show you the data I hold about you, correct it, delete it, limit how I use it, or send it to you in a portable
-      format. You can also object to processing based on legitimate interest. Email <a class="link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      format. You can also object to processing based on legitimate interest. Email <a class="pg-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
       and I will reply within one month.
     </p>
     <p>
       If you think your data has been handled wrongly, you can complain to the data protection authority in your country{
         legal.country === "Latvia" && (
-          <>, or in Latvia to the Data State Inspectorate (<a class="link" href="https://www.dvi.gov.lv" rel="noopener" target="_blank">dvi.gov.lv</a>)</>
+          <>, or in Latvia to the Data State Inspectorate (<a class="pg-link" href="https://www.dvi.gov.lv" rel="noopener" target="_blank">dvi.gov.lv</a>)</>
         )
       }.
     </p>
 
-    <h2>Changes</h2>
+    <h2 id="changes">Changes</h2>
     <p>If this policy changes, the new version will be posted here with a new date at the top.</p>
-  </Container>
+      </article>
+    </div>
+  </section>
 </BaseLayout>
