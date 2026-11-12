@@ -28,7 +28,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Why the organisation uses AI, where it starts and what it will not do. One page, signed by an executive sponsor.",
         example:
-          "In 2027 we use AI to reduce the time spent on routine documents and customer replies. A person checks every output. We do not use AI to make decisions about employees or customers.",
+          "This year we use AI to reduce the time spent on routine documents and customer replies. A person checks every output. We do not use AI to make decisions about employees or customers.",
       },
       {
         text: "The rules for which AI spending is approved at this stage and which has to wait.",
@@ -62,7 +62,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "The AI capabilities the organisation needs in the next two to three years, with the current and target level for each.",
         example:
-          "Retrieval over internal documents: none today, target Level 3 by 2028. Evaluation: manual spot checks today, target an automated eval harness for every production use case.",
+          "Retrieval over internal documents: none today, target Level 3 in two years. Evaluation: manual spot checks today, target an automated eval harness for every production use case.",
       },
       {
         text: "A sequenced plan built from the maturity assessment, not from vendor offers.",
@@ -153,7 +153,7 @@ export const details: Record<string, CellDetail> = {
         example: "Finance team: summarise supplier contracts, draft month-end commentary, match invoice queries to answers.",
       },
       {
-        text: "Ideas raised during the AI at Work training are collected in one place.",
+        text: "Ideas raised during the all-staff training (the AI at Work track, see Training tracks) are collected in one place.",
         example:
           "After the session, each participant submits one weekly task that takes more than 30 minutes and could be drafted by AI.",
       },
@@ -168,7 +168,7 @@ export const details: Record<string, CellDetail> = {
     ],
     checklist: [
       "Each participating team has a backlog",
-      "Ideas from the AI at Work track collected in one list",
+      "Ideas from the all-staff training collected in one list",
       "Every idea has an owner",
       "Ideas that use restricted data are flagged",
     ],
@@ -178,7 +178,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Each candidate is scored on value, feasibility and risk with the same simple rubric.",
         example:
-          "Contract summarisation: value 4 (about 300 hours a year), feasibility 4 (documents already digital), risk 2 (internal use, human review).",
+          "Contract summarisation, each scored from 1 to 5: value 4 (about 300 hours a year), feasibility 4 (documents already digital), risk 2, which is low (internal use, human review).",
       },
       {
         text: "Only a few use cases move forward, so each gets enough attention to be measured properly.",
@@ -191,13 +191,13 @@ export const details: Record<string, CellDetail> = {
       },
     ],
     artefacts: [
-      { name: "Scoring rubric", text: "Value, feasibility, risk and data readiness, with a definition for each score from 1 to 5." },
+      { name: "Scoring rubric", text: "Value, feasibility and risk, with a definition for each score from 1 to 5. Data readiness is part of feasibility." },
       { name: "Prioritisation pack", text: "Scored list and recommendation for the steering group." },
       { name: "Pilot charter", text: "Problem, scope, baseline, success metric, owner, timeline, stop criteria." },
     ],
     checklist: [
       "All candidates scored with the same rubric",
-      "Top 3-5 agreed by the sponsor",
+      "Top 3-5 agreed by the steering group",
       "Lighthouse pilot has a signed charter",
       "Stop criteria agreed before the pilot starts",
     ],
@@ -205,7 +205,7 @@ export const details: Record<string, CellDetail> = {
   "portfolio-3": {
     items: [
       {
-        text: "A standing group owns the AI portfolio and meets on a fixed schedule.",
+        text: "A standing board owns the AI portfolio and meets on a fixed schedule. It replaces the steering group from Level 2.",
         example: "Monthly, chaired by the COO, with finance, IT, risk and two business unit heads.",
       },
       {
@@ -213,7 +213,7 @@ export const details: Record<string, CellDetail> = {
         example: "EUR 40,000 for the pilot. A further EUR 150,000 for production only if the pilot meets its success metric.",
       },
       {
-        text: "Each use case passes defined gates, with the evidence required at each one.",
+        text: "Each use case passes defined portfolio gates, where the board decides on funding and next stage. The delivery gates for each release are covered under Unified delivery and lifecycle.",
         example:
           "Pilot to production requires measured results against the baseline, a risk tier, an eval set and a named service owner.",
       },
@@ -222,11 +222,11 @@ export const details: Record<string, CellDetail> = {
       { name: "Portfolio board terms of reference", text: "Members, decisions it makes, meeting schedule, inputs it needs." },
       { name: "Stage-gate criteria", text: "Required evidence for each gate, from idea to retirement." },
       { name: "Funding request", text: "Stage, amount, evidence so far, expected benefit." },
-      { name: "Portfolio register", text: "Every use case with its owner, gate, funding and status." },
+      { name: "Portfolio view of the use-case register", text: "The same register, with gate, funding and status added for each funded use case." },
     ],
     checklist: [
       "Board meets on schedule and keeps minutes",
-      "Every funded use case is in the register with its current gate",
+      "Every funded use case is in the use-case register with its current gate",
       "Gate decisions recorded with their evidence",
       "Funding released only at gates",
     ],
@@ -275,7 +275,7 @@ export const details: Record<string, CellDetail> = {
       },
     ],
     artefacts: [
-      { name: "Adoption dashboard", text: "Active users, usage by department, trend over time." },
+      { name: "Adoption baseline record", text: "First-month figures for active users and usage by department, kept as the starting point for later comparison." },
       { name: "Time-saved pulse survey", text: "Three questions, sent monthly." },
     ],
     checklist: [
@@ -297,7 +297,7 @@ export const details: Record<string, CellDetail> = {
       },
       {
         text: "The pilot result is measured the same way as the baseline.",
-        example: "After six weeks: 6.5 minutes and 7% reopened. Target met, report signed by the team lead.",
+        example: "After six weeks: 6.5 minutes and 7% reopened. Target met, report signed by the business owner.",
       },
     ],
     artefacts: [
@@ -355,7 +355,7 @@ export const details: Record<string, CellDetail> = {
     checklist: [
       "Value figures come from system data, not surveys",
       "Each agent has a value card",
-      "Agents that cost more than they save are reviewed by the board",
+      "Agents that cost more than they save are reviewed by the portfolio board",
       "Reporting definitions documented",
     ],
   },
@@ -366,11 +366,11 @@ export const details: Record<string, CellDetail> = {
       {
         text: "The process is changed to fit the AI step, instead of adding AI to the old process.",
         example:
-          "Customer replies: AI drafts the reply when the ticket arrives, so the service agent reviews instead of writing. The second review is removed for standard replies.",
+          "Customer replies: AI drafts the reply when the ticket arrives, so the service adviser reviews instead of writing. The second review is removed for standard replies.",
       },
       {
         text: "Job descriptions and controls reflect the new way of working.",
-        example: "Service agents are responsible for checking AI drafts. The quality team samples 5% of sent replies each week.",
+        example: "Service advisers are responsible for checking AI drafts. The quality team samples 5% of sent replies each week.",
       },
     ],
     artefacts: [
@@ -383,6 +383,7 @@ export const details: Record<string, CellDetail> = {
       "Affected staff trained on the new process",
       "Control changes approved by risk",
       "Process owner named",
+      "Employee representatives informed or consulted where roles change",
     ],
   },
   "process-3": {
@@ -414,10 +415,10 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Processes are designed with \"agents\" as participants, with clear hand-offs between agent and person.",
         example:
-          "Supplier onboarding: the agent collects documents and checks they are complete. A person approves the supplier. The agent then creates the record in the ERP.",
+          "Supplier onboarding: the agent collects documents, checks they are complete and prepares a draft record in the ERP. A person approves the supplier, and only then does the record become active.",
       },
       {
-        text: "It is written down which decisions an agent may take and which stay with people.",
+        text: "For each process, the policy is applied step by step: which decisions the agent takes and which stay with people.",
         example: "The agent may request missing documents and send reminders. Only a person may approve a supplier or change bank details.",
       },
     ],
@@ -471,7 +472,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "It is clear who approves a pilot start, access to data and a wider rollout.",
         example:
-          "Pilot start: business owner and CoE lead. Access to customer data: data owner and DPO. Rollout to more users: portfolio sponsor.",
+          "Pilot start: business owner and CoE lead. Access to customer data: data owner and DPO. Rollout to more users: executive sponsor.",
       },
     ],
     artefacts: [
@@ -524,7 +525,7 @@ export const details: Record<string, CellDetail> = {
           "The supplier onboarding agent is owned by the procurement operations lead, who approves changes to its instructions and reviews its error log every week.",
       },
       {
-        text: "The organisation states which decisions agents may take and which stay with people.",
+        text: "The organisation states, in one policy, which kinds of decision agents may take and which stay with people.",
         example:
           "Agents may send standard replies and update ticket status. Payments, contract changes and anything about an employee always need a person.",
       },
@@ -623,7 +624,7 @@ export const details: Record<string, CellDetail> = {
   "coe-4": {
     items: [
       {
-        text: "The CoE provides shared AI services that teams use, such as the gateway, retrieval and evaluation.",
+        text: "The shared services the CoE built at Level 3, such as the gateway, retrieval and evaluation, are offered as self-service with published service levels.",
         example:
           "Teams request a new retrieval index through a self-service form. The platform team delivers it within two days, with logging and access control in place.",
       },
@@ -681,12 +682,12 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Deeper training for people who build or run use cases, taught in small groups.",
         example:
-          "Cohorts of 12 over six weeks: request design, evaluation, working with documents, and risks. Each person brings a real task.",
+          "Cohorts of 12 over six weeks: prompt design, evaluation, working with documents, and risks. Each person brings a real task.",
       },
       {
         text: "A team builds and tests one use case in a short, supported sprint.",
         example:
-          "A two-week sprint with the finance hub: build a first version of invoice query matching, test it on 200 past queries and present the results.",
+          "A two-week sprint with the finance team: build a first version of invoice query matching, test it on 200 past queries and present the results.",
       },
     ],
     artefacts: [
@@ -769,7 +770,7 @@ export const details: Record<string, CellDetail> = {
     ],
     checklist: [
       "Usage data pulled from vendor logs every month",
-      "Results shared with department heads",
+      "Results shared with department heads at team level, not by person",
       "Departments with low usage get a support plan",
       "Inactive licences reviewed every quarter",
     ],
@@ -825,16 +826,16 @@ export const details: Record<string, CellDetail> = {
       {
         text: "What data may go into which tool, by data classification.",
         example:
-          "Public and internal data: any approved tool. Confidential: Copilot only. Restricted, such as health data or card numbers: no AI tool without a separate approval.",
+          "Public and internal data: any approved tool. Confidential: Copilot only. Restricted, such as health data, card numbers and passwords: never in any AI tool. A use case that needs it goes through the exception route.",
       },
       {
         text: "Who is responsible for AI-assisted work.",
         example: "You are responsible for anything you send, publish or decide with AI help, in the same way as for your own work.",
       },
       {
-        text: "What AI must not be used for, in plain words.",
+        text: "What AI must not be used for, in plain words. The list covers what the law prohibits and what the organisation chooses not to do for now.",
         example:
-          "No AI for decisions about hiring, performance or dismissal. No emotion recognition at work. No uploading other people's personal data to check or profile them.",
+          "Prohibited by law: emotion recognition at work, and scoring people in ways the EU AI Act bans. Our own rule for now: no AI in decisions about hiring, performance or dismissal without an approved use case. No uploading other people's personal data to check or profile them.",
       },
       {
         text: "How to ask for something the policy does not allow, instead of working around it.",
@@ -843,7 +844,7 @@ export const details: Record<string, CellDetail> = {
       },
     ],
     artefacts: [
-      { name: "AI policy", text: "Scope, approved tools, data rules, accountability, prohibited uses, exceptions, review." },
+      { name: "AI policy", text: "Scope, approved tools, data rules, accountability, prohibited uses, copyright and third-party content, exceptions, review." },
       { name: "Acceptable use summary", text: "One page for all staff: what you can do, what you cannot, who to ask." },
       { name: "Exception request and log", text: "Request form, decision, conditions, expiry date." },
     ],
@@ -860,18 +861,20 @@ export const details: Record<string, CellDetail> = {
       {
         text: "The policy points to the risk tiers and says who approves use cases in each tier.",
         example:
-          "Low-risk use cases are approved by the business owner. Medium by the CoE. High by the AI risk committee, with legal and the DPO.",
+          "Low-risk use cases are approved by the CoE within two days. Medium by the CoE together with the data owner and security. High by the AI risk committee, with legal and the DPO.",
       },
     ],
     artefacts: [
       { name: "Policy update", text: "A section on risk tiers and the approval route for each." },
       { name: "Approval routes by tier", text: "One page: tier, approver, evidence needed, expected time." },
+      { name: "AI risk committee terms of reference", text: "Members from risk, legal, data protection, security and the business, the decisions it takes, how often it meets." },
     ],
     checklist: [
       "Policy updated with references to the risk tiers",
       "Approval route published for each tier",
       "Staff know how to submit a use case",
       "Approvals recorded against the tier",
+      "AI risk committee formed, with named members",
     ],
   },
   "policy-3": {
@@ -879,11 +882,11 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Policy requirements are checked at the delivery gates, not only written down.",
         example:
-          "The pilot-to-production gate checks that the data used matches the data rules and that the risk tier is approved. A release without these checks does not pass.",
+          "The release gate checks that the data used matches the data rules and that the risk tier is approved. A release without these checks does not pass.",
       },
       {
         text: "The policy is reviewed every year against new tools, incidents and regulation.",
-        example: "The 2027 review adds rules for meeting transcription tools and tightens the prohibited uses after two incidents.",
+        example: "This year's review adds rules for meeting transcription tools and tightens the prohibited uses after two incidents.",
       },
     ],
     artefacts: [
@@ -911,7 +914,7 @@ export const details: Record<string, CellDetail> = {
       { name: "Autonomy approval form", text: "Agent, requested level, risk tier, controls, approver." },
     ],
     checklist: [
-      "Autonomy rules approved by the risk committee",
+      "Autonomy rules approved by the AI risk committee",
       "Every agent's autonomy level matches the rules",
       "Exceptions approved and time-limited",
       "Rules reviewed after every agent incident",
@@ -922,18 +925,18 @@ export const details: Record<string, CellDetail> = {
   "inventory-1": {
     items: [
       {
-        text: "A simple list of every AI use, with its owner, purpose, data and the decision it feeds.",
+        text: "A simple list of every AI use, with its owner, purpose, data and the decision it informs.",
         example:
-          "Contract summaries. Owner: legal operations manager. Purpose: faster first review. Data: supplier contracts, Confidential. Decision fed: whether a contract goes to a lawyer.",
+          "Contract summaries. Owner: legal operations manager. Purpose: faster first review. Data: supplier contracts, Confidential. Decision informed: whether a contract goes to a lawyer.",
       },
     ],
     artefacts: [
-      { name: "AI use register", text: "Spreadsheet with one row per use: owner, purpose, data, decision fed, tool, status." },
+      { name: "Use-case register", text: "Spreadsheet with one row per use: owner, purpose, data, decision informed, tool, status." },
       { name: "What counts as an AI use", text: "Short guidance with examples, so teams know what to record." },
     ],
     checklist: [
       "Register created and owned by the CoE",
-      "Known uses recorded, including team-level ones",
+      "Known uses recorded, including team-level ones and AI features inside existing software",
       "Every entry has an owner",
       "Register reviewed every quarter",
     ],
@@ -947,7 +950,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "The depth of review depends on the risk, so low-risk ideas move fast.",
         example:
-          "Drafting internal emails: approved by the CoE in two days. Screening job applications: goes to the risk committee and needs a DPIA.",
+          "Drafting internal emails: approved by the CoE in two days. Screening job applications: goes to the AI risk committee and needs a DPIA.",
       },
     ],
     artefacts: [
@@ -988,14 +991,14 @@ export const details: Record<string, CellDetail> = {
   "inventory-4": {
     items: [
       {
-        text: "Every agent is in the register with its autonomy level, tools and permissions.",
+        text: "Every agent is in the use-case register with its purpose, autonomy level and limits. The register answers what the agent is allowed to do and who approved it.",
         example:
-          "Supplier onboarding agent. Autonomy A1. Tools: email, document store, draft supplier records in the ERP. Cannot approve suppliers. Owner: procurement operations lead.",
+          "Supplier onboarding agent. Autonomy A2: it requests documents and sends reminders on its own. Approval point: a person approves each supplier. Tools: email, document store, draft supplier records in the ERP. Owner: procurement operations lead.",
       },
     ],
     artefacts: [
       { name: "Agent register entry", text: "Agent, owner, autonomy level, tools, permissions, limits, review date." },
-      { name: "Quarterly agent review", text: "Permissions in the register compared with permissions in the systems." },
+      { name: "Quarterly register check", text: "Confirms each entry against the agent access review (see Agent identities and RBAC)." },
     ],
     checklist: [
       "Every agent registered before release",
@@ -1032,6 +1035,7 @@ export const details: Record<string, CellDetail> = {
       "DPA signed where personal data is processed",
       "AI vendors recorded in the third-party register",
       "Contract owner named for each vendor",
+      "AI features switched on inside software we already use are assessed in the same way",
     ],
   },
   "vendor-2": {
@@ -1110,7 +1114,7 @@ export const details: Record<string, CellDetail> = {
       },
       {
         text: "Higher tiers get deeper and more independent review.",
-        example: "Low: CoE review in two days. High: risk committee review, with testing by someone outside the delivery team.",
+        example: "Low: CoE review in two days. High: AI risk committee review, with testing by someone outside the delivery team.",
       },
     ],
     artefacts: [
@@ -1131,12 +1135,13 @@ export const details: Record<string, CellDetail> = {
         example: "Low tier: up to A3. Medium: up to A2. High: A1 at most, with a person approving every action.",
       },
     ],
-    artefacts: [{ name: "Tier and autonomy table", text: "Tier, highest allowed autonomy level, extra controls." }],
+    artefacts: [{ name: "Tier and autonomy table", text: "Tier, highest allowed autonomy level, extra controls, and the decisions about people that always need a person." }],
     checklist: [
-      "Table approved by the risk committee",
+      "Table approved by the AI risk committee",
       "Every agent within its allowed level",
       "Raising a level requires a new review",
       "Table reviewed every year",
+      "Decisions with legal or similar effect on a person are never left to an agent alone",
     ],
   },
 
@@ -1159,7 +1164,7 @@ export const details: Record<string, CellDetail> = {
   "oversight-2": {
     items: [
       {
-        text: "Clear rules send uncertain or sensitive cases to a person.",
+        text: "Pilots may let routine outputs through with lighter checks. Clear rules keep uncertain or sensitive cases with a person, who handles them in full.",
         example: "Replies about complaints, refunds over EUR 200 or legal threats always go to a person, whatever the AI suggests.",
       },
       {
@@ -1202,14 +1207,14 @@ export const details: Record<string, CellDetail> = {
   "oversight-4": {
     items: [
       {
-        text: "Four defined levels describe how much an agent may do on its own.",
+        text: "Four defined levels describe how much an agent or an automated workflow may do on its own.",
         example:
           "A0: the AI suggests, a person acts. A1: the AI prepares actions, a person approves each one. A2: the AI acts on defined low-risk actions, a person reviews samples and exceptions. A3: the AI acts within set limits, monitored, with a kill switch.",
       },
       {
         text: "Specific steps where an agent must stop and wait for a person.",
         example:
-          "The onboarding agent stops before creating a supplier in the ERP and before any message that commits the company to terms.",
+          "The onboarding agent stops before a draft supplier record becomes active in the ERP and before any message that commits the company to terms.",
       },
     ],
     artefacts: [
@@ -1228,7 +1233,7 @@ export const details: Record<string, CellDetail> = {
   "regscope-1": {
     items: [
       {
-        text: "Article 4 of the EU AI Act requires organisations to ensure their staff have sufficient AI literacy. It has applied since February 2025.",
+        text: "Article 4 of the EU AI Act asks organisations that provide or use AI to take measures so that their staff have sufficient AI literacy. It has applied since February 2025. Check the current text, as the article was under review in 2026.",
         example: "AI at Work training for all staff, extra modules for heavy users, and a training record for each person.",
       },
       {
@@ -1264,6 +1269,7 @@ export const details: Record<string, CellDetail> = {
       "Classification reviewed by legal",
       "Prohibited and high-risk cases escalated",
       "Record kept",
+      "Use cases that decide about people checked against the GDPR rules on automated decisions",
     ],
   },
   "regscope-3": {
@@ -1271,7 +1277,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Every use case in the register has its classification and the role the organisation plays: provider or deployer.",
         example:
-          "Customer chatbot: transparency duty, we are the deployer. Claims model built in-house: we are the provider.",
+          "Customer chatbot built on a vendor model and offered under our name: transparency duty, we are the provider of the chatbot. CV screening tool bought from a vendor: high-risk, we are the deployer.",
       },
       {
         text: "One list of the regulations that apply to AI use, with an owner for each.",
@@ -1293,24 +1299,28 @@ export const details: Record<string, CellDetail> = {
   "regscope-4": {
     items: [
       {
-        text: "If the organisation provides a high-risk AI system, it completes the conformity assessment before putting the system into service.",
-        example:
-          "Credit scoring model built in-house: technical documentation, risk management system, data governance, human oversight design and a conformity assessment before go-live.",
+        text: "If the organisation provides a high-risk AI system, it completes the conformity assessment before putting the system into service. This applies as soon as such a system is planned, whatever your level in other rows.",
+        example: "Credit scoring model built in-house: technical documentation, risk management system, data governance, human oversight design, a conformity assessment and registration in the EU database before go-live.",
+      },
+      {
+        text: "If the organisation uses a high-risk AI system built by someone else, it follows the provider's instructions, assigns trained people to oversee it, keeps the logs and tells the people affected. Some deployers must also assess the impact on fundamental rights before first use.",
+        example: "Bought CV screening tool: recruiters use it as the instructions say, two trained recruiters review every ranking, logs are kept for at least six months, and candidates and staff are told. A bank using a bought credit scoring system also completes a fundamental rights impact assessment.",
       },
       {
         text: "High-risk systems are monitored after release, and serious incidents are reported.",
-        example:
-          "Monthly review of accuracy and bias metrics, complaints and incidents. Serious incidents reported to the market surveillance authority within the legal deadline.",
+        example: "Monthly review of accuracy and bias metrics, complaints and incidents. Serious incidents reported to the market surveillance authority within the legal deadline.",
       },
     ],
     artefacts: [
       { name: "Technical documentation", text: "The documentation set the EU AI Act requires for a high-risk system." },
       { name: "Post-market monitoring plan", text: "Metrics, data sources, review schedule, owner." },
       { name: "Serious incident procedure", text: "What counts as serious, who decides, how and when to report." },
+      { name: "Deployer duties checklist", text: "Instructions for use, human oversight, logs, information to staff and affected people, impact assessment where required." },
     ],
     checklist: [
-      "High-risk systems identified",
-      "Conformity assessment done before the system goes into service",
+      "High-risk systems identified, with our role for each",
+      "Conformity assessment done before a system we provide goes into service",
+      "Deployer duties met for every high-risk system we use",
       "Post-market monitoring running",
       "Incident reporting procedure tested",
     ],
@@ -1338,7 +1348,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "The model risk framework covers LLM-based solutions, including prompts and retrieval.",
         example:
-          "The framework treats the prompt, the retrieval set and the vendor model version as parts of the model. In the UK, the PRA's SS1/23 uses a similarly broad definition of a model.",
+          "The framework treats the prompt, the retrieval set and the vendor model version as parts of the model. In the UK, the PRA's SS1/23 defines a model broadly and expects AI models to be covered by model risk management.",
       },
       {
         text: "Each model asset has a short document describing its purpose, data, limits and test results.",
@@ -1386,7 +1396,7 @@ export const details: Record<string, CellDetail> = {
   "transparency-3": {
     items: [
       {
-        text: "People are told when they talk to AI or see AI-generated content. Under Article 50 of the EU AI Act, these duties apply from August 2026.",
+        text: "People are told when they are talking to AI, and realistic synthetic images, audio and video are labelled. Article 50 of the EU AI Act sets the legal minimum and has applied since August 2026. Check the current text for transition rules.",
         example:
           "The website chatbot opens with \"You are chatting with an AI assistant. You can ask for a person at any time.\" Synthetic images and video in marketing are labelled.",
       },
@@ -1397,7 +1407,7 @@ export const details: Record<string, CellDetail> = {
     ],
     checklist: [
       "Every customer-facing chatbot discloses that it is AI",
-      "Generated images and video labelled",
+      "Realistic generated images, audio and video labelled",
       "Wording approved by legal",
       "Disclosure checked at release",
     ],
@@ -1405,7 +1415,7 @@ export const details: Record<string, CellDetail> = {
   "transparency-4": {
     items: [
       {
-        text: "AI-generated content carries a machine-readable mark, so it can be detected later.",
+        text: "AI-generated content carries a machine-readable mark, so it can be detected later. If you offer a generative AI system to others, the EU AI Act makes this a legal duty. For content you make with vendor tools, it is good practice.",
         example:
           "Generated images carry C2PA content credentials. Generated audio and video use the provider's watermark, and the marks are checked before publishing.",
       },
@@ -1430,7 +1440,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "For each data class, a plain rule on what may go into AI prompts and uploads.",
         example:
-          "Public: any approved tool. Internal: approved enterprise tools. Confidential: Copilot inside our tenant only. Restricted, such as card numbers, health data and passwords: never in prompts.",
+          "Public and internal: any approved tool. Confidential: Copilot inside our tenant only. Restricted, such as card numbers, health data and passwords: never in prompts or uploads.",
       },
     ],
     artefacts: [
@@ -1438,7 +1448,7 @@ export const details: Record<string, CellDetail> = {
       { name: "Examples per class", text: "What each class looks like in practice, for example a sales forecast is Confidential." },
     ],
     checklist: [
-      "Rules aligned with the existing data classification policy",
+      "Rules aligned with the data classification policy, or a simple four-class scheme adopted first",
       "Rules included in the AI policy and training",
       "Examples given for each class",
       "Data owners confirm the rules for their data",
@@ -1447,14 +1457,13 @@ export const details: Record<string, CellDetail> = {
   "classification-2": {
     items: [
       {
-        text: "The rules are enforced by tools, not only by training. Masking removes sensitive data before it reaches the model, and DLP blocks what should not leave.",
+        text: "The rules are enforced by tools, not only by training. Masking replaces the sensitive data it detects before a prompt reaches the model, and DLP blocks what should not leave. How the tools work is covered under PII masking and DLP.",
         example:
-          "The gateway replaces customer names and IBAN account numbers with placeholders before the prompt is sent. DLP blocks uploads of files labelled Restricted to any AI tool.",
+          "The gateway replaces customer names and IBANs with placeholders before the prompt is sent. DLP blocks uploads of files labelled Restricted to any AI tool.",
       },
     ],
     artefacts: [
-      { name: "Masking rules", text: "Data types masked, masking method, exceptions and who approves them." },
-      { name: "DLP policy for AI tools", text: "What is blocked, what is warned, which tools are covered." },
+      { name: "Data class to control mapping", text: "Data class, control applied (allow, mask, block), tool that enforces it." },
       { name: "Test cases", text: "Sample sensitive data used to prove masking and DLP work." },
     ],
     checklist: [
@@ -1469,7 +1478,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Data is classified automatically when it is created or stored, so the rules apply without relying on people to label everything.",
         example:
-          "Microsoft Purview labels documents that contain ID numbers or salary data as Confidential. AI tools read the label and apply the matching rules.",
+          "Microsoft Purview labels documents that contain salary data as Confidential and documents with national ID numbers as Restricted. Copilot honours the labels, and DLP rules use them to block uploads to other AI tools.",
       },
     ],
     artefacts: [
@@ -1479,7 +1488,7 @@ export const details: Record<string, CellDetail> = {
     checklist: [
       "Auto-labelling covers the main document stores",
       "Accuracy checked on a sample",
-      "AI tools respect the labels",
+      "Each approved AI tool either honours the labels or is covered by a DLP rule",
       "Wrong labels reported and corrected",
     ],
   },
@@ -1513,7 +1522,7 @@ export const details: Record<string, CellDetail> = {
     items: [
       {
         text: "An assistant answers questions from a defined set of team documents.",
-        example: "A customer service assistant over 400 product and policy documents, used by 60 agents during calls.",
+        example: "A customer service assistant over 400 product and policy documents, used by 60 service advisers during calls.",
       },
       {
         text: "Every answer shows which documents it came from, so people can check it.",
@@ -1561,20 +1570,20 @@ export const details: Record<string, CellDetail> = {
   "retrieval-4": {
     items: [
       {
-        text: "Each agent has its own identity and access rights, so what it can read is limited and logged.",
+        text: "Each agent has its own identity and access rights, so what it can read is limited and logged. When an agent works for a particular person, it reads no more than that person may open.",
         example:
           "The supplier onboarding agent has its own service identity, with read access to procurement policies and supplier files only. Every document it reads is logged.",
       },
     ],
     artefacts: [
-      { name: "Agent identity standard", text: "How agent identities are created, what they may access, how credentials are handled." },
-      { name: "Agent access review", text: "Agent, permissions granted, permissions used, changes needed." },
+      { name: "Agent retrieval scope", text: "Agent, indexes and document stores it may read, and the rule for work done on behalf of a user." },
+      { name: "Agent read log", text: "Agent, document read, case, time." },
     ],
     checklist: [
-      "Every agent has its own identity",
+      "Every agent retrieves under its own identity (see Agent identities and RBAC)",
       "Agent permissions limited to what the task needs",
       "Documents read by agents are logged",
-      "Agent access reviewed every quarter",
+      "Tests show an agent does not reveal documents its user may not open",
     ],
   },
 
@@ -1584,7 +1593,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Pilots get a prepared and approved extract of the data they need, not direct access to production systems.",
         example:
-          "For the claims triage pilot: 5,000 closed claims from 2025, personal identifiers removed, approved by the data owner, deleted after the pilot.",
+          "For the claims triage pilot: 5,000 closed claims from last year, personal identifiers removed, approved by the data owner, deleted after the pilot.",
       },
     ],
     artefacts: [
@@ -1606,7 +1615,7 @@ export const details: Record<string, CellDetail> = {
           "The customer interactions data product is owned by the CX data lead, refreshed daily, with a quality score and documented fields.",
       },
       {
-        text: "Access is granted through the data catalog, so it is consistent and auditable.",
+        text: "Access is granted through the data catalogue, so it is consistent and auditable.",
         example:
           "The claims assistant team requests read access to the claims data product in Unity Catalog. The owner approves it, and the access is logged.",
       },
@@ -1622,7 +1631,7 @@ export const details: Record<string, CellDetail> = {
     ],
     checklist: [
       "Production AI uses data from owned data products",
-      "Access granted through the catalog",
+      "Access granted through the data catalogue",
       "Sensitive columns masked",
       "Data product quality monitored",
     ],
@@ -1704,7 +1713,7 @@ export const details: Record<string, CellDetail> = {
       },
       {
         text: "Licences are given by role and need, not to everyone at once.",
-        example: "Copilot for all office staff. A chat assistant with a larger context window for legal and finance analysts. Image tools for marketing only.",
+        example: "Copilot for all office staff. A chat assistant that can read very long documents for legal and finance analysts. Image tools for marketing only.",
       },
     ],
     artefacts: [
@@ -1736,6 +1745,7 @@ export const details: Record<string, CellDetail> = {
       "Power users trained before access",
       "Rules on repositories and secrets in place",
       "Usage reviewed every quarter",
+      "Access to every AI tool reviewed with the regular access review",
     ],
   },
 
@@ -1749,10 +1759,10 @@ export const details: Record<string, CellDetail> = {
       },
       {
         text: "Data is processed and stored in the EU where the provider offers it.",
-        example: "The tenant is set to EU data residency. The provider's subprocessor list is checked for any transfer outside the EU.",
+        example: "The tenant is set to EU data residency. The record states where data is stored and where the model runs, as the two can differ. The provider's subprocessor list is checked for any transfer outside the EU.",
       },
       {
-        text: "A data processing agreement covers the model provider.",
+        text: "The data processing agreement from the vendor assessment covers the model provider and its model-specific terms.",
         example: "The DPA sets how long prompts are kept for abuse monitoring and requires notice before a new subprocessor is added.",
       },
     ],
@@ -1793,19 +1803,25 @@ export const details: Record<string, CellDetail> = {
     items: [
       {
         text: "Each use case uses the cheapest model that passes its eval set, not the largest model by default.",
-        example:
-          "Ticket classification uses a small model at a tenth of the cost, because it scores the same on the eval set. Contract analysis uses a larger model.",
+        example: "Ticket classification uses a small model at a tenth of the cost, because it scores the same on the eval set. Contract analysis uses a larger model.",
+      },
+      {
+        text: "Each production use case names the exact model version it runs on. Provider retirement dates are tracked, and a replacement is tested before the old version is switched off.",
+        example: "The provider announces that the model behind reply drafting will be retired in six months. The owner runs the eval set on two newer models, picks one and releases it eight weeks before the deadline.",
       },
     ],
     artefacts: [
       { name: "Model selection policy", text: "How models are chosen, who decides, when the choice is reviewed." },
       { name: "Model choice record", text: "Models tested, eval scores, cost per request, decision." },
+      { name: "Model version tracker", text: "Use case, model version, provider retirement date, replacement, test status." },
     ],
     checklist: [
       "Every production use case has a recorded model choice",
       "Choice based on eval results and cost",
       "Choice reviewed when new models are approved",
       "Policy published",
+      "Every production use case runs on a named model version",
+      "Provider retirement dates tracked, with a tested replacement",
     ],
   },
 
@@ -1822,7 +1838,7 @@ export const details: Record<string, CellDetail> = {
       },
       {
         text: "Limits stop one team, or one bug, from using up the capacity or the budget.",
-        example: "Each pilot has a per-minute request limit and a EUR 500 monthly cap. A runaway loop is stopped in minutes, not found on the invoice.",
+        example: "Each pilot has a per-minute request limit and a EUR 2,500 monthly cap. A runaway loop is stopped in minutes, not found on the invoice.",
       },
     ],
     artefacts: [
@@ -1892,20 +1908,26 @@ export const details: Record<string, CellDetail> = {
   "pii-2": {
     items: [
       {
-        text: "Personal data is removed or replaced before a request leaves the company network.",
-        example:
-          "Names, email addresses and phone numbers are replaced with tokens such as [PERSON_1]. The model works on the tokens, and the gateway puts the real values back in the answer.",
+        text: "Personal data that the gateway detects is replaced before a request leaves the company network. Detection is never complete, so masking lowers the risk and does not replace the contract terms with the provider.",
+        example: "Names, email addresses and phone numbers are replaced with tokens such as [PERSON_1]. The model works on the tokens, and the real values are put back only in the draft shown to the user.",
+      },
+      {
+        text: "Data loss prevention rules stop sensitive files and text from being sent to AI tools that are not approved for them.",
+        example: "DLP blocks uploads of files labelled Restricted to any AI tool, and warns when someone pastes a list of customer records into a chat.",
       },
     ],
     artefacts: [
       { name: "Masking configuration", text: "Data types detected, replacement method, exceptions." },
       { name: "Masking test set", text: "Realistic samples with personal data, and the expected masked result." },
+      { name: "DLP policy for AI tools", text: "What is blocked, what is warned, which tools are covered." },
     ],
     checklist: [
       "Masking enabled for every pilot with personal data",
       "Masking tested on realistic samples",
       "Masking failures logged",
       "Effect on answer quality checked",
+      "DLP rules cover all approved AI tools",
+      "Blocked attempts reviewed every month",
     ],
   },
   "pii-3": {
@@ -1915,7 +1937,7 @@ export const details: Record<string, CellDetail> = {
         example: "Internal: no masking. Confidential: personal data masked. Restricted: request blocked, and the user is told why.",
       },
       {
-        text: "Only approved services can turn tokens back into real values, and every case is logged.",
+        text: "At Level 2 the gateway restores values for every caller. Now only approved services can turn tokens back into real values, and every case is logged.",
         example: "The reply drafting service may restore customer names in the final draft. Analysts working on logs see tokens only.",
       },
     ],
@@ -2048,7 +2070,7 @@ export const details: Record<string, CellDetail> = {
           "Claims coding reached 81% accuracy with prompting and retrieval. A fine-tuned small model reached 94% at lower cost, so the fine-tune was approved.",
       },
       {
-        text: "Fine-tuned models are recorded with their data, version and test results.",
+        text: "Fine-tuned models are recorded in a model registry with their data, version and test results. Each one also has an entry in the AI asset catalogue.",
         example: "Registry entry: base model, training data and version, eval results, owner, approved uses, retirement date.",
       },
     ],
@@ -2060,7 +2082,7 @@ export const details: Record<string, CellDetail> = {
       "Fine-tuning approved only with eval evidence",
       "Training data approved by the data owner",
       "Every fine-tuned model in the registry",
-      "Retraining and retirement planned",
+      "Retraining and retirement planned, including the provider's retirement of the base model",
     ],
   },
 
@@ -2098,7 +2120,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "A fixed process where one step uses an LLM and the rest is ordinary automation. If you can draw the flowchart in advance, it is a workflow, not an agent.",
         example:
-          "An invoice email triggers a flow. The LLM step reads the invoice and returns supplier, amount and due date. The flow checks the values against the ERP and creates the entry.",
+          "An invoice email triggers a flow. The LLM step reads the invoice and returns supplier, amount and due date. The flow checks the values against the ERP and prepares the entry for a clerk to confirm.",
       },
       {
         text: "The LLM pulls structured fields out of unstructured text.",
@@ -2177,7 +2199,7 @@ export const details: Record<string, CellDetail> = {
       },
     ],
     artefacts: [
-      { name: "Connector approval record", text: "Connector, system, data it can read, owner, approval." },
+      { name: "Approved connector list", text: "Connector, system, data it can read, owner, approval. The same list as in Vendor and third-party risk." },
       { name: "Read-only verification test", text: "Attempts to write through the connector, all of which must fail." },
     ],
     checklist: [
@@ -2190,7 +2212,7 @@ export const details: Record<string, CellDetail> = {
   "mcp-3": {
     items: [
       {
-        text: "Every connector is in a registry, with an owner, its permissions and its version.",
+        text: "The approved connector list becomes a registry: every connector has an owner, its permissions and a fixed, reviewed version.",
         example:
           "Registry entry: CRM MCP server, owned by the CRM platform team, read access to accounts and opportunities, version 1.4, last security review in September.",
       },
@@ -2204,6 +2226,7 @@ export const details: Record<string, CellDetail> = {
       "Each connector has an owner",
       "Security review at least yearly and after major versions",
       "Unregistered connectors blocked",
+      "Third-party connectors run at a reviewed version, not the latest by default",
     ],
   },
   "mcp-4": {
@@ -2230,7 +2253,7 @@ export const details: Record<string, CellDetail> = {
   "orch-4": {
     items: [
       {
-        text: "Several agents working together are used only when one agent or a fixed workflow cannot do the job. Errors multiply across steps: ten agents at 90% accuracy each give about 35% end-to-end success.",
+        text: "Several agents working together are used only when one agent or a fixed workflow cannot do the job. Errors multiply across steps: ten steps in a row at 90% accuracy each give about 35% end-to-end success.",
         example:
           "Contract review runs as one agent with tools. A second agent is added for translation only after tests show the combined accuracy still meets the target.",
       },
@@ -2288,7 +2311,7 @@ export const details: Record<string, CellDetail> = {
           "A prompt change and a new agent go through the same stages: plan, build, evaluate, release, operate, retire. Only the evidence differs.",
       },
       {
-        text: "Each stage ends with a gate and a recorded decision.",
+        text: "Each delivery stage ends with a gate and a recorded decision. The release gate supplies the evidence for the portfolio board's pilot-to-production decision.",
         example: "Release gate: eval results meet the target, security review passed, owner signs off, catalogue entry updated.",
       },
       {
@@ -2318,9 +2341,12 @@ export const details: Record<string, CellDetail> = {
   "adlm-4": {
     items: [
       {
-        text: "Coding agents that build AI assets follow the same method, and agents in production are managed through it like any other asset.",
-        example:
-          "A coding agent writes a plan, opens a pull request and runs the evals, and a person approves the merge. The supplier onboarding agent has a version and an owner, and every change to its instructions passes the release gate.",
+        text: "Coding agents that build AI assets follow the same method as people do.",
+        example: "A coding agent writes a plan, opens a pull request and runs the evals, and a person approves the merge.",
+      },
+      {
+        text: "Agents in production are managed through the method like any other asset.",
+        example: "The supplier onboarding agent has a version and an owner, and every change to its instructions passes the release gate.",
       },
     ],
     artefacts: [
@@ -2343,9 +2369,9 @@ export const details: Record<string, CellDetail> = {
         example: "One GitHub organisation for AI work. Prompts are files in the repository, with history and review, not text pasted into a tool.",
       },
       {
-        text: "Each repository has an instructions file that tells coding agents how to work in it.",
+        text: "Each repository has an instructions file that tells coding agents how to work in it. The file guides the agent. The permission settings enforce the limits.",
         example:
-          "CLAUDE.md lists the build and test commands, the folder structure, the rule to write a plan first and the files the agent must never change.",
+          "CLAUDE.md lists the build and test commands, the folder structure, the rule to write a plan first and the files the agent should leave alone.",
       },
       {
         text: "Coding agents run with settings that limit what they may do.",
@@ -2360,7 +2386,7 @@ export const details: Record<string, CellDetail> = {
     ],
     checklist: [
       "All AI work in central repositories",
-      "Every repository has a CLAUDE.md",
+      "Every repository has an agent instructions file",
       "Permission baseline applied",
       "No secrets in repositories",
     ],
@@ -2406,15 +2432,15 @@ export const details: Record<string, CellDetail> = {
       "Spot checks on a fixed schedule",
       "Errors recorded by type",
       "Results shared with users",
-      "Repeated errors fed back into training",
+      "Repeated errors fed back into staff training and the prompt guide",
     ],
   },
   "eval-2": {
     items: [
       {
-        text: "Each pilot has a set of test cases with expected results, and a baseline score before any change.",
+        text: "Each pilot has a set of test cases with expected results, and a first score to compare every later change with. This is separate from the business baseline in Baselines and benefits.",
         example:
-          "Reply drafting: 200 real tickets with approved replies. Baseline: 78% of first drafts acceptable. Every prompt change is scored against it.",
+          "Reply drafting: 200 real tickets with approved replies. First score: 78% of first drafts acceptable. Every prompt change is scored against it.",
       },
       {
         text: "Some test cases are never used while tuning, so the score stays honest.",
@@ -2442,7 +2468,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Agreed metrics for each solution pattern, so \"good\" means the same in every team.",
         example:
-          "Extraction: field accuracy. Classification: accuracy and errors by category. RAG: answer correctness, citation accuracy and abstention rate.",
+          "Extraction: field accuracy. Classification: accuracy and errors by category. RAG: answer correctness, citation accuracy and abstention rate. Use cases that affect people: the same metrics compared across groups.",
       },
     ],
     artefacts: [
@@ -2460,19 +2486,19 @@ export const details: Record<string, CellDetail> = {
   "eval-4": {
     items: [
       {
-        text: "Evals run automatically on a schedule and on samples of production traffic, not only before releases.",
+        text: "Evals run automatically on a schedule against the production version, not only before releases. Scoring of live traffic is covered under Monitoring and drift.",
         example:
-          "Every night the harness runs each eval set against the production version and scores 100 sampled production answers with the LLM judge. A drop of more than 3 points alerts the owner.",
+          "Every night the harness runs each eval set against the production version. A drop of more than 3 points alerts the owner, for example after the provider updates a model.",
       },
     ],
     artefacts: [
-      { name: "Eval schedule", text: "Use case, eval sets, frequency, production sample size." },
+      { name: "Eval schedule", text: "Use case, eval sets, frequency, owner." },
       { name: "Alert rules", text: "Metric, threshold, who is alerted." },
       { name: "Trend dashboard", text: "Scores over time for every production use case." },
     ],
     checklist: [
       "Evals run on a schedule",
-      "Production samples scored",
+      "Eval sets refreshed with new cases from production",
       "Alerts reach the owners",
       "Trends reviewed every month",
     ],
@@ -2484,7 +2510,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "A first catalogue lists each AI asset with its owner, version and risk tier.",
         example:
-          "Twelve entries in a shared table, for example the reply drafting prompt v1.3, owned by the customer service lead, medium tier. Updated with every release.",
+          "Twelve entries in a shared table, for example the reply drafting prompt v1.3, owned by the head of customer service, medium tier. Updated with every release.",
       },
     ],
     artefacts: [
@@ -2501,9 +2527,9 @@ export const details: Record<string, CellDetail> = {
   "catalog-3": {
     items: [
       {
-        text: "Each shared asset has a steward who answers for its quality and how it is reused.",
+        text: "Each catalogue entry now names the steward, the versions and the teams that use the asset. The steward role is described under AI CoE and champions.",
         example:
-          "The steward of the extraction pattern answers questions from teams reusing it and approves changes to the shared version.",
+          "Entry for the extraction pattern: steward, versions 2.1 and 2.2, three consuming teams and the latest eval results.",
       },
       {
         text: "Teams use a fixed, tested version of a shared asset, not the latest one by default.",
@@ -2520,7 +2546,7 @@ export const details: Record<string, CellDetail> = {
       { name: "Deprecation notice", text: "Asset, version, removal date, replacement, contact." },
     ],
     checklist: [
-      "Every shared asset has a steward",
+      "Every entry names its steward and consumers",
       "Consumers pin versions",
       "Deprecations announced with a removal date",
       "No production use of removed versions",
@@ -2529,9 +2555,9 @@ export const details: Record<string, CellDetail> = {
   "catalog-4": {
     items: [
       {
-        text: "Agents appear in the catalogue with their autonomy level, tools and owner, next to the other assets.",
+        text: "Agents appear in the catalogue next to the other assets, with their version, tools and eval results. The catalogue answers what exactly is running. The autonomy level is copied from the register.",
         example:
-          "Supplier onboarding agent v3.0. Autonomy A1. Tools: email, document store, ERP drafts. Owner: procurement operations lead.",
+          "Supplier onboarding agent v3.0. Autonomy A2, with an approval point for each supplier. Tools: email, document store, ERP drafts. Latest eval: 96% of test cases handled correctly. Owner: procurement operations lead.",
       },
     ],
     artefacts: [
@@ -2608,6 +2634,7 @@ export const details: Record<string, CellDetail> = {
       "Results recorded",
       "Failures fixed before more users are added",
       "Tests repeated after major changes",
+      "Pilot permissions limited, so a successful injection cannot send or change anything",
     ],
   },
   "sectest-3": {
@@ -2637,7 +2664,7 @@ export const details: Record<string, CellDetail> = {
       },
     ],
     artefacts: [
-      { name: "Adversarial testing plan", text: "Scope, frequency, methods, who tests." },
+      { name: "Adversarial testing plan", text: "Scope, frequency, methods, who tests. OWASP guidance for LLM and agentic applications is the reference list of attacks." },
       { name: "Findings log", text: "Finding, severity, owner, fix date." },
     ],
     checklist: [
@@ -2668,6 +2695,7 @@ export const details: Record<string, CellDetail> = {
       "Usage reports exported every month",
       "Retention period agreed with security",
       "Access to logs limited",
+      "Usage monitoring agreed with the DPO and, where required, employee representatives",
     ],
   },
   "logging-2": {
@@ -2700,7 +2728,7 @@ export const details: Record<string, CellDetail> = {
         example: "Each business unit pays for its own use cases from its budget. Platform costs are split by share of usage.",
       },
       {
-        text: "Each use case has a budget, and its owner is told before the budget runs out.",
+        text: "Each use case has a budget agreed with finance. The gateway quota enforces it, and the owner and finance see a forecast before it runs out.",
         example:
           "At 80% of the monthly budget, the owner and the finance partner get an email. The dashboard shows a forecast for the rest of the month.",
       },
@@ -2722,7 +2750,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Cost is measured per action an agent takes, so it can be compared with the cost of a person doing the same work.",
         example:
-          "Supplier onboarding agent: EUR 0.40 per document check and EUR 1.10 per completed onboarding, including retries. A person needs 25 minutes for the same onboarding.",
+          "Supplier onboarding agent: EUR 0.15 per document check and EUR 1.10 per completed onboarding, including retries and five document checks on average. A person needs 25 minutes for the same onboarding.",
       },
     ],
     artefacts: [
@@ -2759,19 +2787,19 @@ export const details: Record<string, CellDetail> = {
       "Decision log kept for every pilot",
       "Prompts and configuration in Git",
       "Each run records the versions it used",
-      "Decision log reviewed at the stage gate",
+      "Decision log reviewed at the end of the pilot",
     ],
   },
   "lineage-3": {
     items: [
       {
-        text: "Records of AI activity are stored where they cannot be changed or deleted before the retention period ends.",
+        text: "Records of AI activity are stored where they cannot be changed or deleted before the retention period ends. The records hold as little personal data as the audit purpose needs.",
         example: "Gateway logs and approval records go to write-once storage, kept for seven years for credit-related use cases.",
       },
       {
         text: "Every run gets an ID that links the input, the versions used, the output and any approval.",
         example:
-          "Run 7f3a2c links the customer email, prompt v2.4, the model version, the draft reply and the service agent who approved it.",
+          "Run 7f3a2c links the customer email, prompt v2.4, the model version, the draft reply and the service adviser who approved it.",
       },
     ],
     artefacts: [
@@ -2784,6 +2812,7 @@ export const details: Record<string, CellDetail> = {
       "Run ID on every production call",
       "Retention set for each use case",
       "Audit trail tested by reconstructing a past case",
+      "Personal data in audit records and retention periods agreed with the DPO",
     ],
   },
   "lineage-4": {
@@ -2840,7 +2869,7 @@ export const details: Record<string, CellDetail> = {
       },
       {
         text: "When monitoring shows a clear failure after a release, the service returns to the last good version without waiting for a person.",
-        example: "If the judge score drops 10 points within two hours of a release, the gateway routes traffic back to v2.3 and the owner is paged.",
+        example: "If the judge score drops 10 points within two hours of a release, the pipeline redeploys v2.3.1 and the owner is paged.",
       },
     ],
     artefacts: [
@@ -2909,7 +2938,7 @@ export const details: Record<string, CellDetail> = {
       },
     ],
     artefacts: [
-      { name: "AI incident categories and severities", text: "Category, examples, severity rules, response times." },
+      { name: "AI incident categories and severities", text: "Category, examples, severity rules, response times, and whether a report to a regulator may be needed." },
       { name: "Runbook template", text: "Failure, symptoms, checks, fix, escalation." },
       { name: "Post-incident review", text: "What happened, impact, cause, actions, owner." },
     ],
@@ -2918,6 +2947,7 @@ export const details: Record<string, CellDetail> = {
       "Severities defined for AI incidents",
       "Runbook for every production service",
       "Post-incident reviews held for major incidents",
+      "Each major incident checked for reporting duties under GDPR, the EU AI Act and, in financial services, DORA",
     ],
   },
   "incident-4": {
@@ -2946,7 +2976,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "If the AI step is unavailable, people can do the work the old way.",
         example:
-          "If reply drafting is down, service agents write replies by hand from the template library. Team leads know how to switch, and the switch is tested once during the pilot.",
+          "If reply drafting is down, service advisers write replies by hand from the template library. Team leads know how to switch, and the switch is tested once during the pilot.",
       },
     ],
     artefacts: [
@@ -2965,7 +2995,7 @@ export const details: Record<string, CellDetail> = {
       {
         text: "Critical services can switch to a second model provider.",
         example:
-          "The policy assistant runs on the main provider and is tested on the second provider every quarter. Switching takes one routing change at the gateway.",
+          "The policy assistant runs on the main provider and is tested on the second provider every quarter. The gateway fallback switches it automatically, and the test confirms that quality holds.",
       },
       {
         text: "Each AI service has agreed recovery times, like any other IT service.",

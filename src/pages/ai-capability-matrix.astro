@@ -39,7 +39,7 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
       <h1 class="pg-h1 mx-title">AI capability matrix</h1>
       <p class="pg-lead">
         What an organisation needs to use AI safely and at scale: {capCount} capabilities in {domains.length} domains, across four
-        levels of maturity. Each level builds on the one before.
+        levels of maturity. Each level builds on the one before, so a cell lists only what that level adds.
       </p>
       <dl class="mx-facts">
         <div class="pg-card"><dt class="pg-label">Levels</dt><dd class="pg-h2">{levels.length}</dd></div>
@@ -67,15 +67,28 @@ const data = { levels, domains, typeLabel, typeHelp, terms, details };
         <li class="pg-card">
           <h3 class="pg-h3">Cells</h3>
           <p class="pg-small">
-            Each cell shows its main item, and <span class="mx-more">+2</span> means two more. Select a cell to see them all.
+            Each cell shows the main thing that level adds, and <span class="mx-more">+2</span> means two more. Select a cell to see them all, with examples, artefacts and a checklist. An empty cell means the level adds nothing new.
           </p>
         </li>
         <li class="pg-card">
           <h3 class="pg-h3">Tags</h3>
           <p class="pg-small">
             Capabilities without a tag apply to every organisation. <span class="pg-pill pg-pill-soft mx-tag">Conditional</span> ones
-            are only needed if you use that technology, such as retrieval, connectors or agents.
+            are only needed if you use that technology, such as your own AI applications, retrieval, connectors or agents.
             <span class="pg-pill pg-pill-dashed mx-tag">Industry</span> ones depend on your industry and regulator.
+          </p>
+        </li>
+        <li class="pg-card">
+          <h3 class="pg-h3">Assess yourself</h3>
+          <p class="pg-small">
+            You have reached a level in a row when you can tick every line of its checklist and of the levels before it. Most
+            organisations are at different levels in different rows. That is normal. The lowest rows show where to work next.
+          </p>
+        </li>
+        <li class="pg-card">
+          <h3 class="pg-h3">Level 4</h3>
+          <p class="pg-small">
+            Level 4 is for organisations that let AI agents act in their systems. If you do not plan to, Level 3 is a complete target.
           </p>
         </li>
       </ul>
