@@ -6,7 +6,7 @@ import { details } from "../data/capability-details";
 import "../styles/matrix.css";
 
 const capCount = domains.reduce((a, d) => a + d.caps.length, 0);
-// Terms per cell ("strat-1"): the abbreviations used in that cell and its details.
+// Terms per cell ("strat-1"): the abbreviations used in the capability name, the cell and its details.
 const terms: Record<string, { term: string; text: string }[]> = {};
 for (const d of domains)
   for (const c of d.caps)
@@ -15,6 +15,7 @@ for (const d of domains)
       const key = `${c.id}-${i + 1}`;
       const det = details[key];
       const text = [
+        c.name,
         cell,
         ...(det ? det.items.flatMap((it) => [it.text, it.example]) : []),
         ...(det ? det.artefacts.flatMap((a) => [a.name, a.text]) : []),

@@ -142,6 +142,7 @@ export const domains: Domain[] = [
 export const glossary: { term: string; text: string }[] = [
   { term: "A0-A3", text: "Autonomy levels. A0: the AI suggests, a person acts. A1: a person approves each action. A2: the AI acts on low-risk actions, a person reviews samples. A3: the AI acts within set limits, monitored." },
   { term: "ADLM", text: "One delivery and lifecycle method for all AI assets, from plan and build to release, change and retirement." }, // TODO: confirm the expansion
+  { term: "API", text: "Application programming interface: how one system calls another." },
   { term: "C2PA", text: "Coalition for Content Provenance and Authenticity: an open standard for marking how content was made." },
   { term: "CI", text: "Continuous integration: automated checks that run on every change." },
   { term: "CoE", text: "Centre of Excellence: the central team that sets standards and supports AI use." },

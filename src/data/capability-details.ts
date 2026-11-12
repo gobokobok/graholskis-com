@@ -1691,4 +1691,376 @@ export const details: Record<string, CellDetail> = {
       "Reports stored with the data set",
     ],
   },
+
+  /* ---------------- 05 AI platforms and model access ---------------- */
+
+  // SSO and approved tools
+  "sso-1": {
+    items: [
+      {
+        text: "AI tools are accessed with company accounts only, so access ends when someone leaves.",
+        example:
+          "ChatGPT Enterprise and Copilot sign in through Entra ID. Personal accounts are blocked on the company network, and leavers lose access the same day.",
+      },
+      {
+        text: "Licences are given by role and need, not to everyone at once.",
+        example: "Copilot for all office staff. A chat assistant with a larger context window for legal and finance analysts. Image tools for marketing only.",
+      },
+    ],
+    artefacts: [
+      { name: "SSO setup checklist", text: "Steps to connect each AI tool to corporate sign-in and block personal accounts." },
+      { name: "Licence allocation table", text: "User group, tool, number of licences, owner, review date." },
+    ],
+    checklist: [
+      "Every approved tool uses corporate SSO",
+      "Personal accounts blocked for work use",
+      "Licences mapped to user groups",
+      "Leaver process removes AI access",
+    ],
+  },
+  "sso-2": {
+    items: [
+      {
+        text: "Selected people get more capable tools, such as coding agents, under extra rules.",
+        example:
+          "Twenty engineers and analysts get Claude Code. They work in approved repositories only, with no production secrets on their machines, after a short training.",
+      },
+    ],
+    artefacts: [
+      { name: "Power-user access request", text: "Role, purpose, repositories or data needed, manager approval." },
+      { name: "Power-user rules", text: "One page: where the tool may be used, what it must never touch, how to report problems." },
+      { name: "Usage review", text: "Who used the tool, for what, and any issues found." },
+    ],
+    checklist: [
+      "Access granted on request and approval",
+      "Power users trained before access",
+      "Rules on repositories and secrets in place",
+      "Usage reviewed every quarter",
+    ],
+  },
+
+  // Enterprise model access
+  "modelaccess-1": {
+    items: [
+      {
+        text: "The contract states that the provider does not use company data to train its models.",
+        example:
+          "The enterprise agreement confirms that prompts, files and outputs are not used for training, and the admin settings are checked to match.",
+      },
+      {
+        text: "Data is processed and stored in the EU where the provider offers it.",
+        example: "The tenant is set to EU data residency. The provider's subprocessor list is checked for any transfer outside the EU.",
+      },
+      {
+        text: "A data processing agreement covers the model provider.",
+        example: "The DPA sets how long prompts are kept for abuse monitoring and requires notice before a new subprocessor is added.",
+      },
+    ],
+    artefacts: [
+      { name: "Model provider contract checklist", text: "Training, retention, residency, subprocessors, security, exit." },
+      { name: "Data residency record", text: "Where each tool processes and stores data, and the evidence." },
+    ],
+    checklist: [
+      "No-training terms in the contract",
+      "Admin settings match the contract",
+      "EU processing confirmed, or transfers assessed",
+      "DPA signed",
+    ],
+  },
+  "modelaccess-2": {
+    items: [
+      {
+        text: "A second model provider is contracted, so critical work does not depend on one company.",
+        example: "Main provider for chat and drafting. A second provider approved for the same use cases and tested on the top three pilots.",
+      },
+      {
+        text: "A list of the models and versions teams may use.",
+        example: "Allowed: two general models and one small model for classification. New versions are added after they pass the eval set.",
+      },
+    ],
+    artefacts: [
+      { name: "Model allow-list", text: "Model, version, provider, allowed data class, allowed uses." },
+      { name: "Provider comparison", text: "Quality on our eval sets, cost, terms, residency, support." },
+    ],
+    checklist: [
+      "Second provider contracted",
+      "Allow-list published",
+      "New models added only after evaluation",
+      "Unlisted models blocked at the gateway or in the tools",
+    ],
+  },
+  "modelaccess-3": {
+    items: [
+      {
+        text: "Each use case uses the cheapest model that passes its eval set, not the largest model by default.",
+        example:
+          "Ticket classification uses a small model at a tenth of the cost, because it scores the same on the eval set. Contract analysis uses a larger model.",
+      },
+    ],
+    artefacts: [
+      { name: "Model selection policy", text: "How models are chosen, who decides, when the choice is reviewed." },
+      { name: "Model choice record", text: "Models tested, eval scores, cost per request, decision." },
+    ],
+    checklist: [
+      "Every production use case has a recorded model choice",
+      "Choice based on eval results and cost",
+      "Choice reviewed when new models are approved",
+      "Policy published",
+    ],
+  },
+
+  // Model gateway
+  "gateway-2": {
+    items: [
+      {
+        text: "All model calls go through one internal endpoint instead of directly to the providers.",
+        example: "Teams call the gateway through one API. The gateway holds the provider keys, so no team stores them in its own code.",
+      },
+      {
+        text: "Each team gets its own key, so usage and cost can be traced.",
+        example: "The claims pilot has its own key. Its usage, cost and errors appear separately on the dashboard.",
+      },
+      {
+        text: "Limits stop one team, or one bug, from using up the capacity or the budget.",
+        example: "Each pilot has a per-minute request limit and a EUR 500 monthly cap. A runaway loop is stopped in minutes, not found on the invoice.",
+      },
+    ],
+    artefacts: [
+      { name: "Gateway onboarding guide", text: "How a team gets a key, calls the gateway and reads its usage." },
+      { name: "Key register", text: "Key, team, use case, limits, owner." },
+      { name: "Rate limit settings", text: "Default limits and how to request higher ones." },
+    ],
+    checklist: [
+      "All pilots call models through the gateway",
+      "Provider keys held only by the gateway",
+      "Each team has its own key",
+      "Rate limits set for every key",
+    ],
+  },
+  "gateway-3": {
+    items: [
+      {
+        text: "The gateway sends each request to the right model based on rules.",
+        example: "Classification requests go to the small model. Requests with Confidential data go only to the EU-hosted model.",
+      },
+      {
+        text: "If a provider fails, the gateway switches to an approved alternative.",
+        example:
+          "If the main provider returns errors for more than 30 seconds, traffic for use cases approved on both providers moves to the second provider.",
+      },
+      {
+        text: "Each team or use case has a budget that the gateway enforces.",
+        example: "Customer service: EUR 4,000 a month. Alert at 80%, hard stop at 110% unless the owner approves more.",
+      },
+    ],
+    artefacts: [
+      { name: "Routing rules", text: "Rule, condition, target model, owner, version." },
+      { name: "Fallback plan and test record", text: "Trigger, alternative, use cases covered, last test result." },
+      { name: "Quota table", text: "Team or use case, monthly budget, alert levels, owner." },
+    ],
+    checklist: [
+      "Routing rules documented and versioned",
+      "Fallback tested at least every quarter",
+      "Quotas set for every production use case",
+      "Alerts reach the owner",
+    ],
+  },
+  "gateway-4": {
+    items: [
+      {
+        text: "Agent calls go through the gateway too, identified by agent.",
+        example: "Each agent sends its own identity with every call. The gateway logs which agent made which call and which tool it used next.",
+      },
+      {
+        text: "Limits and rules are set for each agent.",
+        example: "The onboarding agent may use only the EU-hosted model, up to 2,000 calls a day, with no web search.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent gateway policy", text: "Agent, allowed models, tools, limits, owner." },
+      { name: "Agent traffic dashboard", text: "Calls, cost and errors per agent, with alerts." },
+    ],
+    checklist: [
+      "All agent model calls go through the gateway",
+      "Each agent has its own policy",
+      "Every call traceable to an agent",
+      "Policy breaches alert the owner",
+    ],
+  },
+
+  // PII masking and DLP
+  "pii-2": {
+    items: [
+      {
+        text: "Personal data is removed or replaced before a request leaves the company network.",
+        example:
+          "Names, email addresses and phone numbers are replaced with tokens such as [PERSON_1]. The model works on the tokens, and the gateway puts the real values back in the answer.",
+      },
+    ],
+    artefacts: [
+      { name: "Masking configuration", text: "Data types detected, replacement method, exceptions." },
+      { name: "Masking test set", text: "Realistic samples with personal data, and the expected masked result." },
+    ],
+    checklist: [
+      "Masking enabled for every pilot with personal data",
+      "Masking tested on realistic samples",
+      "Masking failures logged",
+      "Effect on answer quality checked",
+    ],
+  },
+  "pii-3": {
+    items: [
+      {
+        text: "Masking and blocking rules depend on the data class.",
+        example: "Internal: no masking. Confidential: personal data masked. Restricted: request blocked, and the user is told why.",
+      },
+      {
+        text: "Only approved services can turn tokens back into real values, and every case is logged.",
+        example: "The reply drafting service may restore customer names in the final draft. Analysts working on logs see tokens only.",
+      },
+    ],
+    artefacts: [
+      { name: "Gateway data class policy", text: "Data class, action (pass, mask, block), message to the user." },
+      { name: "Re-identification approvals and log", text: "Services allowed to restore values, and every restore event." },
+    ],
+    checklist: [
+      "Gateway policies match the data classification",
+      "Re-identification limited to approved services",
+      "Re-identification logged",
+      "Policies tested after every change",
+    ],
+  },
+
+  // Agent identities and RBAC
+  "agentid-3": {
+    items: [
+      {
+        text: "Each automated workflow runs under its own technical identity, not under a person's account.",
+        example:
+          "The invoice matching workflow runs as its own service principal, with read access to the invoice mailbox and the ERP. No personal account is used.",
+      },
+    ],
+    artefacts: [
+      { name: "Service principal request", text: "Workflow, owner, permissions needed, reason." },
+      { name: "Service principal register", text: "Identity, workflow, permissions, owner, last review." },
+    ],
+    checklist: [
+      "Every workflow has its own identity",
+      "No workflow runs under a personal account",
+      "Owner named for each identity",
+      "Register reviewed every quarter",
+    ],
+  },
+  "agentid-4": {
+    items: [
+      {
+        text: "Each agent has only the permissions its task needs.",
+        example: "The supplier onboarding agent can create draft supplier records but cannot approve them, change bank details or read HR data.",
+      },
+      {
+        text: "Agent credentials are rotated automatically and never stored in code.",
+        example: "Credentials are kept in the key vault and rotated every 30 days. A leaked credential can be revoked within an hour.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent permission design", text: "Task, permissions needed, permissions refused, reason." },
+      { name: "Credential management standard", text: "Storage, rotation period, revocation steps." },
+      { name: "Agent access review", text: "Permissions granted against permissions used, changes made." },
+    ],
+    checklist: [
+      "Agent permissions reviewed against the task",
+      "No credentials in code or prompts",
+      "Rotation automated",
+      "Revocation tested",
+    ],
+  },
+
+  // Output guardrails
+  "guardrails-2": {
+    items: [
+      {
+        text: "Simple automatic checks run on outputs before people see them.",
+        example:
+          "Check that a reply has no customer ID numbers and no internal-only links, and stays under 300 words. Failures go to manual review.",
+      },
+    ],
+    artefacts: [
+      { name: "Output check list", text: "Check, rule, action on failure, per pilot." },
+      { name: "Check failure log", text: "Failures, cause, action taken." },
+    ],
+    checklist: [
+      "Checks defined for each pilot",
+      "Checks tested before go-live",
+      "Failures reviewed",
+      "Checks updated after incidents",
+    ],
+  },
+  "guardrails-3": {
+    items: [
+      {
+        text: "Each use case has its own checks for its specific risks.",
+        example:
+          "Customer replies: no refund promises, no legal advice, tone check. Contract summaries: every clause cited with its section number.",
+      },
+      {
+        text: "A second model scores outputs against criteria, and its accuracy is checked against human review.",
+        example:
+          "A judge model checks whether each answer is supported by its cited sources. It agrees with human reviewers on 92% of a 300-answer sample, so it is used to flag answers for review.",
+      },
+    ],
+    artefacts: [
+      { name: "Guardrail specification", text: "Risks, checks, thresholds, actions, per use case." },
+      { name: "Judge validation report", text: "Sample size, agreement with human reviewers, known blind spots." },
+    ],
+    checklist: [
+      "Every production use case has guardrails",
+      "LLM judges validated against human review",
+      "Guardrail results logged",
+      "Thresholds reviewed every quarter",
+    ],
+  },
+  "guardrails-4": {
+    items: [
+      {
+        text: "Checks run before an agent takes an action, not only on the text it produces.",
+        example:
+          "Before the agent sends an email, a check confirms the recipient is in the supplier record. Before it updates the ERP, a check limits changes to draft fields.",
+      },
+    ],
+    artefacts: [
+      { name: "Action guardrail rules", text: "Action type, check, what happens when it fails." },
+      { name: "Blocked action log", text: "Agent, action, reason blocked, follow-up." },
+    ],
+    checklist: [
+      "Every agent action type has a guardrail",
+      "Guardrails tested with unsafe cases",
+      "Blocked actions reviewed",
+      "Guardrails updated after incidents",
+    ],
+  },
+
+  // Model customisation
+  "custom-3": {
+    items: [
+      {
+        text: "A model is fine-tuned only when evaluation shows that prompting and retrieval are not enough.",
+        example:
+          "Claims coding reached 81% accuracy with prompting and retrieval. A fine-tuned small model reached 94% at lower cost, so the fine-tune was approved.",
+      },
+      {
+        text: "Fine-tuned models are recorded with their data, version and test results.",
+        example: "Registry entry: base model, training data and version, eval results, owner, approved uses, retirement date.",
+      },
+    ],
+    artefacts: [
+      { name: "Fine-tuning business case", text: "Results without fine-tuning, expected gain, cost, data needed." },
+      { name: "Model registry entry", text: "Base model, training data, version, eval results, owner, approved uses." },
+    ],
+    checklist: [
+      "Fine-tuning approved only with eval evidence",
+      "Training data approved by the data owner",
+      "Every fine-tuned model in the registry",
+      "Retraining and retirement planned",
+    ],
+  },
 };
