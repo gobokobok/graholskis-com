@@ -101,6 +101,9 @@ const profiles = [
           ))
         }
       </ol>
+      <div class="pg-how-cta">
+        <a href={bookHref} class="pg-btn pg-btn-primary" {...bookAttrs}>{hero.primary}</a>
+      </div>
     </div>
   </section>
 
@@ -178,12 +181,11 @@ const profiles = [
     </div>
   </section>
 
-  {/* 7. FAQ: title and call button on the left (stays in view), open list of questions on the right */}
+  {/* 7. FAQ: title on the left (stays in view), open list of questions on the right */}
   <section id="faq" class="pg-section">
     <div class="pg-container pg-faq-split">
       <div class="pg-faq-intro">
         <h2 class="pg-h1">{faq.heading}</h2>
-        <a href={bookHref} class="pg-btn pg-btn-secondary" {...bookAttrs}>{hero.primary}</a>
       </div>
       <div class="pg-faq pg-reveal">
         {

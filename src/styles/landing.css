@@ -384,3 +384,8 @@
 .pg-phase-result .pg-small::first-letter {
   text-transform: uppercase; /* results are written lower case in the copy */
 }
+
+/* how it works: the first step is the intro call, so the call button sits under the steps */
+.pg-how-cta {
+  margin-top: var(--space-5);
+}

@@ -184,7 +184,7 @@ export const about = {
     "Today I build AI solutions myself and teach teams to do the same. I start with the simplest solution that works and add complexity only when it is needed.",
   ],
   /** Shown as tags after the text, followed by LinkedIn, YouTube and GitHub links. */
-  facts: ["Based in Riga, working across Europe"],
+  facts: [] as string[],
 };
 
 export const contact = {
