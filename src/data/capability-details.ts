@@ -2647,4 +2647,402 @@ export const details: Record<string, CellDetail> = {
       "Results reported to risk",
     ],
   },
+
+  /* ---------------- 08 Production operations and assurance ---------------- */
+
+  // Logging and cost
+  "logging-1": {
+    items: [
+      {
+        text: "The admin consoles of the approved tools show who uses what, and their logs are kept for review.",
+        example:
+          "The CoE exports the ChatGPT Enterprise and Copilot usage reports every month and keeps them for 12 months. Audit logging is switched on in both tools.",
+      },
+    ],
+    artefacts: [
+      { name: "Log settings checklist", text: "Audit and usage settings to switch on in each approved tool." },
+      { name: "Monthly usage export", text: "What is exported, where it is stored, who can see it." },
+    ],
+    checklist: [
+      "Audit logging enabled in every approved tool",
+      "Usage reports exported every month",
+      "Retention period agreed with security",
+      "Access to logs limited",
+    ],
+  },
+  "logging-2": {
+    items: [
+      {
+        text: "Every model call through the gateway is logged with the team, use case, model, tokens and outcome.",
+        example:
+          "Log record: claims pilot key, model name, 1,840 input tokens, 320 output tokens, 2.1 seconds, success. Prompt text is stored only where the data rules allow it.",
+      },
+      {
+        text: "Cost is calculated for each use case from the logs.",
+        example: "October: reply drafting EUR 1,240, policy Q&A EUR 310, claims pilot EUR 2,050.",
+      },
+    ],
+    artefacts: [
+      { name: "Gateway log schema", text: "Fields logged for every call, and which are optional by data class." },
+      { name: "Monthly cost report", text: "Cost per use case, trend, largest changes." },
+    ],
+    checklist: [
+      "All gateway calls logged",
+      "Prompt storage follows the data rules",
+      "Cost reported per use case every month",
+      "Logs kept for the agreed period",
+    ],
+  },
+  "logging-3": {
+    items: [
+      {
+        text: "AI costs are charged to the business units that use them.",
+        example: "Each business unit pays for its own use cases from its budget. Platform costs are split by share of usage.",
+      },
+      {
+        text: "Each use case has a budget, and its owner is told before the budget runs out.",
+        example:
+          "At 80% of the monthly budget, the owner and the finance partner get an email. The dashboard shows a forecast for the rest of the month.",
+      },
+    ],
+    artefacts: [
+      { name: "Chargeback model", text: "What is charged directly, how shared costs are split, who agrees it." },
+      { name: "Budget table", text: "Use case, monthly budget, alert level, owner, finance partner." },
+      { name: "Monthly cost statement", text: "Costs per business unit and use case." },
+    ],
+    checklist: [
+      "Chargeback model agreed with finance",
+      "Every production use case has a budget",
+      "Alerts reach the owner and finance",
+      "Statements sent every month",
+    ],
+  },
+  "logging-4": {
+    items: [
+      {
+        text: "Cost is measured per action an agent takes, so it can be compared with the cost of a person doing the same work.",
+        example:
+          "Supplier onboarding agent: EUR 0.40 per document check and EUR 1.10 per completed onboarding, including retries. A person needs 25 minutes for the same onboarding.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent cost model", text: "Cost per action type, including model calls, tools, retries and human review." },
+      { name: "Agent cost dashboard", text: "Cost per action and per completed task, with trend." },
+    ],
+    checklist: [
+      "Cost recorded per agent action",
+      "Retries and failures included",
+      "Compared with the cost of the human process",
+      "Reviewed in the quarterly value review",
+    ],
+  },
+
+  // Lineage and audit
+  "lineage-2": {
+    items: [
+      {
+        text: "Important choices about a pilot are written down with the reason.",
+        example:
+          "12 March: switched from model A to model B, because B scored 6 points higher on the eval set at the same cost. Approved by the pilot owner.",
+      },
+      {
+        text: "Prompts, configuration and eval sets are versioned, so any result can be traced to what produced it.",
+        example:
+          "Each run records the commit of the prompt and the eval set version. A complaint about an answer from May is traced to prompt v1.4.",
+      },
+    ],
+    artefacts: [
+      { name: "Decision log", text: "Date, decision, options considered, reason, approver." },
+      { name: "Versioning rules", text: "What is versioned, where, and what each run must record." },
+    ],
+    checklist: [
+      "Decision log kept for every pilot",
+      "Prompts and configuration in Git",
+      "Each run records the versions it used",
+      "Decision log reviewed at the stage gate",
+    ],
+  },
+  "lineage-3": {
+    items: [
+      {
+        text: "Records of AI activity are stored where they cannot be changed or deleted before the retention period ends.",
+        example: "Gateway logs and approval records go to write-once storage, kept for seven years for credit-related use cases.",
+      },
+      {
+        text: "Every run gets an ID that links the input, the versions used, the output and any approval.",
+        example:
+          "Run 7f3a2c links the customer email, prompt v2.4, the model version, the draft reply and the service agent who approved it.",
+      },
+    ],
+    artefacts: [
+      { name: "Audit store design", text: "What is stored, where, how it is protected from change." },
+      { name: "Run record schema", text: "Run ID and the fields linked to it." },
+      { name: "Retention schedule", text: "Use case, record type, retention period, legal basis." },
+    ],
+    checklist: [
+      "Audit records written to immutable storage",
+      "Run ID on every production call",
+      "Retention set for each use case",
+      "Audit trail tested by reconstructing a past case",
+    ],
+  },
+  "lineage-4": {
+    items: [
+      {
+        text: "Every step of an agent's work is traced: what it read, which tools it called, what it changed and who approved it.",
+        example:
+          "For onboarding case 4821, the trace shows the documents read, two reminder emails sent, the ERP draft created and the approval by the procurement officer, each with a time.",
+      },
+    ],
+    artefacts: [
+      { name: "Agent trace schema", text: "Step, input, tool called, result, approval, time." },
+      { name: "Trace review procedure", text: "How a past case is pulled up and reviewed, and by whom." },
+    ],
+    checklist: [
+      "All agent steps traced",
+      "Traces linked to run IDs",
+      "Traces kept as audit records",
+      "Past cases can be replayed for review",
+    ],
+  },
+
+  // Monitoring and drift
+  "monitoring-3": {
+    items: [
+      {
+        text: "A regular sample of production outputs is reviewed and scored.",
+        example: "Each week, a reviewer scores 50 policy assistant answers for correctness and citations. This month: 94%, against a target of 90%.",
+      },
+      {
+        text: "Alerts fire when inputs or results change in a way that may hurt quality.",
+        example:
+          "Alert when the share of \"I could not find this\" answers doubles in a week, or when the average input length changes by more than 30%.",
+      },
+    ],
+    artefacts: [
+      { name: "Sampling plan", text: "Use case, sample size, frequency, reviewer, scoring criteria." },
+      { name: "Drift metrics", text: "Metric, normal range, alert threshold, owner." },
+      { name: "Monitoring dashboard", text: "Quality scores and drift metrics per use case." },
+    ],
+    checklist: [
+      "Sampling runs for every production use case",
+      "Results tracked over time",
+      "Drift alerts configured",
+      "Alerts investigated within the agreed time",
+    ],
+  },
+  "monitoring-4": {
+    items: [
+      {
+        text: "Quality, cost, speed and safety are monitored all the time for every production service.",
+        example:
+          "The dashboard shows each service's eval score, judge score on live samples, error rate, response time and cost per request, refreshed every hour.",
+      },
+      {
+        text: "When monitoring shows a clear failure after a release, the service returns to the last good version without waiting for a person.",
+        example: "If the judge score drops 10 points within two hours of a release, the gateway routes traffic back to v2.3 and the owner is paged.",
+      },
+    ],
+    artefacts: [
+      { name: "Monitoring specification", text: "Metrics, thresholds and alerts for each service." },
+      { name: "Rollback rules", text: "Trigger, action, who is notified, per service." },
+      { name: "Rollback test record", text: "Date, scenario, time to roll back, result." },
+    ],
+    checklist: [
+      "All production services monitored",
+      "Rollback rules defined for each service",
+      "Automatic rollback tested",
+      "Every rollback reviewed afterwards",
+    ],
+  },
+
+  // Incident management
+  "incident-1": {
+    items: [
+      {
+        text: "One simple way for anyone to report a wrong, harmful or worrying AI output.",
+        example:
+          "A \"Report an AI issue\" form on the intranet and a button in the support channel. Reports go to the CoE, which answers within one working day.",
+      },
+    ],
+    artefacts: [
+      { name: "Issue report form", text: "What happened, tool, screenshot, data involved, urgency." },
+      { name: "Triage guide", text: "How reports are assessed and when they are escalated." },
+    ],
+    checklist: [
+      "Reporting channel live and announced",
+      "Reports acknowledged within one working day",
+      "Serious issues escalated",
+      "Lessons shared with users",
+    ],
+  },
+  "incident-2": {
+    items: [
+      {
+        text: "Problems in a pilot are logged, and the owner reviews them regularly.",
+        example:
+          "After four weeks the claims pilot log has 23 issues. The owner reviews them weekly, fixes the top three and decides that one needs a prompt change.",
+      },
+    ],
+    artefacts: [
+      { name: "Pilot issue log", text: "Issue, example, severity, status, fix." },
+      { name: "Weekly review agenda", text: "New issues, decisions, fixes released." },
+    ],
+    checklist: [
+      "Issue log for every pilot",
+      "Owner reviews it every week",
+      "Fixes tracked to release",
+      "Issue summary included in the pilot results report",
+    ],
+  },
+  "incident-3": {
+    items: [
+      {
+        text: "AI incidents follow the same process and tool as other IT incidents, with an AI category.",
+        example:
+          "A wrong answer from the policy assistant reaches a customer. A priority 3 incident is opened in ServiceNow under \"AI service\" and assigned to the service owner.",
+      },
+      {
+        text: "Each production service has a runbook for its common failures.",
+        example:
+          "Policy assistant runbook: wrong answers, provider outage, out-of-date index, cost spike. Each with the checks, the fix and who to call.",
+      },
+    ],
+    artefacts: [
+      { name: "AI incident categories and severities", text: "Category, examples, severity rules, response times." },
+      { name: "Runbook template", text: "Failure, symptoms, checks, fix, escalation." },
+      { name: "Post-incident review", text: "What happened, impact, cause, actions, owner." },
+    ],
+    checklist: [
+      "AI category set up in the ITSM tool",
+      "Severities defined for AI incidents",
+      "Runbook for every production service",
+      "Post-incident reviews held for major incidents",
+    ],
+  },
+  "incident-4": {
+    items: [
+      {
+        text: "The ability to stop an agent at once is practised, not only designed.",
+        example:
+          "Every quarter, each agent owner triggers the kill switch during working hours. Target: agent stopped within 2 minutes, work in progress handed to people, no data left half-changed.",
+      },
+    ],
+    artefacts: [
+      { name: "Kill-switch procedure", text: "Who can trigger it, how, what happens to work in progress." },
+      { name: "Drill record", text: "Date, agent, time to stop, issues found, actions." },
+    ],
+    checklist: [
+      "Every agent has a kill switch",
+      "Drills run every quarter",
+      "Stop time within the target",
+      "Lessons from drills applied",
+    ],
+  },
+
+  // Service resilience and continuity
+  "resilience-2": {
+    items: [
+      {
+        text: "If the AI step is unavailable, people can do the work the old way.",
+        example:
+          "If reply drafting is down, service agents write replies by hand from the template library. Team leads know how to switch, and the switch is tested once during the pilot.",
+      },
+    ],
+    artefacts: [
+      { name: "Fallback procedure", text: "Trigger, who decides, steps for users, how to switch back." },
+      { name: "Fallback test record", text: "Date, what was tested, time to switch, issues." },
+    ],
+    checklist: [
+      "Fallback documented for every pilot",
+      "Users know how to switch",
+      "Fallback tested at least once",
+      "Effect on team capacity understood",
+    ],
+  },
+  "resilience-3": {
+    items: [
+      {
+        text: "Critical services can switch to a second model provider.",
+        example:
+          "The policy assistant runs on the main provider and is tested on the second provider every quarter. Switching takes one routing change at the gateway.",
+      },
+      {
+        text: "Each AI service has agreed recovery times, like any other IT service.",
+        example: "Customer reply drafting: back within 4 hours. Policy assistant: back within one working day.",
+      },
+      {
+        text: "AI services are part of the organisation's ICT risk and continuity management.",
+        example: "AI services are in the ICT risk register and the business continuity plan. In financial services, this supports DORA requirements.",
+      },
+    ],
+    artefacts: [
+      { name: "Recovery targets", text: "Service, recovery time, acceptable data loss, owner." },
+      { name: "Continuity plan section for AI", text: "AI services, dependencies, fallback, recovery steps." },
+      { name: "Failover test record", text: "Service, date, time to switch, result." },
+    ],
+    checklist: [
+      "Recovery targets agreed for every AI service",
+      "Provider failover tested",
+      "AI services in the ICT risk register",
+      "Continuity plan includes AI services",
+    ],
+  },
+  "resilience-4": {
+    items: [
+      {
+        text: "What happens when an agent fails in the middle of a task is designed and tested.",
+        example:
+          "Test: the ERP times out after the agent has already emailed the supplier. The agent records the state, retries twice, then hands the case to a person with a summary.",
+      },
+      {
+        text: "An agent can stop without leaving work half-done, and restart from a known point.",
+        example:
+          "On stop, the agent finishes or reverses its current step, saves the case state and lists open cases for people. On restart, it continues from the saved state.",
+      },
+    ],
+    artefacts: [
+      { name: "Failure scenario list", text: "Scenario, expected behaviour, test result." },
+      { name: "Safe stop design", text: "How the current step is finished or reversed, and how state is saved." },
+      { name: "Recovery test record", text: "Scenario, restart result, data checks." },
+    ],
+    checklist: [
+      "Failure scenarios tested for every agent",
+      "No half-completed changes after a stop",
+      "Restart tested",
+      "Cases handed to people with context",
+    ],
+  },
+
+  // Agent runtime
+  "runtime-4": {
+    items: [
+      {
+        text: "Agents run in an isolated environment with only the access they need.",
+        example:
+          "Each agent run happens in a container with no internet access except approved API endpoints, and a file system that is wiped after the run.",
+      },
+      {
+        text: "The runtime enforces approval points, so an agent cannot skip them.",
+        example:
+          "When the agent reaches an approval point, the runtime pauses it and sends the proposed action to the approver in Teams. Nothing happens until it is approved.",
+      },
+      {
+        text: "One control stops an agent at once.",
+        example:
+          "The owner and the on-call engineer can stop any agent from the operations console. Stopping revokes its credentials and pauses its queue.",
+      },
+    ],
+    artefacts: [
+      { name: "Runtime architecture", text: "Isolation, network rules, identity, logging." },
+      { name: "Approval integration design", text: "How approval requests reach people and how answers return to the agent." },
+      { name: "Kill-switch specification", text: "Who can use it, what it revokes, how fast it acts." },
+    ],
+    checklist: [
+      "Agents run only inside the sandbox",
+      "Approval points enforced by the runtime",
+      "Kill switch tested",
+      "Runtime changes go through ADLM",
+    ],
+  },
 };
