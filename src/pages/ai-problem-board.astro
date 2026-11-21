@@ -33,7 +33,7 @@ const kitAssets = kit.assets.filter((a) => a.access !== "Free");
     </div>
   </section>
 
-  {/* COST: the four failures the board prevents */}
+  {/* COST: four research figures, each with its source */}
   <section class="pg-section">
     <div class="pg-container">
       <div class="pg-head pg-head-stack">
@@ -43,10 +43,11 @@ const kitAssets = kit.assets.filter((a) => a.access !== "Free");
       <p class="pg-label pb-kicker">{cost.lead}</p>
       <ul class="pg-steps">
         {
-          cost.items.map((t, i) => (
+          cost.items.map((c, i) => (
             <li class="pg-card pg-card-inverse pb-cost pg-reveal" style={`--i:${i}`}>
-              <span class="pb-cost-mark" aria-hidden="true">×</span>
-              <p class="pg-small">{t}</p>
+              <p class="pb-cost-figure">{c.figure}</p>
+              <p class="pg-small">{c.text}</p>
+              <a href={c.href} class="pb-cost-source" rel="noopener" target="_blank">{c.source} ↗</a>
             </li>
           ))
         }

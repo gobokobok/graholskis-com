@@ -13,24 +13,39 @@
   font-weight: 600;
 }
 
-/* cost: four dark cards with a cross in the accent */
+/* cost: four dark cards, a big figure, the finding, then the source at the foot */
 .pg-steps > .pb-cost {
   gap: var(--space-3);
 }
+.pb-cost-figure {
+  margin: 0;
+  color: var(--accent-on-inverse);
+  font-family: var(--font-display);
+  font-size: clamp(39px, 4vw, 54px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
 .pb-cost .pg-small {
   color: var(--ink-on-inverse);
-  font-size: 15.5px;
+  font-size: 15px;
   line-height: 1.5;
 }
-.pb-cost-mark {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-pill);
-  background: var(--inverse-raised);
-  color: var(--accent-on-inverse);
-  font: 600 18px/1 var(--font-body);
+.pb-cost-source {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--inverse-raised);
+  color: var(--ink-on-inverse-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.pb-cost-source:hover {
+  color: var(--ink-on-inverse);
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
 }
 
 /* outlined card: grey with a black line, as the workshop facts on the landing page */

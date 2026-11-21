@@ -28,12 +28,32 @@ export const hero = {
 export const cost = {
   heading: "What unchecked ideas cost you",
   intro: "Most AI projects do not fail on the technology. They fail because nobody checked the problem first.",
-  lead: "You have probably seen the results:",
+  lead: "The research says the same:",
   items: [
-    "A pilot proves the tool works, but no KPI moves.",
-    "A vendor is chosen before anyone has defined what “good” looks like.",
-    "The people who do the work were never asked, and they do not use the tool.",
-    "A simple process change would have fixed most of the problem, and nobody looked for it.",
+    {
+      figure: "95%",
+      text: "of generative AI pilots in one study had little or no measurable impact on profit and loss. The tool worked. The KPI did not move.",
+      source: "MIT NANDA, The GenAI Divide, 2025",
+      href: "https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/",
+    },
+    {
+      figure: "30%+",
+      text: "of generative AI projects were expected to be dropped after the proof of concept, with unclear business value among the reasons. Nobody had defined what \u201Cgood\u201D looks like.",
+      source: "Gartner, July 2024",
+      href: "https://www.gartner.com/en/newsroom/press-releases/2024-07-29-gartner-predicts-30-percent-of-generative-ai-projects-will-be-abandoned-after-proof-of-concept-by-end-of-2025",
+    },
+    {
+      figure: "70%",
+      text: "of the value from AI comes from people and processes, not from algorithms or technology. Skip the people who do the work, and most of the value goes with them.",
+      source: "BCG, 10-20-70 rule",
+      href: "https://www.bcg.com/featured-insights/the-leaders-guide-to-transforming-with-ai",
+    },
+    {
+      figure: "80%+",
+      text: "of AI projects fail by some estimates, twice the rate of IT projects without AI. The top root cause: the problem was misunderstood or miscommunicated.",
+      source: "RAND, 2024",
+      href: "https://www.rand.org/pubs/research_reports/RRA2680-1.html",
+    },
   ],
   closing: "Each of these costs budget, months and your team’s patience with the next idea.",
 };
