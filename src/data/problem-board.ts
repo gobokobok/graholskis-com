@@ -134,14 +134,12 @@ export const asks = {
   },
 };
 
-export type PathAction = "free" | "kit" | "kitReview" | "book";
+export type PathAction = "free" | "kit" | "kitReview";
 
 export interface PathOption {
   name: string;
   price: string;
   priceNote?: string;
-  /** Makes the price a link (the workshop has its own section on the landing page). */
-  priceHref?: string;
   gets: string;
   pick: string;
   button: string;
@@ -180,15 +178,6 @@ export const paths = {
       button: "Get the kit and call",
       action: "kitReview",
     },
-    {
-      name: "Facilitated workshop",
-      price: "See the workshop page",
-      priceHref: "/#workshop",
-      gets: "I run the board with your team on your problem.",
-      pick: "The problem is high-stakes or political, or nobody has time to learn the method.",
-      button: "Book a facilitated session",
-      action: "book",
-    },
   ] as PathOption[],
   elseHeading: "Use something else when",
   /** TODO: link the Use-Case Funnel and the Vendor Proof Protocol once they have their own pages. */
@@ -196,7 +185,13 @@ export const paths = {
     { when: "The problem is already measured and you have a list of use cases to rank.", then: "Use the Use-Case Funnel." },
     { when: "You are about to choose a vendor.", then: "Use the Vendor Proof Protocol first." },
     { when: "Nobody owns the process or can give the team two weeks.", then: "Find the owner before you start." },
-  ],
+    {
+      when: "The problem is high-stakes or political, or nobody has time to learn the method.",
+      then: "I run the board with your team on your problem.",
+      link: "Book a facilitated workshop",
+      book: true,
+    },
+  ] as { when: string; then: string; link?: string; book?: boolean }[],
 };
 
 export const kit = {

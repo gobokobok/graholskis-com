@@ -8,7 +8,7 @@ import { bookHref, calendarUrl } from "../config";
 import { checkout, meta, hero, cost, what, how, example, asks, paths, kit, faq, decide } from "../data/problem-board";
 
 const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
-const hrefFor = { free: "#free", kit: checkout.kit, kitReview: checkout.kitReview, book: bookHref } as const;
+const hrefFor = { free: "#free", kit: checkout.kit, kitReview: checkout.kitReview } as const;
 const freeAssets = kit.assets.filter((a) => a.access === "Free");
 const kitAssets = kit.assets.filter((a) => a.access !== "Free");
 ---
@@ -170,22 +170,21 @@ const kitAssets = kit.assets.filter((a) => a.access !== "Free");
     </div>
   </section>
 
-  {/* CHOOSE YOUR PATH: four options; the kit is the one accent card */}
+  {/* CHOOSE YOUR PATH: three options, the kit is the one accent card; the workshop sits under "Use something else" */}
   <section id="paths" class="pg-section">
     <div class="pg-container">
       <div class="pg-head">
         <h2 class="pg-h1">{paths.heading}</h2>
       </div>
-      <ul class="pg-steps pb-paths">
+      <ul class="pg-grid-3 pb-paths">
         {
           paths.options.map((o, i) => {
             const href = hrefFor[o.action];
-            const external = o.action === "book" ? bookAttrs : {};
             return (
               <li class:list={["pg-card pb-path pg-reveal", o.featured && "pg-card-accent"]} style={`--i:${i}`}>
                 <span class:list={["pg-pill", o.featured ? "pg-pill-dark" : "pg-pill-soft"]}>{o.name}</span>
                 <p class="pb-price">
-                  {o.priceHref ? <a href={o.priceHref} class="pg-link">{o.price} →</a> : o.price}
+                  {o.price}
                   {o.priceNote && <span class="pb-price-note">{o.priceNote}</span>}
                 </p>
                 <div class="pb-path-block">
@@ -201,7 +200,6 @@ const kitAssets = kit.assets.filter((a) => a.access !== "Free");
                     <a
                       href={href}
                       class:list={["pg-btn", o.featured ? "pg-btn-on-inverse" : o.action === "free" ? "pg-btn-primary" : "pg-btn-secondary"]}
-                      {...external}
                     >
                       {o.button}
                     </a>
@@ -221,7 +219,15 @@ const kitAssets = kit.assets.filter((a) => a.access !== "Free");
             paths.else.map((e) => (
               <div>
                 <dt>{e.when}</dt>
-                <dd>{e.then}</dd>
+                <dd>
+                  {e.then}
+                  {e.link && (
+                    <>
+                      {" "}
+                      <a href={e.book ? bookHref : "#"} class="pg-link" {...(e.book ? bookAttrs : {})}>{e.link} →</a>
+                    </>
+                  )}
+                </dd>
               </div>
             ))
           }

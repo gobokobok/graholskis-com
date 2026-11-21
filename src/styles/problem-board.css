@@ -204,3 +204,14 @@
 .pb-decide dd {
   color: var(--ink-muted);
 }
+
+/* path buttons wrap inside the card instead of running past its edge */
+.pb-path .pg-btn {
+  max-width: 100%;
+  height: auto;
+  min-height: 44px;
+  padding-block: 11px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.25;
+}
