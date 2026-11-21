@@ -1,0 +1,206 @@
+/* AI Problem Board product page. Kit components live in kit.css, shared landing layouts in landing.css. */
+
+.pb-stack {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.pb-kicker {
+  margin-bottom: var(--space-3);
+}
+.pb-after {
+  margin-top: var(--space-4);
+  font-weight: 600;
+}
+
+/* cost: four dark cards with a cross in the accent */
+.pg-steps > .pb-cost {
+  gap: var(--space-3);
+}
+.pb-cost .pg-small {
+  color: var(--ink-on-inverse);
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+.pb-cost-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--inverse-raised);
+  color: var(--accent-on-inverse);
+  font: 600 18px/1 var(--font-body);
+}
+
+/* outlined card: grey with a black line, as the workshop facts on the landing page */
+.pb-outlined.pg-card-outlined {
+  border-color: var(--ink);
+  background: var(--surface-card);
+}
+:root.kit[data-theme="dark"] .pb-outlined.pg-card-outlined {
+  border: 2px solid var(--callout-border);
+}
+.pb-outlined .pg-rows dt {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+/* rows with a wider label column */
+@media (min-width: 641px) {
+  .pb-rows-wide > div {
+    grid-template-columns: 12rem 1fr;
+  }
+}
+.pb-rows-wide dd {
+  font-size: 15px;
+}
+
+/* how it works: phase length under the step name, then the eight board columns */
+.pb-when {
+  justify-self: start;
+}
+.pb-columns {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+.pb-columns-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pb-columns-list .pg-pill {
+  padding-block: 6px;
+}
+.pb-col-n {
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* example: the filled board next to the value */
+.pb-note {
+  color: var(--ink-muted);
+  font-size: 0.8em;
+}
+.pb-example {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+}
+@media (min-width: 1025px) {
+  .pb-example {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+}
+.pb-example-side {
+  display: grid;
+  gap: var(--space-4);
+}
+.pb-value {
+  gap: var(--space-1);
+}
+.pb-value .pg-label {
+  color: var(--on-accent-muted);
+}
+.pb-value .pg-small {
+  margin-top: var(--space-2);
+  color: var(--on-accent);
+}
+.pb-value-figure {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.9vw, 39px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* paths: name, price, what you get, pick this if, button; blocks line up across cards */
+.pb-paths {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pb-path {
+  gap: var(--space-3);
+}
+.pb-path > .pg-pill {
+  align-self: start;
+}
+.pb-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  min-height: 2.6em;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.pb-price .pg-link {
+  font-size: 17px;
+}
+.pb-price-note {
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.pg-card-accent .pb-price-note,
+.pg-card-accent .pg-label {
+  color: var(--on-accent-muted);
+}
+.pg-card-accent.pb-path .pg-small {
+  color: var(--on-accent);
+}
+.pb-path-block {
+  display: grid;
+  gap: 4px;
+}
+.pb-path-block .pg-small {
+  font-size: 14.5px;
+}
+.pb-else {
+  margin-top: var(--space-4);
+  border-color: var(--border-card);
+}
+
+/* kit: free and paid assets side by side */
+.pb-kit {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+}
+@media (min-width: 1025px) {
+  .pb-kit {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+}
+.pb-kit-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.pb-kit .pg-rows dt {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+/* decide */
+.pb-decide dt {
+  color: var(--ink);
+  font-size: 15px;
+}
+.pb-decide dd {
+  color: var(--ink-muted);
+}

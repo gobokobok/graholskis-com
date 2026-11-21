@@ -165,6 +165,8 @@ const profiles = [
                 <div class="pg-card-foot">
                   {c.action === "contact" ? (
                     <a href="#contact" class="pg-btn pg-btn-secondary">{c.button}</a>
+                  ) : c.action === "page" && c.href ? (
+                    <a href={c.href} class="pg-btn pg-btn-secondary">{c.button} →</a>
                   ) : c.href ? (
                     <a href={c.href} class="pg-btn pg-btn-secondary" rel="noopener" target="_blank">{c.button}</a>
                   ) : (

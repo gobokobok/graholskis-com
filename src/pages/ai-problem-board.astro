@@ -1,0 +1,380 @@
+---
+// AI Problem Board: product page (copy v2, src/data/problem-board.ts). Linked from the Do it yourself section on the landing page.
+// Built on the Pill & Glow kit; shared landing layouts come from landing.css, page layout from problem-board.css.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/landing.css";
+import "../styles/problem-board.css";
+import { bookHref, calendarUrl } from "../config";
+import { checkout, meta, hero, cost, what, how, example, asks, paths, kit, faq, decide } from "../data/problem-board";
+
+const bookAttrs = calendarUrl ? { target: "_blank", rel: "noopener" } : {};
+const hrefFor = { free: "#free", kit: checkout.kit, kitReview: checkout.kitReview, book: bookHref } as const;
+const freeAssets = kit.assets.filter((a) => a.access === "Free");
+const kitAssets = kit.assets.filter((a) => a.access !== "Free");
+---
+
+<BaseLayout title={meta.title} description={meta.description} kit contactDialog={false}>
+  {/* HERO: dark block with the glow; the problem, the promise, three ways in */}
+  <section class="pg-section pg-hero pg-dark glow">
+    <div class="pg-container pg-hero-grid">
+      <div class="pg-hero-title">
+        <a href="/#diy" class="pg-pill pg-pill-soft pg-pill-link">← {hero.eyebrow}</a>
+        <h1 class="pg-display">{hero.title}</h1>
+      </div>
+      <div class="pg-hero-text">
+        <p class="pg-lead"><strong>{hero.lead}</strong></p>
+        <p class="pg-lead">{hero.sub}</p>
+        <div class="pg-hero-actions">
+          <a href="#free" class="pg-btn pg-btn-primary">{hero.free}</a>
+          <a href="#paths" class="pg-btn pg-btn-secondary">{hero.kit}</a>
+          <a href={bookHref} class="pg-btn pg-btn-secondary" {...bookAttrs}>{hero.session}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* COST: the four failures the board prevents */}
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head pg-head-stack">
+        <h2 class="pg-h1">{cost.heading}</h2>
+        <p class="pg-lead">{cost.intro}</p>
+      </div>
+      <p class="pg-label pb-kicker">{cost.lead}</p>
+      <ul class="pg-steps">
+        {
+          cost.items.map((t, i) => (
+            <li class="pg-card pg-card-inverse pb-cost pg-reveal" style={`--i:${i}`}>
+              <span class="pb-cost-mark" aria-hidden="true">×</span>
+              <p class="pg-small">{t}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="pg-body pb-after">{cost.closing}</p>
+    </div>
+  </section>
+
+  {/* WHAT IT IS: the promise on the left, what you end with on the right */}
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{what.heading}</h2>
+      </div>
+      <div class="pg-split">
+        <div class="pb-stack">
+          <p class="pg-lead"><strong>{what.lead}</strong></p>
+          <p class="pg-body">{what.body}</p>
+        </div>
+        <div class="pg-card pg-card-outlined pb-outlined pg-reveal">
+          <h3 class="pg-label">{what.resultsLabel}</h3>
+          <dl class="pg-rows">
+            {
+              what.results.map((r) => (
+                <div>
+                  <dt>{r.name}</dt>
+                  <dd>{r.text}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+      <p class="pg-callout"><strong>{what.callout.lead}</strong> {what.callout.rest}</p>
+    </div>
+  </section>
+
+  {/* HOW IT WORKS: four steps on the tracker, then the rule and the eight columns */}
+  <section id="how" class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{how.heading}</h2>
+      </div>
+      <ol class="pg-track">
+        {
+          how.steps.map((s, i) => (
+            <li class="pg-reveal" style={`--i:${i}`}>
+              <span class:list={["pg-bubble", i === how.steps.length - 1 && "pg-bubble-fill"]}>{i + 1}</span>
+              <div class="pg-track-text">
+                <h3 class="pg-h3">{s.name}</h3>
+                {s.when && <span class="pg-pill pg-pill-soft pb-when">{s.when}</span>}
+                <p class="pg-small">{s.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="pg-callout"><strong>{how.rule.lead}</strong> {how.rule.rest}</p>
+      <div class="pb-columns">
+        <p class="pg-label">{how.facilitatorLabel}: the board has eight columns</p>
+        <ol class="pb-columns-list">
+          {how.columns.map((c, i) => <li class="pg-pill"><span class="pb-col-n">{i + 1}</span>{c}</li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {/* EXAMPLE: a dark band with the filled board and the value */}
+  <div class="pg-dark pg-dark-band glow">
+    <section id="example" class="pg-section">
+      <div class="pg-container">
+        <div class="pg-head pg-head-stack">
+          <h2 class="pg-h1">{example.heading}</h2>
+          <p class="pg-lead">{example.intro} <span class="pb-note">{example.note}</span></p>
+        </div>
+        <div class="pb-example">
+          <div class="pg-card pg-reveal">
+            <dl class="pg-rows pb-rows-wide">
+              {
+                example.rows.map((r) => (
+                  <div>
+                    <dt>{r.label}</dt>
+                    <dd>{r.text}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+          <div class="pb-example-side">
+            <div class="pg-card pg-card-accent pb-value pg-reveal">
+              <p class="pg-label">{example.value.label}</p>
+              <p class="pb-value-figure">{example.value.figure}</p>
+              <p class="pg-label">{example.value.unit}</p>
+              <p class="pg-small">{example.value.text}</p>
+            </div>
+            <p class="pg-body">{example.after}</p>
+            <p class="pg-small">{example.other}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  {/* WHAT IT ASKS OF YOU: time, people, data, then the risk */}
+  <section class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{asks.heading}</h2>
+      </div>
+      <div class="pg-grid-3">
+        {
+          asks.items.map((a, i) => (
+            <div class="pg-card pg-reveal" style={`--i:${i}`}>
+              <h3 class="pg-h3">{a.name}</h3>
+              <p class="pg-small">{a.text}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="pg-callout"><strong>{asks.risk.lead}</strong> {asks.risk.rest}</p>
+    </div>
+  </section>
+
+  {/* CHOOSE YOUR PATH: four options; the kit is the one accent card */}
+  <section id="paths" class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head">
+        <h2 class="pg-h1">{paths.heading}</h2>
+      </div>
+      <ul class="pg-steps pb-paths">
+        {
+          paths.options.map((o, i) => {
+            const href = hrefFor[o.action];
+            const external = o.action === "book" ? bookAttrs : {};
+            return (
+              <li class:list={["pg-card pb-path pg-reveal", o.featured && "pg-card-accent"]} style={`--i:${i}`}>
+                <span class:list={["pg-pill", o.featured ? "pg-pill-dark" : "pg-pill-soft"]}>{o.name}</span>
+                <p class="pb-price">
+                  {o.priceHref ? <a href={o.priceHref} class="pg-link">{o.price} →</a> : o.price}
+                  {o.priceNote && <span class="pb-price-note">{o.priceNote}</span>}
+                </p>
+                <div class="pb-path-block">
+                  <h3 class="pg-label">What you get</h3>
+                  <p class="pg-small">{o.gets}</p>
+                </div>
+                <div class="pb-path-block">
+                  <h3 class="pg-label">Pick this if</h3>
+                  <p class="pg-small">{o.pick}</p>
+                </div>
+                <div class="pg-card-foot">
+                  {href ? (
+                    <a
+                      href={href}
+                      class:list={["pg-btn", o.featured ? "pg-btn-on-inverse" : o.action === "free" ? "pg-btn-primary" : "pg-btn-secondary"]}
+                      {...external}
+                    >
+                      {o.button}
+                    </a>
+                  ) : (
+                    <span class="pg-pill pg-pill-dashed">Coming soon</span>
+                  )}
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <div class="pg-card pg-card-outlined pb-else pg-reveal">
+        <h3 class="pg-h3">{paths.elseHeading}</h3>
+        <dl class="pg-rows pb-rows-wide">
+          {
+            paths.else.map((e) => (
+              <div>
+                <dt>{e.when}</dt>
+                <dd>{e.then}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  {/* WHAT IS IN THE KIT: free assets first, then the kit, each row with what it does */}
+  <section id="kit" class="pg-section">
+    <div class="pg-container">
+      <div class="pg-head pg-head-stack">
+        <h2 class="pg-h1">{kit.heading}</h2>
+        <p class="pg-lead">Formats: {kit.formats}</p>
+      </div>
+      <div class="pb-kit">
+        <div class="pg-card pg-reveal">
+          <div class="pb-kit-head">
+            <h3 class="pg-h3">Free</h3>
+            <span class="pg-pill pg-pill-success">{freeAssets.length} assets</span>
+          </div>
+          <dl class="pg-rows pb-rows-wide">
+            {
+              freeAssets.map((a) => (
+                <div>
+                  <dt>{a.name}</dt>
+                  <dd>{a.text}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <div class="pg-card pg-reveal">
+          <div class="pb-kit-head">
+            <h3 class="pg-h3">Kit</h3>
+            <span class="pg-pill pg-pill-soft">the free assets plus {kitAssets.length} more</span>
+          </div>
+          <dl class="pg-rows pb-rows-wide">
+            {
+              kitAssets.map((a) => (
+                <div>
+                  <dt>{a.name}</dt>
+                  <dd>{a.text}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* QUESTIONS: same split layout as the landing page */}
+  <section id="faq" class="pg-section">
+    <div class="pg-container pg-faq-split">
+      <div class="pg-faq-intro">
+        <h2 class="pg-h1">{faq.heading}</h2>
+      </div>
+      <div class="pg-faq pg-reveal">
+        {
+          faq.items.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* DECIDE: dark block; the three paths on the left, the free board form on the right */}
+  <section id="free" class="pg-section pg-dark glow">
+    <div class="pg-container">
+      <div class="pg-head pg-head-stack">
+        <h2 class="pg-h1">{decide.heading}</h2>
+        <p class="pg-lead">{decide.lead}</p>
+      </div>
+      <div class="pg-split">
+        <div class="pb-stack">
+          <dl class="pg-rows pb-decide">
+            {
+              decide.options.map((o) => (
+                <div>
+                  <dt>{o.q}</dt>
+                  <dd>{o.a}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <div class="pg-hero-actions">
+            {
+              checkout.kit ? (
+                <a href={checkout.kit} class="pg-btn pg-btn-contrast">{decide.kitButton}</a>
+              ) : (
+                <span class="pg-pill pg-pill-dashed">Kit: coming soon</span>
+              )
+            }
+            <a href={bookHref} class="pg-btn pg-btn-secondary" {...bookAttrs}>{hero.session}</a>
+          </div>
+        </div>
+        <div class="pg-card pg-reveal">
+          <h3 class="pg-h3">{decide.formTitle}</h3>
+          <p class="pg-small">{decide.formText}</p>
+          <form
+            class="pg-form"
+            data-form
+            data-subject="Free AI Problem Board request"
+            data-success="Thank you. I will send you the free board by email."
+          >
+            <div class="pg-field">
+              <label for="pb-name">Name</label>
+              <input id="pb-name" class="pg-input" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="pg-field">
+              <label for="pb-email">Email</label>
+              <input id="pb-email" class="pg-input" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="pg-field">
+              <label for="pb-company">Company</label>
+              <input id="pb-company" class="pg-input" name="company" type="text" autocomplete="organization" required />
+            </div>
+            <input type="hidden" name="request" value="AI Problem Board: free board" />
+            <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <div class="pg-card-foot">
+              <button type="submit" class="pg-btn pg-btn-primary">{decide.formButton}</button>
+              <p class="pg-status" data-status role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import "../scripts/forms";
+
+  // Reveal cards once as they scroll into view (kit §8). Without JS or with reduced motion, content shows at once.
+  const items = document.querySelectorAll<HTMLElement>(".pg-reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }),
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add("is-in"));
+  }
+</script>

@@ -107,7 +107,7 @@ export const work = {
   ] as WorkCard[],
 };
 
-export type DiyAction = "featured" | "link" | "contact";
+export type DiyAction = "featured" | "link" | "page" | "contact";
 
 export interface DiyCard {
   label: string;
@@ -115,7 +115,7 @@ export interface DiyCard {
   price: string;
   text: string;
   button: string;
-  /** featured: highlighted card with a button to href (the capability matrix); link: href below (empty shows "Coming soon"); contact: opens the contact form. */
+  /** featured: highlighted card with a button to href (the capability matrix); link: href below in a new tab (empty shows "Coming soon"); page: a page on this site; contact: opens the contact form. */
   action: DiyAction;
   href?: string;
 }
@@ -141,12 +141,12 @@ export const diy = {
       href: "", // TODO: checkout link
     },
     {
-      label: "Blueprints and templates",
-      price: "", // TODO: "from €..."
-      text: "Templates for each phase: use-case intake, reference architecture, controls checklist and AI asset catalogue.",
-      button: "Browse templates",
-      action: "link",
-      href: "", // TODO: link
+      label: "AI Problem Board",
+      price: "Free board, kit €149 + VAT",
+      text: "A two-week check your team runs before you approve an AI idea. You end with a ranked list: fix now without AI, pilot with AI, or drop.",
+      button: "See the board",
+      action: "page",
+      href: "/ai-problem-board",
     },
     {
       label: "AIDLC starter kit",
